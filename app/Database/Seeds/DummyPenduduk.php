@@ -4,19 +4,32 @@ namespace App\Database\Seeds;
 
 use CodeIgniter\Database\Seeder;
 
-class DummyKeluarga extends Seeder
+class DummyPenduduk extends Seeder
 {
     public function run()
     {
         $faker = \Faker\Factory::create('id_ID');
+        $fake_kk = [
+            "8201225910076162",
+            "5102011005066144",
+            "9109784907972856",
+            "6301024405194822",
+            "3529272511174251",
+            "1605895212064275",
+            "9115190407097646",
+            "1212462011085762",
+            "3527365703229647",
+            "7405554708981986",
+            "3508841509125249",
+        ];
 
 
         // id, kk, nik, nama, tempat_lahir, tanggal_lahir, jenis_kelamin, golongan_darah, agama, pendidikan, jenis_pekerjaan, hubungan
-        for ($i=0; $i < 3; $i++) { 
+        for ($i=0; $i < 30; $i++) { 
             $data = [
-                'kk' => $faker->nik,
+                'kk' => $faker->randomElement($fake_kk),
                 'nik' => $faker->nik,
-                'nama' => $faker->name,
+                'nama' => $faker->firstName . ' ' . $faker->lastName,
                 'tempat_lahir' => $faker->city,
                 'tanggal_lahir' => $faker->date,
                 'jenis_kelamin' => $faker->randomElement(['Laki-laki', 'Perempuan']),
@@ -27,9 +40,9 @@ class DummyKeluarga extends Seeder
                 'hubungan' => $faker->randomElement(['Kepala Keluarga', 'Ayah', 'Ibu', 'Anak']),
             ];
 
-            // using keluarga model
-            $keluarga = new \App\Models\KeluargaModel();
-            $keluarga->insert($data);
+            // using penduduk model
+            $penduduk = new \App\Models\PendudukModel();
+            $penduduk->insert($data);
         }
     }
 }
