@@ -12,6 +12,8 @@ class CreateTableBerkasKk extends Migration
             'id'            => ['type' => 'INT', 'constraint' => 11, 'auto_increment' => true],
             'kk'            => ['type' => 'VARCHAR', 'constraint' => 16],
             'berkas'        => ['type' => 'VARCHAR', 'constraint' => 255],
+            'status'        => ['type' => 'ENUM', 'constraint' => ['valid', 'invalid', 'pending'], 'default' => 'pending'],
+            'keterangan'    => ['type' => 'TEXT', 'null' => true],
             'created_at'    => ['type' => 'DATETIME', 'null' => true],
             'updated_at'    => ['type' => 'DATETIME', 'null' => true],
             'deleted_at'    => ['type' => 'DATETIME', 'null' => true],
