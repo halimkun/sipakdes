@@ -19,7 +19,7 @@ class Kematian extends Migration
             'nama_pelapor'           => [ 'type' => 'VARCHAR', 'constraint' => 255, 'null' => true],
             'hubungan_pelapor'       => [ 'type' => 'VARCHAR', 'constraint' => 255, 'null' => true],
             'alamat_pelapor'         => [ 'type' => 'VARCHAR', 'constraint' => 255, 'null' => true],
-            'status'                 => [ 'type' => 'INT', 'constraint' => 1, 'null' => true],
+            'status'                 => [ 'type' => 'ENUM', 'constraint' => [' ', 'invalid', 'pending'], 'default' => 'pending'],
             'created_at'             => [ 'type' => 'DATETIME', 'null' => true],
             'updated_at'             => [ 'type' => 'DATETIME', 'null' => true],
             'deleted_at'             => [ 'type' => 'DATETIME', 'null' => true],
