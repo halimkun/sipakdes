@@ -8,7 +8,7 @@ use Myth\Auth\Config\Auth as AuthConfig;
 use Myth\Auth\Entities\User;
 use Myth\Auth\Models\UserModel;
 
-class AuthController extends Controller
+class AuthController extends BaseController
 {
     protected $auth;
 
