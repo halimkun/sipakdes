@@ -21,6 +21,8 @@ class Penduduk extends Migration
             'pendidikan'      => ['type' => 'enum("-", "Tidak Sekolah","SD","SMP","SMA","Diploma","S1","S2","S3")', 'default' => '-'],
             'jenis_pekerjaan' => ['type' => 'enum("-", "Tidak Bekerja","Pelajar/Mahasiswa","PNS","TNI","POLRI","Swasta","Wiraswasta","Petani","Nelayan","Ibu Rumah Tangga","Lainnya")', 'default' => '-'],
             'hubungan'        => ['type' => 'enum("-", "Kepala Keluarga","Ayah","Ibu","Anak")', 'default' => '-'],
+            'kewarganegaraan' => ['type' => 'enum("-", "WNI","WNA")', 'default' => '-'],
+            'is_verified'     => ['type' => 'BOOLEAN', 'default' => false],
             'created_at'      => ['type' => 'DATETIME'],
             'updated_at'      => ['type' => 'DATETIME'],
             'deleted_at'      => ['type' => 'DATETIME'],

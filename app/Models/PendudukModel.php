@@ -13,7 +13,7 @@ class PendudukModel extends Model
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
-        'kk', 'nik', 'nama', 'tempat_lahir',
+        'kk', 'nik', 'nama', 'tempat_lahir', 'kewarganegaraan',
         'tanggal_lahir','jenis_kelamin','golongan_darah',
         'agama', 'pendidikan','jenis_pekerjaan','hubungan',
     ];
