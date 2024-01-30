@@ -32,7 +32,6 @@ class InitialSeeds extends Seeder
         $data_users = [
             'email' => 'admin@mail.com',
             'username' => 'admin',
-            'kk' => $faker->nik,
             'password' => 'admin',
             'active' => '1',
         ];
@@ -69,14 +68,12 @@ class InitialSeeds extends Seeder
             [
                 'email' => $faker->email,
                 'username' => 'operator_kelurahan',
-                'kk' => $faker->nik,
                 'password' => 'operator_kelurahan',
                 'active' => '1',
             ],
             [
                 'email' => $faker->email,
                 'username' => 'admin_posyandu',
-                'kk' => $faker->nik,
                 'password' => 'admin_posyandu',
                 'active' => '1',
                 ]
