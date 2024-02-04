@@ -31,4 +31,15 @@ class Pengguna extends BaseController
             'users' => $users,
         ]);
     }
+
+    public function toggle($id)
+    {
+        $user = $this->userModel->find($id);
+        if ($user) {
+            $active = $user->active ? 0 : 1;
+            $this->userModel->update($id, ['active' => $active]);
+            return redirect()->to('/admin/pengguna');
+        }
+        return redirect()->to('/admin/pengguna');
+    }
 }
