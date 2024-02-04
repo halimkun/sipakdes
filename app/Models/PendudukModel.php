@@ -14,8 +14,9 @@ class PendudukModel extends Model
     protected $protectFields    = true;
     protected $allowedFields    = [
         'kk', 'nik', 'nama', 'tempat_lahir', 'kewarganegaraan',
-        'tanggal_lahir','jenis_kelamin','golongan_darah',
-        'agama', 'pendidikan','jenis_pekerjaan','hubungan',
+        'tanggal_lahir', 'jenis_kelamin', 'golongan_darah', 'is_verified',
+        'agama', 'pendidikan', 'jenis_pekerjaan', 'hubungan', 'status_perkawinan',
+        'rt', 'rw', 'kelurahan', 'kecamatan', 'kabupaten', 'provinsi'
     ];
 
     // Dates

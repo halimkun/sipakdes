@@ -10,8 +10,11 @@ $routes->get('/', 'Home::index');
 
 
 // Admin
-$routes->get('/admin', "Dashboard::toIndex");
-$routes->get('/admin/dashboard', "Dashboard::index");
+$routes->group('/admin', ['namespace' => 'App\Controllers'], function ($routes) {
+    $routes->get('', "Dashboard::toIndex");
+    $routes->get('dashboard', "Dashboard::index");
+    $routes->get('penduduk', "Penduduk::index");
+});
 
 
 // Operator Kelurahan
