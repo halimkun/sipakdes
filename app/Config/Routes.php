@@ -13,6 +13,7 @@ $routes->get('/', 'Home::index');
 $routes->group('/admin', ['namespace' => 'App\Controllers'], function ($routes) {
     $routes->get('', "Dashboard::toIndex");
     $routes->get('dashboard', "Dashboard::index");
+    $routes->get('pengguna', "Pengguna::index");
     $routes->get('penduduk', "Penduduk::index");
 });
 
