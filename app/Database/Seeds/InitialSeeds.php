@@ -17,7 +17,7 @@ class InitialSeeds extends Seeder
         $data_auth_groups = [
             ['name' => 'admin', 'description' => 'System Administrator',],
             ['name' => 'operator_kelurahan', 'description' => 'Operator Kelurahan',],
-            ['name' => 'admin_posyandu', 'description' => 'Admin Posyandu',],
+            ['name' => 'operator_posyandu', 'description' => 'Operator Posyandu',],
             ['name' => 'warga', 'description' => 'Warga',],
         ];
 
@@ -63,7 +63,7 @@ class InitialSeeds extends Seeder
         }
 
 
-        // --- ----- Add other users (operator_kelurahan, admin_posyandu)
+        // --- ----- Add other users (operator_kelurahan, operator_posyandu)
         $data_others_users = [
             [
                 'email' => $faker->email,
@@ -73,8 +73,8 @@ class InitialSeeds extends Seeder
             ],
             [
                 'email' => $faker->email,
-                'username' => 'admin_posyandu',
-                'password' => 'admin_posyandu',
+                'username' => 'operator_posyandu',
+                'password' => 'operator_posyandu',
                 'active' => '1',
                 ]
         ];
@@ -91,7 +91,7 @@ class InitialSeeds extends Seeder
         }
 
         
-        // --- ----- Add other users to group (operator_kelurahan, admin_posyandu)
+        // --- ----- Add other users to group (operator_kelurahan, operator_posyandu)
         foreach ($data_others_users as $data_user)
         {
             $user = new \Myth\Auth\Entities\User($data_user);
