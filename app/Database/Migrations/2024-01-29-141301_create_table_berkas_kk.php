@@ -14,9 +14,9 @@ class CreateTableBerkasKk extends Migration
             'berkas'        => ['type' => 'VARCHAR', 'constraint' => 255],
             'status'        => ['type' => 'ENUM', 'constraint' => ['valid', 'invalid', 'pending'], 'default' => 'pending'],
             'keterangan'    => ['type' => 'TEXT', 'null' => true],
-            'created_at'    => ['type' => 'DATETIME', 'null' => true],
-            'updated_at'    => ['type' => 'DATETIME', 'null' => true],
-            'deleted_at'    => ['type' => 'DATETIME', 'null' => true],
+            'created_at'    => ['type' => 'DATETIME', 'null' => true, 'default' => null],
+            'updated_at'    => ['type' => 'DATETIME', 'null' => true, 'default' => null],
+            'deleted_at'    => ['type' => 'DATETIME', 'null' => true, 'default' => null],
         ]);
         $this->forge->addKey('id', true);
         $this->forge->addForeignKey('kk', 'penduduk', 'kk', 'CASCADE', 'CASCADE');

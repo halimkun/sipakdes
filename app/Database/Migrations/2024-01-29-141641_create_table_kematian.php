@@ -20,9 +20,9 @@ class Kematian extends Migration
             'hubungan_pelapor'       => [ 'type' => 'VARCHAR', 'constraint' => 255, 'null' => true],
             'alamat_pelapor'         => [ 'type' => 'VARCHAR', 'constraint' => 255, 'null' => true],
             'status'                 => [ 'type' => 'ENUM', 'constraint' => [' ', 'invalid', 'pending'], 'default' => 'pending'],
-            'created_at'             => [ 'type' => 'DATETIME', 'null' => true],
-            'updated_at'             => [ 'type' => 'DATETIME', 'null' => true],
-            'deleted_at'             => [ 'type' => 'DATETIME', 'null' => true],
+            'created_at'             => [ 'type' => 'DATETIME', 'null' => true, 'default' => null],
+            'updated_at'             => [ 'type' => 'DATETIME', 'null' => true, 'default' => null],
+            'deleted_at'             => [ 'type' => 'DATETIME', 'null' => true, 'default' => null],
         ]);
         
         $this->forge->addKey('id', true);

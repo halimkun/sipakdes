@@ -22,10 +22,17 @@ class Penduduk extends Migration
             'jenis_pekerjaan' => ['type' => 'enum("-", "Tidak Bekerja","Pelajar/Mahasiswa","PNS","TNI","POLRI","Swasta","Wiraswasta","Petani","Nelayan","Ibu Rumah Tangga","Lainnya")', 'default' => '-'],
             'hubungan'        => ['type' => 'enum("-", "Kepala Keluarga","Ayah","Ibu","Anak")', 'default' => '-'],
             'kewarganegaraan' => ['type' => 'enum("-", "WNI","WNA")', 'default' => '-'],
+            'status_perkawinan' => ['type' => 'enum("-", "Belum Kawin","Kawin","Cerai Hidup","Cerai Mati")', 'default' => '-'],
+            'rt'              => ['type' => 'INT', 'constraint' => 3, 'unsigned' => true, 'default' => 0],
+            'rw'              => ['type' => 'INT', 'constraint' => 3, 'unsigned' => true, 'default' => 0],
+            'kelurahan'       => ['type' => 'VARCHAR', 'constraint' => 255, 'default' => '-'],
+            'kecamatan'       => ['type' => 'VARCHAR', 'constraint' => 255, 'default' => '-'],
+            'kabupaten'       => ['type' => 'VARCHAR', 'constraint' => 255, 'default' => '-'],
+            'provinsi'        => ['type' => 'VARCHAR', 'constraint' => 255, 'default' => '-'],
             'is_verified'     => ['type' => 'BOOLEAN', 'default' => false],
-            'created_at'      => ['type' => 'DATETIME'],
-            'updated_at'      => ['type' => 'DATETIME'],
-            'deleted_at'      => ['type' => 'DATETIME'],
+            'created_at'      => ['type' => 'DATETIME', 'null' => true, 'default' => null],
+            'updated_at'      => ['type' => 'DATETIME', 'null' => true, 'default' => null],
+            'deleted_at'      => ['type' => 'DATETIME', 'null' => true, 'default' => null],
         ]);
 
         $this->forge->addKey('id', true);
