@@ -15,7 +15,7 @@
       </a>
     </div>
   </div>
-  <div class="card-body table-responsive p-0">
+  <div class="card-body table-responsive">
     <table class="table table-hover table-striped">
       <thead>
         <tr>
@@ -142,9 +142,29 @@
 </div>
 <?= $this->endSection(); ?>
 
-<?= $this->section('scripts') ;?>
+<?= $this->section('styles'); ?>
+<link rel="stylesheet" href="<?= base_url('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') ?>">
+<link rel="stylesheet" href="<?= base_url('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') ?>">
+<?= $this->endSection(); ?>
+
+
+<?= $this->section('scripts'); ?>
+<script src="<?= base_url('assets/plugins/datatables/jquery.dataTables.min.js') ?>"></script>
+<script src="<?= base_url('assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') ?>"></script>
+
+<!-- <script src="<?= '' //base_url('assets/plugins/datatables-buttons/js/dataTables.buttons.min.js') ?>"></script> -->
+<!-- <script src="<?= '' //base_url('/assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') ?>"></script> -->
+<!-- <script src="<?= '' //base_url('/assets/plugins/jszip/jszip.min.js') ?>"></script> -->
+<!-- <script src="<?= '' //base_url('/assets/plugins/datatables-buttons/js/buttons.html5.min.js') ?>"></script> -->
+
 <script>
   $(document).ready(function() {
+    // DataTable
+    $('.table').DataTable({
+      dom: '<"row"<"col-md-6"l><"col-md-6 text-right"f>>rt<"row"<"col-md-6"i><"col-md-6"p>>',
+      // buttons: ["csv", "excel"],
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+
     $('#modalResetPassword').on('show.bs.modal', function(event) {
       var button = $(event.relatedTarget);
       var user_id = button.data('id');
@@ -160,4 +180,4 @@
     });
   });
 </script>
-<?= $this->endSection() ;?>
+<?= $this->endSection(); ?>
