@@ -40,6 +40,176 @@ class Pengguna extends BaseController
         ]);
     }
 
+    // new 
+    public function new()
+    {
+        $roles_data = $this->groupModel->select('*, id as value')->findAll();
+
+        $fields = [
+            [
+                'name' => 'email',
+                'label' => 'Email',
+                'type' => 'email',
+                'required' => true,
+            ],
+            [
+                'name' => 'username',
+                'label' => 'Username',
+                'type' => 'text',
+                'required' => true,
+            ],
+            [
+                'name' => 'password',
+                'label' => 'Password',
+                'type' => 'password',
+                'required' => true,
+            ],
+            [
+                'name' => 'role',
+                'label' => 'Role',
+                'type' => 'select',
+                'options' => $roles_data,
+                'required' => true,
+            ]
+        ];
+
+        return view('pengguna/new', [
+            'title' => 'Tambah Pengguna',
+            'breadcrumbs' => [
+                ['title' => 'Admin', 'url' => '/'],
+                ['title' => 'Pengguna', 'url' => '/pengguna'],
+                ['title' => 'Tambah', 'url' => '/pengguna/new', 'active' => true],
+            ],
+            'fields' => $fields,
+        ]);
+    }
+
+    public function store()
+    {
+        $data = $this->request->getPost();
+        $role = $this->request->getPost('role');
+        $data['active'] = 1;
+
+        if (!$role) {
+            $role = $this->groupModel->where('name', config(\Config\Auth::class)->defaultUserGroup)->first();
+            $role = $role->id;
+        }
+
+        unset($data['role']);
+
+        $user = new \Myth\Auth\Entities\User($data);
+
+        if ($this->userModel->save($user)) {
+            $user_id = $this->userModel->insertID();
+            $this->groupModel->addUserToGroup($user_id, $role);
+
+            return redirect()->to('/pengguna')->with('success', 'Pengguna berhasil ditambahkan');
+        }
+    }
+
+    // edit
+    public function edit($id)
+    {
+        $user = $this->userModel->select('users.id as user_id, id_penduduk, username, email, active, auth_groups.name as role, auth_groups.id as role_id')
+            ->join('auth_groups_users', 'auth_groups_users.user_id = users.id')
+            ->join('auth_groups', 'auth_groups.id = auth_groups_users.group_id')
+            ->find($id)->toArray();
+
+        $roles_data = $this->groupModel->select('*, id as value')->findAll();
+
+        $fields = [
+            [
+                'name' => 'email',
+                'label' => 'Email',
+                'type' => 'email',
+                'required' => true,
+            ],
+            [
+                'name' => 'username',
+                'label' => 'Username',
+                'type' => 'text',
+                'required' => true,
+                'readonly' => true,
+            ],
+            [
+                'name' => 'role',
+                'label' => 'Role',
+                'type' => 'select',
+                'options' => $roles_data,
+                'selected' => $user['role_id'],
+                'required' => true,
+            ]
+        ];
+
+        return view('pengguna/edit', [
+            'title' => 'Edit Pengguna',
+            'breadcrumbs' => [
+                ['title' => 'Admin', 'url' => '/'],
+                ['title' => 'Pengguna', 'url' => '/pengguna'],
+                ['title' => 'Edit', 'url' => '/pengguna/' . $id . '/edit', 'active' => true],
+            ],
+            'fields' => $fields,
+            'user' => $user,
+            'id' => $id,
+        ]);
+    }
+
+    // update
+    public function update($id)
+    {
+        $data = $this->request->getPost();
+        $rules = [
+            'email' => 'required|valid_email|is_unique[users.email,id,' . $id . ']',
+            'role' => 'required',
+        ];
+
+        unset($data['username']);
+
+        if (!$this->validate($rules)) {
+            return redirect()->to('/pengguna/' . $id . '/edit')->withInput()->with('errors', $this->validator->getErrors());
+        }
+
+        $role = $this->request->getPost('role');
+
+        if (!$role) {
+            $role = $this->groupModel->where('name', config(\Config\Auth::class)->defaultUserGroup)->first();
+            $role = $role->id;
+        }
+
+        // unset role
+        unset($data['role']);
+
+        $user = $this->userModel->find($id);
+
+        if (!$user) {
+            return redirect()->to('/pengguna/' . $id . '/edit')->with('error', 'pengguna tidak ditemukan');
+        }
+
+        // check if same valur from data and user then unset
+        foreach ($data as $key => $value) {
+            if ($user->$key == $value) {
+                unset($data[$key]);
+            }
+        }
+
+        // tidak ada perubahan
+        if (empty($data)) {
+            $this->groupModel->removeUserFromAllGroups($id);
+            $this->groupModel->addUserToGroup($id, $role);
+    
+            return redirect()->to('/pengguna')->with('success', 'Pengguna berhasil diubah');
+        }
+
+        $user->fill($data);
+        
+        if ($this->userModel->save($user)) {
+            $this->groupModel->removeUserFromAllGroups($id);
+            $this->groupModel->addUserToGroup($id, $role);
+
+            return redirect()->to('/pengguna')->with('success', 'Pengguna berhasil diubah');
+        }
+    }
+
     // resetPassword
     public function resetPassword()
     {

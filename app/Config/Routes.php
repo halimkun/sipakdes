@@ -21,19 +21,8 @@ $routes->group('/pengguna', ['namespace' => 'App\Controllers'], function ($route
     $routes->get('(:num)/edit', "Pengguna::edit/$1");
     $routes->get('(:num)/toggle', "Pengguna::toggle/$1");
 
-
-// Admin
-$routes->group('/admin', ['namespace' => 'App\Controllers'], function ($routes) {
-    $routes->get('', "Dashboard::toIndex");
-    $routes->get('dashboard', "Dashboard::index");
-    
-    // $routes->get('pengguna', "Pengguna::index");
-    $routes->group('pengguna', function ($routes) {
-        $routes->get('', "Pengguna::index");
-        $routes->get('(:num)/toggle', "Pengguna::toggle/$1");
-        $routes->post('(:num)/change-role', "Pengguna::changeRole/$1");
-        $routes->post('reset-password', "Pengguna::resetPassword");
-    });
+    $routes->post('store', "Pengguna::store");
+    $routes->post('(:num)/update', "Pengguna::update/$1");
     $routes->post('(:num)/change-role', "Pengguna::changeRole/$1");
     
     $routes->post('reset-password', "Pengguna::resetPassword");

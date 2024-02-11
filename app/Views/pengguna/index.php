@@ -1,6 +1,6 @@
 <?= $this->extend('layouts/app'); ?>
 <?= $this->section('content'); ?>
-<div class="card">
+<div class="card card-outline card-success">
   <div class="card-header border-0">
     <div class="d-flex justify-content-between">
       <h3 class="card-title">
@@ -25,7 +25,7 @@
           <th>email</th>
           <th>nama</th>
           <th>status</th>
-          <th>data</th>
+          <th>data warga</th>
           <th class="text-right">#</th>
         </tr>
       </thead>
