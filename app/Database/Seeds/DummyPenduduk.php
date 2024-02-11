@@ -22,8 +22,11 @@ class DummyPenduduk extends Seeder
             "7405554708981986",
             "3508841509125249",
         ];
+        
+        $userModel = new \App\Models\UserModel();
+        $user = $userModel->findAll();
 
-        for ($i=0; $i < 30; $i++) {
+        foreach ($user as $key => $value) {
             $data = [
                 'kk' => $faker->randomElement($fake_kk),
                 'nik' => $faker->nik,
@@ -50,19 +53,9 @@ class DummyPenduduk extends Seeder
             // using penduduk model
             $penduduk = new \App\Models\PendudukModel();
             $penduduk->insert($data);
-        }
-        
-        // get all penduduk data and store it to $penduduk_data variable then get all user data and store it to $user_data variable
-        // loop user data and get random penduduk data then update user data with random penduduk data id
-        $penduduk = new \App\Models\PendudukModel();
-        $user = new \App\Models\UserModel();
-        
-        $penduduk_data = $penduduk->findAll();
-        $user_data = $user->findAll();
 
-        foreach ($user_data as $key => $value) {
-            $random_penduduk = $faker->randomElement($penduduk_data);
-            $user->update($value->id, ['id_penduduk' => $random_penduduk->id]);
+            $penduduk_id = $penduduk->getInsertID();
+            $userModel->update($value->id, ['id_penduduk' => $penduduk_id]);
         }
     }
 }
