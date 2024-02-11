@@ -29,7 +29,14 @@ $routes->group('/pengguna', ['namespace' => 'App\Controllers'], function ($route
 });
 
 // Penduduk
-$routes->get('penduduk', "Penduduk::index");
+$routes->group('/penduduk', ['namespace' => 'App\Controllers'], function ($routes) {
+    $routes->get('', "Penduduk::index");
+    $routes->get('new', "Penduduk::new");
+    $routes->get('(:num)/edit', "Penduduk::edit/$1");
+
+    $routes->post('store', "Penduduk::store");
+    $routes->post('(:num)/update', "Penduduk::update/$1");
+});
 
 
 
