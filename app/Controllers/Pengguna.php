@@ -32,8 +32,8 @@ class Pengguna extends BaseController
         return view('pengguna/index', [
             'title' => 'Data Pengguna',
             'breadcrumbs' => [
-                ['title' => 'Admin', 'url' => '/admin'],
-                ['title' => 'Pengguna', 'url' => '/admin/pengguna', 'active' => true],
+                ['title' => 'Admin', 'url' => '/'],
+                ['title' => 'Pengguna', 'url' => '/pengguna', 'active' => true],
             ],
             'roles' => $roles_data,
             'users' => $users,
@@ -45,7 +45,7 @@ class Pengguna extends BaseController
     {
         $id = $this->request->getPost('user_id');
         // $password = $this->request->getPost('password');
-        
+
         $user = $this->userModel->find($id);
 
         if ($user) {
@@ -65,10 +65,10 @@ class Pengguna extends BaseController
             $user->setPassword($pass);
             $this->userModel->save($user);
 
-            return redirect()->to('/admin/pengguna')->with('success', 'Password berhasil direset');
+            return redirect()->to('/pengguna')->with('success', 'Password berhasil direset');
         }
 
-        return redirect()->to('/admin/pengguna')->with('error', 'pengguna tidak ditemukan');
+        return redirect()->to('/pengguna')->with('error', 'pengguna tidak ditemukan');
     }
 
     public function toggle($id)
@@ -78,9 +78,9 @@ class Pengguna extends BaseController
             $user->setActive(!$user->active);
             $this->userModel->save($user);
 
-            return redirect()->to('/admin/pengguna')->with('success', 'Status berhasil diubah');
+            return redirect()->to('/pengguna')->with('success', 'Status berhasil diubah');
         }
-        return redirect()->to('/admin/pengguna')->with('error', 'pengguna tidak ditemukan');
+        return redirect()->to('/pengguna')->with('error', 'pengguna tidak ditemukan');
     }
 
     public function changeRole($id)
@@ -100,9 +100,9 @@ class Pengguna extends BaseController
             // add to group
             $this->groupModel->addUserToGroup($user->id, $role);
 
-            return redirect()->to('/admin/pengguna')->with('success', 'Role berhasil diubah');
+            return redirect()->to('/pengguna')->with('success', 'Role berhasil diubah');
         }
 
-        return redirect()->to('/admin/pengguna')->with('error', 'pengguna tidak ditemukan');
+        return redirect()->to('/pengguna')->with('error', 'pengguna tidak ditemukan');
     }
 }

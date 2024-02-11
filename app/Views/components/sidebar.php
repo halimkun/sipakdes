@@ -36,13 +36,13 @@
         <li class="nav-header">Dashboard</li>
         <li class="nav-header">Data</li>
         <li class="nav-item">
-          <a href="/admin/pengguna" class="nav-link">
+          <a href="/pengguna" class="nav-link">
             <i class="nav-icon fas fa-user"></i>
             <p>Pengguna</p>
           </a>
         </li>
         <li class="nav-item">
-          <a href="/admin/penduduk" class="nav-link">
+          <a href="/penduduk" class="nav-link">
             <i class="nav-icon fas fa-users"></i>
             <p>Penduduk</p>
           </a>

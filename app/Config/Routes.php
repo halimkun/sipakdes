@@ -6,7 +6,20 @@ use Config\Auth as AuthConfig;
 /**
  * @var RouteCollection $routes
  */
+
+//  Default
 $routes->get('/', 'Home::index');
+
+// Dashboard
+$routes->get('', "Dashboard::toIndex");
+$routes->get('dashboard', "Dashboard::index");
+
+// Pengguna
+$routes->group('/pengguna', ['namespace' => 'App\Controllers'], function ($routes) {
+    $routes->get('', "Pengguna::index");
+    $routes->get('new', "Pengguna::new");
+    $routes->get('(:num)/edit', "Pengguna::edit/$1");
+    $routes->get('(:num)/toggle', "Pengguna::toggle/$1");
 
 
 // Admin
@@ -21,21 +34,25 @@ $routes->group('/admin', ['namespace' => 'App\Controllers'], function ($routes) 
         $routes->post('(:num)/change-role', "Pengguna::changeRole/$1");
         $routes->post('reset-password', "Pengguna::resetPassword");
     });
-
-
-    $routes->get('penduduk', "Penduduk::index");
+    $routes->post('(:num)/change-role', "Pengguna::changeRole/$1");
+    
+    $routes->post('reset-password', "Pengguna::resetPassword");
 });
 
-
-// Operator Kelurahan
-
-
-
-// Operator Posyandu
+// Penduduk
+$routes->get('penduduk', "Penduduk::index");
 
 
 
-// Warga
+
+
+
+
+
+
+
+
+
 
 
 

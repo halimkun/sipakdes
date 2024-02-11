@@ -9,7 +9,7 @@ class Dashboard extends BaseController
 {
     public function toIndex()
     {
-        return redirect()->to('/admin/dashboard', 301);
+        return redirect()->to('/dashboard', 301);
     }
     
     public function index()
