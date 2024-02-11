@@ -11,9 +11,13 @@
   <link rel="stylesheet" href="<?= base_url('assets/dist/css/adminlte.min.css') ?>">
 
   <?= $this->renderSection('styles'); ?>
+
+  <style>
+    .max-height-300 pre{max-height:300px}.theme-switch{display:inline-block;height:24px;position:relative;width:50px}.theme-switch input{display:none}.slider{background-color:#ccc;bottom:0;cursor:pointer;left:0;position:absolute;right:0;top:0;transition:400ms}.slider::before{background-color:#fff;bottom:4px;content:"";height:16px;left:4px;position:absolute;transition:400ms;width:16px}input:checked+.slider{background-color:#66bb6a}input:checked+.slider::before{transform:translateX(26px)}.slider.round{border-radius:34px}.slider.round::before{border-radius:50%}
+  </style>
 </head>
 
-<body class="hold-transition sidebar-mini sidebar-collapse">
+<body class="hold-transition sidebar-mini sidebar-collapse dark-mode">
   <div class="wrapper">
 
     <!-- Navbar -->
@@ -63,6 +67,49 @@
 
   <!-- Others Scripts -->
   <?= $this->renderSection('scripts'); ?>
+
+  <script>
+    var toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
+    var currentTheme = localStorage.getItem('theme');
+    var mainHeader = document.querySelector('.main-header');
+
+    if (currentTheme) {
+      if (currentTheme === 'dark') {
+        if (!document.body.classList.contains('dark-mode')) {
+          document.body.classList.add("dark-mode");
+        }
+        if (mainHeader.classList.contains('navbar-light')) {
+          mainHeader.classList.add('navbar-dark');
+          mainHeader.classList.remove('navbar-light');
+        }
+        toggleSwitch.checked = true;
+      }
+    }
+
+    function switchTheme(e) {
+      if (e.target.checked) {
+        if (!document.body.classList.contains('dark-mode')) {
+          document.body.classList.add("dark-mode");
+        }
+        if (mainHeader.classList.contains('navbar-light')) {
+          mainHeader.classList.add('navbar-dark');
+          mainHeader.classList.remove('navbar-light');
+        }
+        localStorage.setItem('theme', 'dark');
+      } else {
+        if (document.body.classList.contains('dark-mode')) {
+          document.body.classList.remove("dark-mode");
+        }
+        if (mainHeader.classList.contains('navbar-dark')) {
+          mainHeader.classList.add('navbar-light');
+          mainHeader.classList.remove('navbar-dark');
+        }
+        localStorage.setItem('theme', 'light');
+      }
+    }
+
+    toggleSwitch.addEventListener('change', switchTheme, false);
+  </script>
 </body>
 
 </html>

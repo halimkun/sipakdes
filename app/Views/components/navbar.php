@@ -1,4 +1,4 @@
-<nav class="main-header navbar navbar-expand navbar-white navbar-light">
+<nav class="main-header navbar navbar-expand navbar-dark">
   <!-- Left navbar links -->
   <ul class="navbar-nav">
     <li class="nav-item">
@@ -60,7 +60,7 @@
         <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
       </div>
     </li> -->
-    
+
     <!-- full screen -->
     <li class="nav-item">
       <a class="nav-link" data-widget="fullscreen" href="#" role="button">
@@ -74,6 +74,15 @@
         <i class="fas fa-th-large"></i>
       </a>
     </li> -->
+
+    <li class="nav-item">
+      <div class="theme-switch-wrapper nav-link">
+        <label class="theme-switch" for="checkbox">
+          <input type="checkbox" id="checkbox">
+          <span class="slider round"></span>
+        </label>
+      </div>
+    </li>
 
     <!-- logout button -->
     <div class="nav-item">
