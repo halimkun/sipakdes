@@ -62,10 +62,10 @@
                     <i class="fas fa-cog"></i>
                   </button>
                   <div class="dropdown-menu">
-                    <a class="dropdown-item text-info" href="#"><i class="fa fa-pen mr-1"></i> Edit Data</a>
+                    <a class="dropdown-item" href="#"><i class="fa fa-pen mr-1"></i> Edit Data</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item text-warning" href="#"><i class="fa fa-key mr-1"></i> Ubah Hak Akses</a>
-                    <a class="dropdown-item text-warning" href="#"><i class="fa fa-lock mr-1"></i> Reset Password</a>
+                    <a class="dropdown-item" href="#" data-toggle="modal" data-id="<?= $user->user_id ?>" data-target="#modalUbahRole"><i class="fa fa-key mr-1"></i> Ubah Hak Akses</a>
+                    <a class="dropdown-item" href="#" data-toggle="modal" data-id="<?= $user->user_id ?>" data-target="#modalResetPassword"><i class="fa fa-lock mr-1"></i> Reset Password</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item <?= $user->active ? 'text-danger' : 'text-success' ?>" href="/admin/pengguna/<?= $user->user_id ?>/toggle" onclick="return confirm('Apakah anda yakin akan mengubah status pengguna ini?')">
                       <?php if ($user->active) : ?>
@@ -111,6 +111,26 @@
   </div>
 </div>
 
+<!-- Modal Ubah Password -->
+<div class="modal fade" id="modalUbahRole" data-backdrop="static" tabindex="-1" aria-labelledby="modalUbahRoleLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalUbahRoleLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 <?= $this->endSection(); ?>
 
 <?= $this->section('scripts') ;?>
