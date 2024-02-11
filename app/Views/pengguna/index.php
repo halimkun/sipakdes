@@ -2,7 +2,7 @@
 <?= $this->section('content'); ?>
 <div class="card card-outline card-success">
   <div class="card-header border-0">
-    <div class="d-flex justify-content-between">
+    <div class="d-flex justify-content-between align-items-center">
       <h3 class="card-title">
         <i class="fas fa-user mr-1"></i>
         Data Pengguna
@@ -144,7 +144,7 @@
 
 <?= $this->section('styles'); ?>
 <link rel="stylesheet" href="<?= base_url('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') ?>">
-<link rel="stylesheet" href="<?= base_url('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') ?>">
+<link rel="stylesheet" href="<?= '' // base_url('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') ?>">
 <?= $this->endSection(); ?>
 
 
