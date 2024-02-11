@@ -38,7 +38,7 @@ abstract class BaseController extends Controller
     protected $helpers = [
         'auth', 'number', 'date', 'html', 
         'form', 'array', 'text', 'url',
-        'custom'
+        'custom', 'warga', 'fields'
     ];
 
     /**
