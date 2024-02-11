@@ -8,10 +8,12 @@ use CodeIgniter\HTTP\ResponseInterface;
 class Pengguna extends BaseController
 {
     protected $userModel;
+    protected $pendudukModel;
 
     public function __construct()
     {
         $this->userModel = new \Myth\Auth\Models\UserModel();
+        $this->pendudukModel = new \App\Models\PendudukModel();
     }
 
     public function index()
@@ -67,8 +69,9 @@ class Pengguna extends BaseController
     {
         $user = $this->userModel->find($id);
         if ($user) {
-            $active = $user->active ? 0 : 1;
-            $this->userModel->update($id, ['active' => $active]);
+            $user->setActive(!$user->active);
+            $this->userModel->save($user);
+
             return redirect()->to('/admin/pengguna');
         }
         return redirect()->to('/admin/pengguna');
