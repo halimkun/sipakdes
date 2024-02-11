@@ -32,6 +32,37 @@ class Pengguna extends BaseController
         ]);
     }
 
+    // resetPassword
+    public function resetPassword()
+    {
+        $id = $this->request->getPost('user_id');
+        // $password = $this->request->getPost('password');
+        
+        $user = $this->userModel->find($id);
+
+        if ($user) {
+            // id_penduduk != null
+            if ($user->id_penduduk) {
+                $penduduk = $this->pendudukModel->find($user->id_penduduk);
+                if ($penduduk) {
+                    $pass = date('dmY', strtotime($penduduk->tanggal_lahir));
+                } else {
+                    $pass = '12345678';
+                }
+            } else {
+                $pass = '12345678';
+            }
+
+            // setPassword from User Entity
+            $user->setPassword($pass);
+            $this->userModel->save($user);
+
+            return redirect()->to('/admin/pengguna')->with('success', 'Password berhasil direset');
+        }
+
+        return redirect()->to('/admin/pengguna')->with('error', 'pengguna tidak ditemukan');
+    }
+
     public function toggle($id)
     {
         $user = $this->userModel->find($id);

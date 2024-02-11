@@ -18,6 +18,7 @@ $routes->group('/admin', ['namespace' => 'App\Controllers'], function ($routes) 
     $routes->group('pengguna', function ($routes) {
         $routes->get('', "Pengguna::index");
         $routes->get('(:num)/toggle', "Pengguna::toggle/$1");
+        $routes->post('reset-password', "Pengguna::resetPassword");
     });
 
 
