@@ -32,9 +32,14 @@
       <?= $this->include('components/content-header'); ?>
       <!-- /.content-header -->
 
+      
       <!-- Main content -->
       <div class="content">
         <div class="container-fluid">
+          <!-- Message Block -->
+          <?= $this->include('components/message-block'); ?>
+          <!-- /.message-block -->
+          
           <?= $this->renderSection('content'); ?>
         </div><!-- /.container-fluid -->
       </div>
