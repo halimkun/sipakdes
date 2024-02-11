@@ -116,17 +116,26 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="modalUbahRoleLabel">Modal title</h5>
+        <h5 class="modal-title" id="modalUbahRoleLabel">Ubah Role Pengguna</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <form method="post">
+          <div class="form-group">
+            <label for="role">Role</label>
+            <select class="form-control" name="role" id="role">
+              <?php foreach ($roles as $role) : ?>
+                <option value="<?= $role->id ?>"><?= $role->name ?></option>
+              <?php endforeach ?>
+            </select>
+          </div>
+          <div class="form-group d-flex justify-content-end" style="gap: 8px;">
+            <button type="submit" class="btn btn-primary">Simpan</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
@@ -141,6 +150,13 @@
       var user_id = button.data('id');
       var modal = $(this);
       modal.find('.modal-body input[name="user_id"]').val(user_id);
+    });
+
+    $('#modalUbahRole').on('show.bs.modal', function(event) {
+      var button = $(event.relatedTarget);
+      var user_id = button.data('id');
+      var modal = $(this);
+      modal.find('.modal-body form').attr('action', `/admin/pengguna/${user_id}/change-role`);
     });
   });
 </script>

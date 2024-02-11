@@ -9,11 +9,13 @@ class Pengguna extends BaseController
 {
     protected $userModel;
     protected $pendudukModel;
+    protected $groupModel;
 
     public function __construct()
     {
         $this->userModel = new \Myth\Auth\Models\UserModel();
         $this->pendudukModel = new \App\Models\PendudukModel();
+        $this->groupModel = new \Myth\Auth\Models\GroupModel();
     }
 
     public function index()
@@ -24,12 +26,16 @@ class Pengguna extends BaseController
             ->join('penduduk', 'penduduk.id = users.id_penduduk', 'left')
             ->findAll();
 
+        // myth auth get all roles
+        $roles_data = $this->groupModel->findAll();
+
         return view('pengguna/index', [
             'title' => 'Data Pengguna',
             'breadcrumbs' => [
                 ['title' => 'Admin', 'url' => '/admin'],
                 ['title' => 'Pengguna', 'url' => '/admin/pengguna', 'active' => true],
             ],
+            'roles' => $roles_data,
             'users' => $users,
         ]);
     }
@@ -72,8 +78,31 @@ class Pengguna extends BaseController
             $user->setActive(!$user->active);
             $this->userModel->save($user);
 
-            return redirect()->to('/admin/pengguna');
+            return redirect()->to('/admin/pengguna')->with('success', 'Status berhasil diubah');
         }
-        return redirect()->to('/admin/pengguna');
+        return redirect()->to('/admin/pengguna')->with('error', 'pengguna tidak ditemukan');
+    }
+
+    public function changeRole($id)
+    {
+        $user = $this->userModel->find($id);
+        $role = $this->request->getPost('role');
+
+        if (!$role) {
+            $role = $this->groupModel->where('name', config(\Config\Auth::class)->defaultUserGroup)->first();
+            $role = $role->id;
+        }
+
+        if ($user) {
+            // clear group
+            $this->groupModel->removeUserFromAllGroups($user->id);
+
+            // add to group
+            $this->groupModel->addUserToGroup($user->id, $role);
+
+            return redirect()->to('/admin/pengguna')->with('success', 'Role berhasil diubah');
+        }
+
+        return redirect()->to('/admin/pengguna')->with('error', 'pengguna tidak ditemukan');
     }
 }
