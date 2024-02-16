@@ -35,6 +35,7 @@ $routes->group('/penduduk', ['namespace' => 'App\Controllers', 'filter' => 'role
 
     $routes->post('store', "Penduduk::store");
     $routes->post('(:num)/update', "Penduduk::update/$1");
+    $routes->post('(:num)/delete', "Penduduk::delete/$1");
 });
 
 

@@ -16,7 +16,7 @@
     </div>
   </div>
   <div class="card-body table-responsive">
-    <table class="table table-hover table-striped">
+    <table class="table table-hover table-striped" id="table-penduduk">
       <thead>
         <tr>
           <th>No.</th>
@@ -60,8 +60,8 @@
                   <i class="fas fa-edit"></i>
                 </button>
               </a>
-              <a href="/penduduk/delete/<?= $pen->id; ?>">
-                <button class="btn btn-danger btn-xs">
+              <a href="#">
+                <button class="btn btn-danger btn-xs btn-delete" data-id="<?= $pen->id; ?>" data-nik="<?= $pen->nik; ?>" data-nama="<?= $pen->nama; ?>">
                   <i class="fas fa-trash"></i>
                 </button>
               </a>
@@ -71,12 +71,47 @@
     </table>
   </div>
 </div>
+
+<div class="modal fade " tabindex="-1" role="dialog" data-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Delete Confirmation</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="post">
+          <p>Are you sure you want to delete this data?</p>
+          <!-- nik dan nama -->
+          <table class="table table-sm table-borderless table-hover">
+            <tr>
+              <td>NIK</td>
+              <td>:</td>
+              <td id="delete-nik"></td>
+            </tr>
+            <tr>
+              <td>Nama</td>
+              <td>:</td>
+              <td id="delete-nama"></td>
+            </tr>
+          </table>
+
+          <div class="d-flex justify-content-end" style="gap: 0.5rem;">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-danger">Delete</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 <?= $this->endSection(); ?>
 
 <?= $this->section('styles'); ?>
 <link rel="stylesheet" href="<?= base_url('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') ?>">
-<link rel="stylesheet" href="<?= '' // base_url('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') 
-                              ?>">
+<link rel="stylesheet" href="<?= '' // base_url('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') ?>">
 <?= $this->endSection(); ?>
 
 
@@ -84,22 +119,29 @@
 <script src="<?= base_url('assets/plugins/datatables/jquery.dataTables.min.js') ?>"></script>
 <script src="<?= base_url('assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') ?>"></script>
 
-<!-- <script src="<?= '' //base_url('assets/plugins/datatables-buttons/js/dataTables.buttons.min.js') 
-                  ?>"></script> -->
-<!-- <script src="<?= '' //base_url('/assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') 
-                  ?>"></script> -->
-<!-- <script src="<?= '' //base_url('/assets/plugins/jszip/jszip.min.js') 
-                  ?>"></script> -->
-<!-- <script src="<?= '' //base_url('/assets/plugins/datatables-buttons/js/buttons.html5.min.js') 
-                  ?>"></script> -->
+<!-- <script src="<?= '' //base_url('assets/plugins/datatables-buttons/js/dataTables.buttons.min.js')  ?>"></script> -->
+<!-- <script src="<?= '' //base_url('/assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js')  ?>"></script> -->
+<!-- <script src="<?= '' //base_url('/assets/plugins/jszip/jszip.min.js')  ?>"></script> -->
+<!-- <script src="<?= '' //base_url('/assets/plugins/datatables-buttons/js/buttons.html5.min.js')  ?>"></script> -->
 
 <script>
   $(document).ready(function() {
     // DataTable
-    $('.table').DataTable({
+    $('#table-penduduk').DataTable({
       dom: '<"row"<"col-md-6"l><"col-md-6 text-right"f>>rt<"row"<"col-md-6"i><"col-md-6"p>>',
       // buttons: ["csv", "excel"],
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    });
+
+    // delete modal
+    $('.btn-delete').click(function() {
+      $('#delete-nik').text($(this).data('nik'));
+      $('#delete-nama').text($(this).data('nama'));
+
+      // action form
+      $('form').attr('action', '/penduduk/' + $(this).data('id') + '/delete');
+
+      $('.modal').modal('show');
+    });
   });
 </script>
 <?= $this->endSection(); ?>

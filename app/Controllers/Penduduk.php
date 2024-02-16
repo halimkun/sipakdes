@@ -120,4 +120,28 @@ class Penduduk extends BaseController
             return redirect()->back()->withInput()->with('errors', $this->pendudukModel->errors())->withInput();
         }
     }
+
+    // delete
+    public function delete($id)
+    {
+        // penduduk
+        $penduduk = $this->pendudukModel->find($id);
+
+        if ($penduduk) {
+            // user
+            $user = $this->userModel->where('id_penduduk', $id)->first();
+
+            if ($user) {
+                $this->userModel->delete($user->id);
+            }
+
+            if ($this->pendudukModel->delete($id)) {
+                return redirect()->to('/penduduk')->with('success', 'Data penduduk berhasil dihapus.');
+            } else {
+                return redirect()->to('/penduduk')->with('errors', $this->pendudukModel->errors());
+            }
+        } else {
+            return redirect()->to('/penduduk')->with('errors', 'Data penduduk tidak ditemukan.');
+        }
+    }
 }
