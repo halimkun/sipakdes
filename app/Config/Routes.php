@@ -11,8 +11,7 @@ use Config\Auth as AuthConfig;
 $routes->get('/', 'Home::index');
 
 // Dashboard
-$routes->get('', "Dashboard::toIndex");
-$routes->get('dashboard', "Dashboard::index");
+$routes->get('/dashboard', "Dashboard::index");
 
 // Pengguna
 $routes->group('/pengguna', ['namespace' => 'App\Controllers', 'filter' => 'role:admin'], function ($routes) {
