@@ -34,19 +34,31 @@
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
         <li class="nav-header">Dashboard</li>
+        <li class="nav-item">
+          <a href="/dashboard" class="nav-link">
+            <i class="nav-icon fas fa-tachometer-alt"></i>
+            <p>Dashboard</p>
+          </a>
+        </li>
+
         <li class="nav-header">Data</li>
-        <li class="nav-item">
-          <a href="/pengguna" class="nav-link">
-            <i class="nav-icon fas fa-user"></i>
-            <p>Pengguna</p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="/penduduk" class="nav-link">
-            <i class="nav-icon fas fa-users"></i>
-            <p>Penduduk</p>
-          </a>
-        </li>
+        <?php if (logged_in() && array_intersect(user()->getRoles(), ['admin'])) : ?>
+          <li class="nav-item">
+            <a href="/pengguna" class="nav-link">
+              <i class="nav-icon fas fa-user"></i>
+              <p>Pengguna</p>
+            </a>
+          </li>
+        <?php endif ?>
+
+        <?php if (logged_in() && array_intersect(user()->getRoles(), ['admin'])) : ?>
+          <li class="nav-item">
+            <a href="/penduduk" class="nav-link">
+              <i class="nav-icon fas fa-users"></i>
+              <p>Penduduk</p>
+            </a>
+          </li>
+        <?php endif ?>
       </ul>
     </nav>
     <!-- /.sidebar-menu -->
