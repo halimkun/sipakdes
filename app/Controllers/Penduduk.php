@@ -67,4 +67,57 @@ class Penduduk extends BaseController
         ]);
     }
 
+    // store
+    public function store()
+    {
+        $rules = [
+            'kk'                => 'required|numeric|exact_length[16]',
+            // 'nik'               => 'required|numeric|exact_length[16]|is_unique[penduduk.nik]',
+            'nik'               => 'required|numeric|exact_length[16]',
+            'nama'              => 'required|alpha_space|min_length[5]',
+            'tempat_lahir'      => 'required|alpha_space|min_length[5]',
+            'tanggal_lahir'     => 'required|valid_date',
+            'jenis_kelamin'     => 'required|in_list[Laki-laki,Perempuan]',
+            'golongan_darah'    => 'required|in_list[-,A,B,AB,O]',
+            'agama'             => 'required|in_list[-,Islam,Kristen,Katolik,Hindu,Budha,Konghucu]',
+            'pendidikan'        => 'required|in_list[Tidak Sekolah,SD,SMP,SMA,Diploma,S1,S2,S3]',
+            'jenis_pekerjaan'   => 'required|in_list[Tidak Bekerja,Pelajar/Mahasiswa,PNS,TNI,POLRI,Swasta,Wiraswasta,Petani,Nelayan,Ibu Rumah Tangga,Lainnya]',
+            'hubungan'          => 'required|in_list[Kepala Keluarga,Ayah,Ibu,Anak]',
+            'kewarganegaraan'   => 'required|in_list[WNI,WNA]',
+            'status_perkawinan' => 'required|in_list[Belum Kawin,Kawin,Cerai Hidup,Cerai Mati]',
+            'rt'                => 'required|numeric',
+            'rw'                => 'required|numeric',
+            'kelurahan'         => 'required|alpha_numeric_punct',
+            'kecamatan'         => 'required|alpha_numeric_punct',
+            'kabupaten'         => 'required|alpha_numeric_punct',
+            'provinsi'          => 'required|alpha_numeric_punct',
+        ];
+
+        if (!$this->validate($rules)) {
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors())->withInput();
+        }
+
+        if ($this->pendudukModel->save($this->request->getPost())) {
+            $tgl_lahir = $this->request->getPost('tanggal_lahir');
+            $user_data = [
+                'id_penduduk'   => $this->pendudukModel->getInsertID(),
+                'username'      => $this->request->getPost('nik'),
+                'email'         => '-',
+                'password'      => date('dmY', strtotime($tgl_lahir ?? 'now')),
+                'active'        => 1,
+            ];
+
+            // entitiy user
+            $user = new \App\Entities\User($user_data);
+
+            // if user not exist then insert user
+            if ($this->userModel->where('username', $user->username)->countAllResults() == 0) {
+                $this->userModel->withGroup(config(\Config\Auth::class)->defaultUserGroup)->save($user);
+            }
+
+            return redirect()->to('/penduduk')->with('success', 'Data penduduk berhasil ditambahkan.');
+        } else {
+            return redirect()->back()->withInput()->with('errors', $this->pendudukModel->errors())->withInput();
+        }
+    }
 }
