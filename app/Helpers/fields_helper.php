@@ -16,8 +16,8 @@ if (!function_exists('getFields')) {
     if (isset($data['required']) && $data['required'] == true) {
       $html .= ' <span class="text-danger">*</span>';
     }
-    
-    // readonly add small text below label
+
+      // readonly add small text below label
     if (isset($data['readonly']) && $data['readonly'] == true) {
       $html .= '  <br /><small class="text-muted"> (tidak bisa diubah)</small>';
     }
@@ -27,11 +27,11 @@ if (!function_exists('getFields')) {
 
 
     $html .= '  <div class="col-sm-10">';
-    // $html .= '    <input class="form-control" ';
+      // $html .= '    <input class="form-control" ';
 
     $html .= setField($data, $value);
 
-    // $html .= '    >';
+      // $html .= '    >';
     $html .= '  </div>';
     $html .= '</div>';
 
@@ -63,14 +63,15 @@ if (!function_exists('setField')) {
       $html .= setFieldValue($data, $value);
     }
 
+    $html .= setFieldMinMaxStep($data);
     $html .= setFieldReadonly($data);
     $html .= setFieldDisabled($data);
     $html .= setFieldRequired($data);
 
-    // end open tag
+      // end open tag
     $html .= '>';
 
-    // end close tag
+      // end close tag
     if ($data['type'] == 'select') {
       $html .= setFieldOptions($data, $value);
       $html .= '</select>';
@@ -137,6 +138,27 @@ if (!function_exists('setFieldOptions')) {
         }
         $html .= ">{$option->name}</option>";
       }
+      return $html;
+    }
+  }
+}
+
+  // min max step
+if (!function_exists('setFieldMinMaxStep')) {
+  function setFieldMinMaxStep($data)
+  {
+    if (isset($data['type']) && in_array($data['type'], ['number', 'range'])) {
+      $html = '';
+      if (isset($data['min'])) {
+        $html .= "min='{$data['min']}' ";
+      }
+      if (isset($data['max'])) {
+        $html .= "max='{$data['max']}' ";
+      }
+      if (isset($data['step'])) {
+        $html .= "step='{$data['step']}' ";
+      }
+      
       return $html;
     }
   }
