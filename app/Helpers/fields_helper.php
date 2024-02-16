@@ -206,16 +206,16 @@ if (!function_exists('setFieldDisabled')) {
   }
 }
 
-// about creator for this helper
+  // about creator for this helper
 
-/**
+  /**
  * Fields Helper
  * Membantu, mempermudah dan mempercepat pembuatan input form, dengan basis style bootstrap 4 
  * 
- * dibuat oleh  :
- *  - name      : Muhamad Faisal Halim
- *  - email     : ffaisalhalim@gmail.com
- *  - github    : halimkun | https://github.com/halimkun
- *  - linkedin  : https://www.linkedin.com/in/faisal-halim
- *  - website   : https://halimkun.com/
- * */ 
+ * dibuat oleh: 
+ * - name     : Muhamad Faisal Halim
+ * - email    : ffaisalhalim@gmail.com
+ * - github   : halimkun | https: //github.com/halimkun
+ * - linkedin : https           : //www.linkedin.com/in/faisal-halim
+ * - website  : https           : //halimkun.com/
+ * */
