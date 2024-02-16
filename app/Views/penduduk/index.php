@@ -98,6 +98,11 @@
             </tr>
           </table>
 
+          <div class="alert alert-danger">
+            <i class="fas fa-exclamation-triangle mr-1"></i> Warning!
+            <p class="p-0 m-0">This action will delete the user data, as a result the user cannot access the system anymore.</p>
+          </div>
+
           <div class="d-flex justify-content-end" style="gap: 0.5rem;">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-danger">Delete</button>
