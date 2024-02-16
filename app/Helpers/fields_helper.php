@@ -116,8 +116,8 @@ if (!function_exists('setFieldId')) {
 if (!function_exists('setFieldValue')) {
   function setFieldValue($data, $value)
   {
-    if (isset($data['name']) && isset($value[$data['name']])) {
-      return "value='{$value[$data['name']]}' ";
+    if (isset($data['name'])) {
+      return "value='" . old($data['name'], isset($value[$data['name']]) ? $value[$data['name']] : '') . "' "; 
     }
   }
 }
@@ -127,16 +127,18 @@ if (!function_exists('setFieldOptions')) {
   {
     $selected = isset($data['selected']) ? $data['selected'] : '';
     if (isset($data['type']) && $data['type'] == 'select' && isset($data['options'])) {
-      $html = '';
+      $html  = '';
       $html .= "<option>--- pilih " . strtolower($data['label']) . " ---</option>";
       foreach ($data['options'] as $option) {
-        $html .= "<option value='{$option->value}' ";
-        if ($selected == $option->value) {
+        $html .= "<option value='{$option['value']}' ";
+        if ($selected == $option['value']) {
           $html .= "selected ";
-        } else if (isset($data['name']) && isset($value[$data['name']]) && $value[$data['name']] == $option->value) {
+        } else if (isset($data['name']) && isset($value[$data['name']]) && $value[$data['name']] == $option['value']) {
+          $html .= "selected ";
+        } else if (old($data['name']) == $option['value']) {
           $html .= "selected ";
         }
-        $html .= ">{$option->name}</option>";
+        $html .= ">{$option['name']}</option>";
       }
       return $html;
     }
