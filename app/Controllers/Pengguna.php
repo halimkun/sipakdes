@@ -44,33 +44,15 @@ class Pengguna extends BaseController
     public function new()
     {
         $roles_data = $this->groupModel->select('*, id as value')->findAll();
+        $roles_data = array_map(function ($role) {
+            return $role->toArray();
+        }, $roles_data);
 
         $fields = [
-            [
-                'name' => 'email',
-                'label' => 'Email',
-                'type' => 'email',
-                'required' => true,
-            ],
-            [
-                'name' => 'username',
-                'label' => 'Username',
-                'type' => 'text',
-                'required' => true,
-            ],
-            [
-                'name' => 'password',
-                'label' => 'Password',
-                'type' => 'password',
-                'required' => true,
-            ],
-            [
-                'name' => 'role',
-                'label' => 'Role',
-                'type' => 'select',
-                'options' => $roles_data,
-                'required' => true,
-            ]
+            [ 'name' => 'email', 'label' => 'Email', 'type' => 'email', 'required' => true ],
+            [ 'name' => 'username', 'label' => 'Username', 'type' => 'text', 'required' => true ],
+            [ 'name' => 'password', 'label' => 'Password', 'type' => 'password', 'required' => true ],
+            [ 'name' => 'role', 'label' => 'Role', 'type' => 'select', 'options' => $roles_data, 'required' => true ]
         ];
 
         return view('pengguna/new', [

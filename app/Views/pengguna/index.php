@@ -25,7 +25,7 @@
           <th>email</th>
           <th>nama</th>
           <th>status</th>
-          <th>data warga</th>
+          <th>data penduduk</th>
           <th class="text-right">#</th>
         </tr>
       </thead>
