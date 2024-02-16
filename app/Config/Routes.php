@@ -15,7 +15,7 @@ $routes->get('', "Dashboard::toIndex");
 $routes->get('dashboard', "Dashboard::index");
 
 // Pengguna
-$routes->group('/pengguna', ['namespace' => 'App\Controllers'], function ($routes) {
+$routes->group('/pengguna', ['namespace' => 'App\Controllers', 'filter' => 'role:admin'], function ($routes) {
     $routes->get('', "Pengguna::index");
     $routes->get('new', "Pengguna::new");
     $routes->get('(:num)/edit', "Pengguna::edit/$1");
@@ -29,7 +29,7 @@ $routes->group('/pengguna', ['namespace' => 'App\Controllers'], function ($route
 });
 
 // Penduduk
-$routes->group('/penduduk', ['namespace' => 'App\Controllers'], function ($routes) {
+$routes->group('/penduduk', ['namespace' => 'App\Controllers', 'filter' => 'role:admin'], function ($routes) {
     $routes->get('', "Penduduk::index");
     $routes->get('new', "Penduduk::new");
     $routes->get('(:num)/edit', "Penduduk::edit/$1");
