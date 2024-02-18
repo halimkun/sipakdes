@@ -32,7 +32,7 @@ class Pengguna extends BaseController
         return view('pengguna/index', [
             'title' => 'Data Pengguna',
             'breadcrumbs' => [
-                ['title' => 'Admin', 'url' => '/'],
+                ['title' => ucfirst(user()->username), 'url' => '/'],
                 ['title' => 'Pengguna', 'url' => '/pengguna', 'active' => true],
             ],
             'roles' => $roles_data,
@@ -58,7 +58,7 @@ class Pengguna extends BaseController
         return view('pengguna/new', [
             'title' => 'Tambah Pengguna',
             'breadcrumbs' => [
-                ['title' => 'Admin', 'url' => '/'],
+                ['title' => ucfirst(user()->username), 'url' => '/'],
                 ['title' => 'Pengguna', 'url' => '/pengguna'],
                 ['title' => 'Tambah', 'url' => '/pengguna/new', 'active' => true],
             ],
@@ -111,7 +111,7 @@ class Pengguna extends BaseController
         return view('pengguna/edit', [
             'title' => 'Edit Pengguna',
             'breadcrumbs' => [
-                ['title' => 'Admin', 'url' => '/'],
+                ['title' => ucfirst(user()->username), 'url' => '/'],
                 ['title' => 'Pengguna', 'url' => '/pengguna'],
                 ['title' => 'Edit', 'url' => '/pengguna/' . $id . '/edit', 'active' => true],
             ],

@@ -11,9 +11,15 @@ class Dashboard extends BaseController
     {
         return redirect()->to('/dashboard', 301);
     }
-    
+
     public function index()
     {
-        return view('dashboard');
+        return view('dashboard', [
+            'title' => 'Dashboard',
+            'breadcrumbs' => [
+                ['title' => ucfirst(user()->username), 'url' => '/'],
+                ['title' => 'Dashboard', 'url' => '/dashboard', 'active' => true],
+            ],
+        ]);
     }
 }

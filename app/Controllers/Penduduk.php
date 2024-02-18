@@ -38,7 +38,7 @@ class Penduduk extends BaseController
         return view('penduduk/index', [
             'title' => 'Data Penduduk',
             'breadcrumbs' => [
-                ['title' => 'Admin', 'url' => '/'],
+                ['title' => ucfirst(user()->username), 'url' => '/'],
                 ['title' => 'Penduduk', 'url' => '/penduduk', 'active' => true],
             ],
             'penduduk' => $penduduk,
@@ -72,7 +72,7 @@ class Penduduk extends BaseController
         return view('penduduk/new', [
             'title' => 'Tambah Penduduk',
             'breadcrumbs' => [
-                ['title' => 'Admin', 'url' => '/'],
+                ['title' => ucfirst(user()->username), 'url' => '/'],
                 ['title' => 'Penduduk', 'url' => '/penduduk'],
                 ['title' => 'Tambah', 'url' => '/penduduk/new', 'active' => true],
             ],
@@ -168,7 +168,7 @@ class Penduduk extends BaseController
         return view('penduduk/edit', [
             'title' => 'Ubah Penduduk',
             'breadcrumbs' => [
-                ['title' => 'Admin', 'url' => '/'],
+                ['title' => ucfirst(user()->username), 'url' => '/'],
                 ['title' => 'Penduduk', 'url' => '/penduduk'],
                 ['title' => 'Ubah', 'url' => '/penduduk/edit/' . $id, 'active' => true],
             ],
