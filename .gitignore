@@ -127,4 +127,7 @@ nb-configuration.xml
 /.phpunit.*.cache
 
 # image on public/uploads
-public/uploads/**/*.{jpg,jpeg,png,gif}
+public/uploads/**/*.png
+public/uploads/**/*.jpg
+public/uploads/**/*.jpeg
+public/uploads/**/*.gif
