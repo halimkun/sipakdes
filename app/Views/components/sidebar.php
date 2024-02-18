@@ -44,11 +44,11 @@
         </li>
 
         <li class="nav-header">Data</li>
-        <?php if (logged_in() && array_intersect(user()->getRoles(), ['admin'])) : ?>
+        <?php if (logged_in() && array_intersect(user()->getRoles(), ['admin', 'warga'])) : ?>
           <li class="nav-item">
-            <a href="/pengguna" class="nav-link">
-              <i class="nav-icon fas fa-user"></i>
-              <p>Pengguna</p>
+            <a href="/keluarga" class="nav-link">
+              <i class="nav-icon fas fa-users"></i>
+              <p>Keluarga</p>
             </a>
           </li>
         <?php endif ?>
@@ -56,8 +56,17 @@
         <?php if (logged_in() && array_intersect(user()->getRoles(), ['admin'])) : ?>
           <li class="nav-item">
             <a href="/penduduk" class="nav-link">
-              <i class="nav-icon fas fa-users"></i>
+              <i class="nav-icon fas fa-user-friends"></i>
               <p>Penduduk</p>
+            </a>
+          </li>
+        <?php endif ?>
+
+        <?php if (logged_in() && array_intersect(user()->getRoles(), ['admin'])) : ?>
+          <li class="nav-item">
+            <a href="/pengguna" class="nav-link">
+              <i class="nav-icon fas fa-user"></i>
+              <p>Pengguna</p>
             </a>
           </li>
         <?php endif ?>

@@ -40,6 +40,11 @@ $routes->group('/penduduk', ['namespace' => 'App\Controllers', 'filter' => 'role
     $routes->post('(:num)/delete', "Penduduk::delete/$1");
 });
 
+// Keluarga
+$routes->group('/keluarga', ['namespace' => 'App\Controllers', 'filter' => 'role:admin,warga'], function ($routes) {
+    $routes->get('', "Keluarga::index");
+});
+
 
 
 
