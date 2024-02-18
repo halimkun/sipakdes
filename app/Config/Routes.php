@@ -35,6 +35,7 @@ $routes->group('/penduduk', ['namespace' => 'App\Controllers', 'filter' => 'role
     $routes->get('(:num)/verify', "Penduduk::toggle_verified/$1");
 
     $routes->post('store', "Penduduk::store");
+    $routes->post('upload-kk', "Penduduk::uploadKk");
     $routes->post('(:num)/update', "Penduduk::update/$1");
     $routes->post('(:num)/delete', "Penduduk::delete/$1");
 });

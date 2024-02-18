@@ -7,6 +7,7 @@ use CodeIgniter\HTTP\ResponseInterface;
 
 class Penduduk extends BaseController
 {
+    protected $berkasKkModel;
     protected $pendudukModel;
     protected $userModel;
 
@@ -22,6 +23,7 @@ class Penduduk extends BaseController
 
     public function __construct()
     {
+        $this->berkasKkModel = new \App\Models\BerkasKkModel();
         $this->pendudukModel = new \App\Models\PendudukModel();
         $this->userModel = new \App\Models\UserModel();
     }
@@ -137,7 +139,7 @@ class Penduduk extends BaseController
         if (!$id) return redirect()->to('/penduduk')->with('error', 'Data penduduk tidak ditemukan.');
 
         $penduduk = $this->pendudukModel->find($id);
-        
+
         if (!$penduduk) return redirect()->to('/penduduk')->with('error', 'Data penduduk tidak ditemukan.');
 
         $fields = [
@@ -162,8 +164,6 @@ class Penduduk extends BaseController
             ['name' => 'kabupaten', 'label' => 'Kabupaten', 'type' => 'text', 'required' => true],
             ['name' => 'provinsi', 'label' => 'Provinsi', 'type' => 'text', 'required' => true],
         ];
-
-        // penduduk to array
 
         return view('penduduk/edit', [
             'title' => 'Ubah Penduduk',
@@ -232,7 +232,7 @@ class Penduduk extends BaseController
     public function toggle_verified($id)
     {
         if (!$id) return redirect()->to('/penduduk')->with('errors', 'Data penduduk tidak ditemukan.');
-        
+
         $penduduk = $this->pendudukModel->find($id);
 
         // is_verified field 0 and 1
@@ -246,6 +246,49 @@ class Penduduk extends BaseController
             }
         } else {
             return redirect()->to('/penduduk')->with('errors', 'Data penduduk tidak ditemukan.');
+        }
+    }
+
+    // upload kk
+    public function uploadKk()
+    {
+        $rules = [
+            'kk'     => 'required|numeric|exact_length[16]',
+            'berkas' => 'uploaded[berkas]|max_size[berkas,10240]|ext_in[berkas,jpg,jpeg,png]|mime_in[berkas,image/jpg,image/jpeg,image/png]',
+        ];
+
+        if (!$this->validate($rules)) {
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        }
+
+        // move with random name
+        $file_name = $this->request->getFile('berkas')->getRandomName();
+
+        // find old data by kk
+        $old_data = $this->berkasKkModel->where('kk', $this->request->getPost('kk'))->first();
+
+        $data = [
+            'kk'         => $this->request->getPost('kk'),
+            'berkas'     => $file_name,
+            'keterangan' => $this->request->getPost('keterangan'),
+        ];
+
+        if ($old_data) {
+            $data['id'] = $old_data->id;
+        }
+
+        if ($this->berkasKkModel->save($data)) {
+            // delete old data if exist
+            if ($old_data && file_exists('uploads/bkk/' . $old_data->berkas)) {
+                unlink('uploads/bkk/' . $old_data->berkas);
+            }
+
+            // move file to uploads/bkk
+            $this->request->getFile('berkas')->move('uploads/bkk', $file_name);
+            
+            return redirect()->to('/penduduk')->with('success', 'Berkas KK berhasil diunggah.');
+        } else {
+            return redirect()->to('/penduduk')->with('errors', $this->berkasKkModel->errors());
         }
     }
 

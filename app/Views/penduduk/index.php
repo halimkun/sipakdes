@@ -39,22 +39,19 @@
                 <div class="badge badge-success" data-toggle="tooltip" data-placement="left" title="nomor NIK"><?= $pen->nik; ?></div>
               </div>
             </td>
-            <td>
-              <p class="p-0 m-0"><?= $pen->nama; ?></p>
-              <?php if ($pen->berkas) : ?>
-                <a href="/penduduk/berkas/kk/<?= $pen->berkas; ?>" target="_blank">
-                  <div class="badge badge-light">lihat KK <i class="fas fa-external-link-alt text-xs ml-1"></i>
-                </a>
-              <?php endif ?>
-            </td>
+            <td><p class="p-0 m-0"><?= $pen->nama; ?></p></td>
             <td><?= date_diff(date_create($pen->tanggal_lahir), date_create('today'))->y; ?> Th</td>
             <td><?= $pen->jenis_kelamin; ?></td>
             <td><?= $pen->pendidikan; ?></td>
             <td><?= $pen->jenis_pekerjaan; ?></td>
             <td>
               <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-                <button type="button" class="btn btn-success btn-preview" title="preview berkas" data-berkas="<?= $pen->berkas ?>" data-status-berkas="<?= $pen->status_berkas ?>"><i class="fa fa-search"></i></button>
-                <button type="button" class="btn btn-info btn-keterangan" title="informasi berkas" data-info="<?= $pen->keterangan_berkas ?>"><i class="fa fa-info-circle"></i></button>
+                <button type="button" class="btn <?= !$pen->berkas ? 'btn-warning' : 'btn-success' ?> btn-preview" <?= !$pen->berkas ? 'disabled' : '' ?> title="<?= !$pen->berkas ? 'kk belum diupload' : 'preview berkas' ?>" data-href="/uploads/bkk/<?= $pen->berkas ?>">
+                  <i class="fa <?= !$pen->berkas ? 'fa-times-circle' : 'fa-search' ?>"></i>
+                </button>
+                <button type="button" class="btn btn-info btn-keterangan" <?= !$pen->keterangan_berkas ? 'disabled' : '' ?> title="<?= !$pen->keterangan_berkas ? 'tidak ada keterangan tambahan' : 'keterangan berkas' ?>" data-info="<?= $pen->keterangan_berkas ?>">
+                  <i class="fa fa-info-circle"></i>
+                </button>
               </div>
             </td>
             <td><?= $pen->is_verified ? '<span class="badge badge-success">Verified</span>' : '<span class="badge badge-danger">Unverified</span>'; ?></td>
@@ -66,7 +63,7 @@
                   </button>
                   <div class="dropdown-menu">
                     <a class="dropdown-item" href="/penduduk/<?= $pen->id ?>/edit"><i class="fa fa-pen mr-1"></i> Edit Data</a>
-                    <a class="dropdown-item btn-upload-kk" href="#" data-id="<?= $pen->id; ?>" data-nik="<?= $pen->nik; ?>" data-nama="<?= $pen->nama; ?>"><i class="fa fa-file-upload mr-1"></i> Upload KK</a>
+                    <a class="dropdown-item btn-upload-kk" href="#" data-id="<?= $pen->id; ?>" data-kk="<?= $pen->kk; ?>" data-nik="<?= $pen->nik; ?>" data-nama="<?= $pen->nama; ?>"><i class="fa fa-file-upload mr-1"></i> Upload KK</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item <?= $pen->is_verified ? 'text-danger' : 'text-success' ?>" href="/penduduk/<?= $pen->id ?>/verify" onclick="return confirm('Apakah anda yakin data ini sudah benar?')">
                       <?php if ($pen->is_verified) : ?>
@@ -89,6 +86,7 @@
   </div>
 </div>
 
+<!-- Modal delete confirmation -->
 <div class="modal fade " id="mode-delete-confirmation" tabindex="-1" role="dialog" data-backdrop="static">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
@@ -130,6 +128,7 @@
   </div>
 </div>
 
+<!-- Modal informati tambahan berkas kk -->
 <div class="modal fade" id="modal-keterangan" tabindex="-1" role="dialog" data-backdrop="static">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
@@ -147,6 +146,7 @@
   </div>
 </div>
 
+<!-- modal upload KK -->
 <div class="modal fade" id="modal-upload-kk" tabindex="-1" role="dialog" data-backdrop="static">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
@@ -173,6 +173,7 @@
 
         <form action="/penduduk/upload-kk" method="post" enctype="multipart/form-data">
           <input type="hidden" name="id" id="upload-id">
+          <input type="hidden" name="kk" id="upload-kk">
           <div class="form-group mb-3">
             <label for="berkas-kk">Berkas KK</label>
             <div class="custom-file">
@@ -193,8 +194,7 @@
 
 <?= $this->section('styles'); ?>
 <link rel="stylesheet" href="<?= base_url('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') ?>">
-<link rel="stylesheet" href="<?= '' // base_url('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') 
-                              ?>">
+<link rel="stylesheet" href="<?= '' // base_url('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') ?>">
 <?= $this->endSection(); ?>
 
 
@@ -202,14 +202,10 @@
 <script src="<?= base_url('assets/plugins/datatables/jquery.dataTables.min.js') ?>"></script>
 <script src="<?= base_url('assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') ?>"></script>
 
-<!-- <script src="<?= '' //base_url('assets/plugins/datatables-buttons/js/dataTables.buttons.min.js')  
-                  ?>"></script> -->
-<!-- <script src="<?= '' //base_url('/assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js')  
-                  ?>"></script> -->
-<!-- <script src="<?= '' //base_url('/assets/plugins/jszip/jszip.min.js')  
-                  ?>"></script> -->
-<!-- <script src="<?= '' //base_url('/assets/plugins/datatables-buttons/js/buttons.html5.min.js')  
-                  ?>"></script> -->
+<!-- <script src="<?= '' //base_url('assets/plugins/datatables-buttons/js/dataTables.buttons.min.js') ?>"></script> -->
+<!-- <script src="<?= '' //base_url('/assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') ?>"></script> -->
+<!-- <script src="<?= '' //base_url('/assets/plugins/jszip/jszip.min.js') ?>"></script> -->
+<!-- <script src="<?= '' //base_url('/assets/plugins/datatables-buttons/js/buttons.html5.min.js') ?>"></script> -->
 
 <script>
   $(document).ready(function() {
@@ -227,6 +223,7 @@
       // action form
       $('form').attr('action', '/penduduk/' + $(this).data('id') + '/delete');
 
+      // show modal
       $('#mode-delete-confirmation').modal('show');
     });
 
@@ -236,11 +233,20 @@
       $('#modal-keterangan').modal('show');
     });
 
+    // btn preview
+    $('.btn-preview').click(function() {
+      if ($(this).attr('disabled')) {
+        return;
+      }
+      window.open($(this).data('href'), '_blank');
+    });
+
     // upload kk
     $('.btn-upload-kk').click(function() {
       $('#upload-nik').text($(this).data('nik'));
       $('#upload-nama').text($(this).data('nama'));
       $('#upload-id').val($(this).data('id'));
+      $('#upload-kk').val($(this).data('kk'));
 
       $('#modal-upload-kk').modal('show');
     });

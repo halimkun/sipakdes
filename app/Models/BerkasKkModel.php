@@ -9,7 +9,7 @@ class BerkasKkModel extends Model
     protected $table            = 'berkas_kk';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
-    protected $returnType       = 'object';
+    protected $returnType       = 'App\Entities\BerkasKk';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
