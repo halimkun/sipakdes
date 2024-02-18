@@ -49,10 +49,10 @@ class Pengguna extends BaseController
         }, $roles_data);
 
         $fields = [
-            [ 'name' => 'email', 'label' => 'Email', 'type' => 'email', 'required' => true ],
-            [ 'name' => 'username', 'label' => 'Username', 'type' => 'text', 'required' => true ],
-            [ 'name' => 'password', 'label' => 'Password', 'type' => 'password', 'required' => true ],
-            [ 'name' => 'role', 'label' => 'Role', 'type' => 'select', 'options' => $roles_data, 'required' => true ]
+            ['name' => 'email', 'label' => 'Email', 'type' => 'email', 'required' => true],
+            ['name' => 'username', 'label' => 'Username', 'type' => 'text', 'required' => true],
+            ['name' => 'password', 'label' => 'Password', 'type' => 'password', 'required' => true],
+            ['name' => 'role', 'label' => 'Role', 'type' => 'select', 'options' => $roles_data, 'required' => true]
         ];
 
         return view('pengguna/new', [
@@ -98,29 +98,14 @@ class Pengguna extends BaseController
             ->find($id)->toArray();
 
         $roles_data = $this->groupModel->select('*, id as value')->findAll();
+        $roles_data = array_map(function ($role) {
+            return $role->toArray();
+        }, $roles_data);
 
         $fields = [
-            [
-                'name' => 'email',
-                'label' => 'Email',
-                'type' => 'email',
-                'required' => true,
-            ],
-            [
-                'name' => 'username',
-                'label' => 'Username',
-                'type' => 'text',
-                'required' => true,
-                'readonly' => true,
-            ],
-            [
-                'name' => 'role',
-                'label' => 'Role',
-                'type' => 'select',
-                'options' => $roles_data,
-                'selected' => $user['role_id'],
-                'required' => true,
-            ]
+            ['name' => 'email', 'label' => 'Email', 'type' => 'email', 'required' => true,],
+            ['name' => 'username', 'label' => 'Username', 'type' => 'text', 'required' => true, 'readonly' => true,],
+            ['name' => 'role', 'label' => 'Role', 'type' => 'select', 'options' => $roles_data, 'selected' => $user['role_id'], 'required' => true,]
         ];
 
         return view('pengguna/edit', [
@@ -178,12 +163,12 @@ class Pengguna extends BaseController
         if (empty($data)) {
             $this->groupModel->removeUserFromAllGroups($id);
             $this->groupModel->addUserToGroup($id, $role);
-    
+
             return redirect()->to('/pengguna')->with('success', 'Pengguna berhasil diubah');
         }
 
         $user->fill($data);
-        
+
         if ($this->userModel->save($user)) {
             $this->groupModel->removeUserFromAllGroups($id);
             $this->groupModel->addUserToGroup($id, $role);
