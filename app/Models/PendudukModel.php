@@ -9,7 +9,7 @@ class PendudukModel extends Model
     protected $table            = 'penduduk';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
-    protected $returnType       = 'object';
+    protected $returnType       = 'App\Entities\User';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
