@@ -287,4 +287,11 @@ class User extends \Myth\Auth\Entities\User
     {
         throw new RuntimeException('User entity does not support saving permissions directly.');
     }
+
+    // get kk
+    public function pendudukData()
+    {
+        $penduduk = model(\App\Models\PendudukModel::class)->where('id', $this->id_penduduk)->first();
+        return $penduduk;
+    } 
 }
