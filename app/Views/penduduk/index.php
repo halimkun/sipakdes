@@ -55,7 +55,7 @@
             </td>
             <td><?= $pen->is_verified ? '<span class="badge badge-success">Verified</span>' : '<span class="badge badge-danger">Unverified</span>'; ?></td>
             <td class="text-right">
-              <a href="/penduduk/edit/<?= $pen->id; ?>">
+              <a href="/penduduk/<?= $pen->id; ?>/edit">
                 <button class="btn btn-warning btn-xs">
                   <i class="fas fa-edit"></i>
                 </button>

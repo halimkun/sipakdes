@@ -12,7 +12,7 @@ class Penduduk extends BaseController
 
     // Options 
     protected $optionJenisKelamin = [["value" => "Laki-laki", "name" => "Laki-laki"], ["value" => "Perempuan", "name" => "Perempuan"]];
-    protected $optionGolonganDarah = [["value" => "A", "name" => "A"], ["value" => "B", "name" => "B"], ["value" => "AB", "name" => "AB"], ["value" => "O", "name" => "O"]];
+    protected $optionGolonganDarah = [["value" => "-", "name" => "-"], ["value" => "A", "name" => "A"], ["value" => "B", "name" => "B"], ["value" => "AB", "name" => "AB"], ["value" => "O", "name" => "O"]];
     protected $optionAgama = [["value" => "Islam", "name" => "Islam"], ["value" => "Kristen", "name" => "Kristen"], ["value" => "Katolik", "name" => "Katolik"], ["value" => "Hindu", "name" => "Hindu"], ["value" => "Budha", "name" => "Budha"], ["value" => "Konghucu", "name" => "Konghucu"]];
     protected $optionPendidikan = [["value" => "Tidak Sekolah", "name" => "Tidak Sekolah"], ["value" => "SD", "name" => "SD"], ["value" => "SMP", "name" => "SMP"], ["value" => "SMA", "name" => "SMA"], ["value" => "Diploma", "name" => "Diploma"], ["value" => "S1", "name" => "S1"], ["value" => "S2", "name" => "S2"], ["value" => "S3", "name" => "S3"]];
     protected $optionJenisPekerjaan = [["value" => "Tidak Bekerja", "name" => "Tidak Bekerja"], ["value" => "Pelajar/Mahasiswa", "name" => "Pelajar/Mahasiswa"], ["value" => "PNS", "name" => "PNS"], ["value" => "TNI", "name" => "TNI"], ["value" => "POLRI", "name" => "POLRI"], ["value" => "Swasta", "name" => "Swasta"], ["value" => "Wiraswasta", "name" => "Wiraswasta"], ["value" => "Petani", "name" => "Petani"], ["value" => "Nelayan", "name" => "Nelayan"], ["value" => "Ibu Rumah Tangga", "name" => "Ibu Rumah Tangga"], ["value" => "Lainnya", "name" => "Lainnya"]];
@@ -72,8 +72,7 @@ class Penduduk extends BaseController
     {
         $rules = [
             'kk'                => 'required|numeric|exact_length[16]',
-            // 'nik'               => 'required|numeric|exact_length[16]|is_unique[penduduk.nik]',
-            'nik'               => 'required|numeric|exact_length[16]',
+            'nik'               => 'required|numeric|exact_length[16]|is_unique[penduduk.nik]',
             'nama'              => 'required|alpha_space|min_length[5]',
             'tempat_lahir'      => 'required|alpha_space|min_length[5]',
             'tanggal_lahir'     => 'required|valid_date',
@@ -118,6 +117,96 @@ class Penduduk extends BaseController
             return redirect()->to('/penduduk')->with('success', 'Data penduduk berhasil ditambahkan.');
         } else {
             return redirect()->back()->withInput()->with('errors', $this->pendudukModel->errors())->withInput();
+        }
+    }
+
+    // edit
+    public function edit($id)
+    {
+        if (!$id) return redirect()->to('/penduduk')->with('error', 'Data penduduk tidak ditemukan.');
+
+        $penduduk = $this->pendudukModel->find($id);
+        
+        if (!$penduduk) return redirect()->to('/penduduk')->with('error', 'Data penduduk tidak ditemukan.');
+
+        $fields = [
+            ['name' => 'id', 'label' => 'ID', 'type' => 'hidden', 'required' => true], // hidden field 'id
+            ['name' => 'kk', 'label' => 'KK', 'type' => 'number', 'min' => 0, 'maxlength' => 16, 'required' => true],
+            ['name' => 'nik', 'label' => 'NIK', 'type' => 'number', 'min' => 0, 'maxlength' => 16, 'required' => true, 'readonly' => true, 'disabled' => true],
+            ['name' => 'nama', 'label' => 'Nama', 'type' => 'text', 'required' => true],
+            ['name' => 'tempat_lahir', 'label' => 'Tempat Lahir', 'type' => 'text', 'required' => true],
+            ['name' => 'tanggal_lahir', 'label' => 'Tanggal Lahir', 'type' => 'date', 'required' => true],
+            ['name' => 'jenis_kelamin', 'label' => 'Jenis Kelamin', 'type' => 'select', 'options' => $this->optionJenisKelamin, 'required' => true],
+            ['name' => 'golongan_darah', 'label' => 'Golongan Darah', 'type' => 'select', 'options' => $this->optionGolonganDarah, 'required' => true],
+            ['name' => 'agama', 'label' => 'Agama', 'type' => 'select', 'options' => $this->optionAgama, 'required' => true],
+            ['name' => 'pendidikan', 'label' => 'Pendidikan', 'type' => 'select', 'options' => $this->optionPendidikan, 'required' => true],
+            ['name' => 'jenis_pekerjaan', 'label' => 'Jenis Pekerjaan', 'type' => 'select', 'options' => $this->optionJenisPekerjaan, 'required' => true],
+            ['name' => 'hubungan', 'label' => 'Hubungan', 'type' => 'select', 'options' => $this->optionHubungan, 'required' => true],
+            ['name' => 'kewarganegaraan', 'label' => 'Kebangsaan', 'type' => 'select', 'options' => $this->optionKewarganegaraan, 'required' => true],
+            ['name' => 'status_perkawinan', 'label' => 'Stts Perkawinan', 'type' => 'select', 'options' => $this->optionStatusPerkawinan, 'required' => true],
+            ['name' => 'rt', 'label' => 'RT', 'type' => 'number', 'required' => true],
+            ['name' => 'rw', 'label' => 'RW', 'type' => 'number', 'required' => true],
+            ['name' => 'kelurahan', 'label' => 'Kelurahan', 'type' => 'text', 'required' => true],
+            ['name' => 'kecamatan', 'label' => 'Kecamatan', 'type' => 'text', 'required' => true],
+            ['name' => 'kabupaten', 'label' => 'Kabupaten', 'type' => 'text', 'required' => true],
+            ['name' => 'provinsi', 'label' => 'Provinsi', 'type' => 'text', 'required' => true],
+        ];
+
+        // penduduk to array
+
+        return view('penduduk/edit', [
+            'id' => $id,
+            'fields' => $fields,
+            'penduduk' => $penduduk->toArray()
+        ]);
+    }
+
+    // update
+    public function update($id)
+    {
+        $rules = [
+            'kk'                => 'required|numeric|exact_length[16]',
+            'nama'              => 'required|alpha_space|min_length[5]',
+            'tempat_lahir'      => 'required|alpha_space|min_length[5]',
+            'tanggal_lahir'     => 'required|valid_date',
+            'jenis_kelamin'     => 'required|in_list[Laki-laki,Perempuan]',
+            'golongan_darah'    => 'required|in_list[-,A,B,AB,O]',
+            'agama'             => 'required|in_list[-,Islam,Kristen,Katolik,Hindu,Budha,Konghucu]',
+            'pendidikan'        => 'required|in_list[Tidak Sekolah,SD,SMP,SMA,Diploma,S1,S2,S3]',
+            'jenis_pekerjaan'   => 'required|in_list[Tidak Bekerja,Pelajar/Mahasiswa,PNS,TNI,POLRI,Swasta,Wiraswasta,Petani,Nelayan,Ibu Rumah Tangga,Lainnya]',
+            'hubungan'          => 'required|in_list[Kepala Keluarga,Ayah,Ibu,Anak]',
+            'kewarganegaraan'   => 'required|in_list[WNI,WNA]',
+            'status_perkawinan' => 'required|in_list[Belum Kawin,Kawin,Cerai Hidup,Cerai Mati]',
+            'rt'                => 'required|numeric',
+            'rw'                => 'required|numeric',
+            'kelurahan'         => 'required|alpha_numeric_punct',
+            'kecamatan'         => 'required|alpha_numeric_punct',
+            'kabupaten'         => 'required|alpha_numeric_punct',
+            'provinsi'          => 'required|alpha_numeric_punct',
+        ];
+
+        // if in post contain nik
+        if ($this->request->getPost('nik')) {
+            $rules['nik'] = 'required|numeric|exact_length[16]|is_unique[penduduk.nik,id,' . $id . ']';
+        }
+
+        if (!$this->validate($rules)) {
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors())->withInput();
+        }
+
+        // update pakai metode fill
+        $penduduk = $this->pendudukModel->find($id);
+
+        if ($penduduk) {
+            $penduduk->fill($this->request->getPost());
+
+            if ($this->pendudukModel->save($penduduk)) {
+                return redirect()->to('/penduduk')->with('success', 'Data penduduk berhasil diubah.');
+            } else {
+                return redirect()->back()->withInput()->with('errors', $this->pendudukModel->errors())->withInput();
+            }
+        } else {
+            return redirect()->to('/penduduk')->with('errors', 'Data penduduk tidak ditemukan.');
         }
     }
 
