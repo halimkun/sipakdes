@@ -34,7 +34,7 @@
     </div>
   </div>
   <div class="col-md-3">
-    <div class="card card-outline card-info">
+    <div class="card card-outline card-info position-sticky" style="top: 20px;">
       <div class="card-header">
         <h3 class="card-title">
           <i class="fas fa-info-circle mr-1"></i>
