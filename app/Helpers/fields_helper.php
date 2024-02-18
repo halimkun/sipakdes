@@ -11,13 +11,13 @@ if (!function_exists('getFields')) {
     }
 
     $html  = '<div class="form-group row">';
-    $html .= '  <label for="' . $data['name'] . '" class="col-sm-2 col-form-label">' . $data['label'];
+    $html .= '  <label for="' . $data['name'] . '" class="col-sm-2 col-form-label' . ($data['type'] == 'hidden' ? ' sr-only' : '') . '">' . $data['label'];
 
     if (isset($data['required']) && $data['required'] == true) {
       $html .= ' <span class="text-danger">*</span>';
     }
 
-      // readonly add small text below label
+    // readonly add small text below label
     if (isset($data['readonly']) && $data['readonly'] == true) {
       $html .= '  <br /><small class="text-muted"> (tidak bisa diubah)</small>';
     }
@@ -27,11 +27,11 @@ if (!function_exists('getFields')) {
 
 
     $html .= '  <div class="col-sm-10">';
-      // $html .= '    <input class="form-control" ';
+    // $html .= '    <input class="form-control" ';
 
     $html .= setField($data, $value);
 
-      // $html .= '    >';
+    // $html .= '    >';
     $html .= '  </div>';
     $html .= '</div>';
 
@@ -68,10 +68,10 @@ if (!function_exists('setField')) {
     $html .= setFieldDisabled($data);
     $html .= setFieldRequired($data);
 
-      // end open tag
+    // end open tag
     $html .= '>';
 
-      // end close tag
+    // end close tag
     if ($data['type'] == 'select') {
       $html .= setFieldOptions($data, $value);
       $html .= '</select>';
@@ -117,20 +117,22 @@ if (!function_exists('setFieldValue')) {
   function setFieldValue($data, $value)
   {
     if (isset($data['name'])) {
-      return "value='" . old($data['name'], isset($value[$data['name']]) ? $value[$data['name']] : '') . "' "; 
+      return "value='" . old($data['name'], isset($value[$data['name']]) ? $value[$data['name']] : '') . "' ";
     }
   }
 }
 
 if (!function_exists('setFieldOptions')) {
-  function setFieldOptions($data)
+  function setFieldOptions($data, $value)
   {
-    $selected = isset($data['selected']) ? $data['selected'] : '';
+    $selected = isset($data['selected']) && $data['selected'] ? $data['selected'] : $value[$data['name']];
+
     if (isset($data['type']) && $data['type'] == 'select' && isset($data['options'])) {
       $html  = '';
       $html .= "<option>--- pilih " . strtolower($data['label']) . " ---</option>";
       foreach ($data['options'] as $option) {
         $html .= "<option value='{$option['value']}' ";
+
         if ($selected == $option['value']) {
           $html .= "selected ";
         } else if (isset($data['name']) && isset($value[$data['name']]) && $value[$data['name']] == $option['value']) {
@@ -138,6 +140,7 @@ if (!function_exists('setFieldOptions')) {
         } else if (old($data['name']) == $option['value']) {
           $html .= "selected ";
         }
+
         $html .= ">{$option['name']}</option>";
       }
       return $html;
@@ -145,7 +148,7 @@ if (!function_exists('setFieldOptions')) {
   }
 }
 
-  // min max step
+// min max step
 if (!function_exists('setFieldMinMaxStep')) {
   function setFieldMinMaxStep($data)
   {
@@ -160,7 +163,7 @@ if (!function_exists('setFieldMinMaxStep')) {
       if (isset($data['step'])) {
         $html .= "step='{$data['step']}' ";
       }
-      
+
       return $html;
     }
   }
@@ -206,9 +209,9 @@ if (!function_exists('setFieldDisabled')) {
   }
 }
 
-  // about creator for this helper
+// about creator for this helper
 
-  /**
+/**
  * Fields Helper
  * Membantu, mempermudah dan mempercepat pembuatan input form, dengan basis style bootstrap 4 
  * 
