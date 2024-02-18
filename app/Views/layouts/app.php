@@ -17,7 +17,7 @@
   </style>
 </head>
 
-<body class="hold-transition sidebar-mini sidebar-collapse dark-mode">
+<body class="hold-transition sidebar-mini dark-mode"> <!-- more class : sidebar-collapse -->
   <div class="wrapper">
 
     <!-- Navbar -->

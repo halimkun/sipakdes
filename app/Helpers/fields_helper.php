@@ -125,7 +125,7 @@ if (!function_exists('setFieldValue')) {
 if (!function_exists('setFieldOptions')) {
   function setFieldOptions($data, $value)
   {
-    $selected = isset($data['selected']) && $data['selected'] ? $data['selected'] : $value[$data['name']];
+    $selected = isset($data['selected']) && $data['selected'] ? $data['selected'] : (isset($value[$data['name']]) ? $value[$data['name']] : old($data['name']));
 
     if (isset($data['type']) && $data['type'] == 'select' && isset($data['options'])) {
       $html  = '';
