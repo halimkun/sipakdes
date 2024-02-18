@@ -28,7 +28,7 @@ class Penduduk extends BaseController
 
     public function index()
     {
-        $penduduk = $this->pendudukModel->select('penduduk.*, berkas_kk.berkas, berkas_kk.status, berkas_kk.keterangan')
+        $penduduk = $this->pendudukModel->select('penduduk.*, berkas_kk.berkas, berkas_kk.status as status_berkas, berkas_kk.keterangan as keterangan_berkas')
             ->join('berkas_kk', 'berkas_kk.kk = penduduk.kk', 'left')
             ->orderBy('penduduk.nama', 'ASC')
             ->findAll();
@@ -227,6 +227,28 @@ class Penduduk extends BaseController
             return redirect()->to('/penduduk')->with('errors', 'Data penduduk tidak ditemukan.');
         }
     }
+
+    // toggle is_verified
+    public function toggle_verified($id)
+    {
+        if (!$id) return redirect()->to('/penduduk')->with('errors', 'Data penduduk tidak ditemukan.');
+        
+        $penduduk = $this->pendudukModel->find($id);
+
+        // is_verified field 0 and 1
+        if ($penduduk) {
+            $penduduk->is_verified = $penduduk->is_verified == 0 ? 1 : 0;
+
+            if ($this->pendudukModel->save($penduduk)) {
+                return redirect()->to('/penduduk')->with('success', 'Data penduduk berhasil ' . ($penduduk->is_verified == 1 ? 'diverifikasi.' : 'dibatalkan verifikasi.'));
+            } else {
+                return redirect()->to('/penduduk')->with('errors', $this->pendudukModel->errors());
+            }
+        } else {
+            return redirect()->to('/penduduk')->with('errors', 'Data penduduk tidak ditemukan.');
+        }
+    }
+
 
     // delete
     public function delete($id)

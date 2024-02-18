@@ -62,7 +62,8 @@
                     <i class="fas fa-cog"></i>
                   </button>
                   <div class="dropdown-menu">
-                    <a class="dropdown-item" href="/pengguna/<?= $user->user_id ?>/edit"><i class="fa fa-pen mr-1"></i> Edit Data</a>
+                    <a class="dropdown-item" href="/pengguna/<?= $user->user_id ?>/edit"><i class="fa fa-edit mr-1"></i> Edit Data</a>
+                    <a class="dropdown-item" href="/penduduk/<?= $user->id_penduduk ?>/edit"><i class="fa fa-user-edit mr-1"></i> Edit Data Penduduk</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#" data-toggle="modal" data-id="<?= $user->user_id ?>" data-target="#modalUbahRole"><i class="fa fa-key mr-1"></i> Ubah Hak Akses</a>
                     <a class="dropdown-item" href="#" data-toggle="modal" data-id="<?= $user->user_id ?>" data-target="#modalResetPassword"><i class="fa fa-lock mr-1"></i> Reset Password</a>

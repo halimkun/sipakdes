@@ -4,13 +4,11 @@
   <div class="card-header border-0">
     <div class="d-flex justify-content-between align-items-center">
       <h3 class="card-title">
-        <i class="fas fa-users mr-1"></i>
-        Data Penduduk
+        <i class="fas fa-users mr-1"></i> Data Penduduk
       </h3>
       <a href="/penduduk/new">
         <button class="btn btn-primary btn-xs">
-          <i class="fas fa-plus mr-1"></i>
-          Tambah Penduduk
+          <i class="fas fa-plus mr-1"></i> Tambah Penduduk
         </button>
       </a>
     </div>
@@ -23,9 +21,10 @@
           <th>KK & NIK</th>
           <th>Nama</th>
           <th>Umur</th>
-          <th>Jk</th>
+          <th>J. Kelamin</th>
           <th>Pendidikan</th>
-          <th>Jenis Pekerjaan</th>
+          <th>J. Pekerjaan</th>
+          <th>Berkas KK</th>
           <th>verified</th>
           <th class="text-right">#</th>
         </tr>
@@ -52,19 +51,37 @@
             <td><?= $pen->jenis_kelamin; ?></td>
             <td><?= $pen->pendidikan; ?></td>
             <td><?= $pen->jenis_pekerjaan; ?></td>
+            <td>
+              <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-success btn-preview" title="preview berkas" data-berkas="<?= $pen->berkas ?>" data-status-berkas="<?= $pen->status_berkas ?>"><i class="fa fa-search"></i></button>
+                <button type="button" class="btn btn-info btn-keterangan" title="informasi berkas" data-info="<?= $pen->keterangan_berkas ?>"><i class="fa fa-info-circle"></i></button>
+              </div>
             </td>
             <td><?= $pen->is_verified ? '<span class="badge badge-success">Verified</span>' : '<span class="badge badge-danger">Unverified</span>'; ?></td>
             <td class="text-right">
-              <a href="/penduduk/<?= $pen->id; ?>/edit">
-                <button class="btn btn-warning btn-xs">
-                  <i class="fas fa-edit"></i>
-                </button>
-              </a>
-              <a href="#">
-                <button class="btn btn-danger btn-xs btn-delete" data-id="<?= $pen->id; ?>" data-nik="<?= $pen->nik; ?>" data-nama="<?= $pen->nama; ?>">
-                  <i class="fas fa-trash"></i>
-                </button>
-              </a>
+              <div class="d-flex justify-content-end">
+                <div class="btn-group dropleft">
+                  <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-cog"></i>
+                  </button>
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" href="/penduduk/<?= $pen->id ?>/edit"><i class="fa fa-pen mr-1"></i> Edit Data</a>
+                    <a class="dropdown-item btn-upload-kk" href="#" data-id="<?= $pen->id; ?>" data-nik="<?= $pen->nik; ?>" data-nama="<?= $pen->nama; ?>"><i class="fa fa-file-upload mr-1"></i> Upload KK</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item <?= $pen->is_verified ? 'text-danger' : 'text-success' ?>" href="/penduduk/<?= $pen->id ?>/verify" onclick="return confirm('Apakah anda yakin data ini sudah benar?')">
+                      <?php if ($pen->is_verified) : ?>
+                        <i class="fa fa-times mr-1"></i> Batalkan Verifikasi
+                      <?php else : ?>
+                        <i class="fa fa-check mr-1"></i> Verifikasi Data
+                      <?php endif ?>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item text-danger btn-delete" href="#" data-id="<?= $pen->id; ?>" data-nik="<?= $pen->nik; ?>" data-nama="<?= $pen->nama; ?>">
+                      <i class="fa fa-trash mr-1"></i> Hapus Data
+                    </a>
+                  </div>
+                </div>
+              </div>
             </td>
           <?php endforeach ?>
       </tbody>
@@ -72,7 +89,7 @@
   </div>
 </div>
 
-<div class="modal fade " tabindex="-1" role="dialog" data-backdrop="static">
+<div class="modal fade " id="mode-delete-confirmation" tabindex="-1" role="dialog" data-backdrop="static">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -112,11 +129,72 @@
     </div>
   </div>
 </div>
+
+<div class="modal fade" id="modal-keterangan" tabindex="-1" role="dialog" data-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Keterangan Berkas</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h5 class="tip">Informasi Tambahan</h5>
+        <p id="keterangan-berkas"></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modal-upload-kk" tabindex="-1" role="dialog" data-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Upload KK</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Anda akan mengupload berkas KK untuk penduduk dengan detail sebagai berikut:
+        <table class="table table-sm table-borderless table-hover">
+          <tr>
+            <td>NIK</td>
+            <td>:</td>
+            <td id="upload-nik"></td>
+          </tr>
+          <tr>
+            <td>Nama</td>
+            <td>:</td>
+            <td id="upload-nama"></td>
+          </tr>
+        </table>
+
+        <form action="/penduduk/upload-kk" method="post" enctype="multipart/form-data">
+          <input type="hidden" name="id" id="upload-id">
+          <div class="form-group mb-3">
+            <label for="berkas-kk">Berkas KK</label>
+            <div class="custom-file">
+              <input type="file" class="custom-file-input" id="berkas" name="berkas" aria-describedby="berkas kk">
+              <label class="custom-file-label" for="berkas">Choose file</label>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-end" style="gap: 0.5rem;">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Upload</button>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
 <?= $this->endSection(); ?>
 
 <?= $this->section('styles'); ?>
 <link rel="stylesheet" href="<?= base_url('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') ?>">
-<link rel="stylesheet" href="<?= '' // base_url('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') ?>">
+<link rel="stylesheet" href="<?= '' // base_url('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') 
+                              ?>">
 <?= $this->endSection(); ?>
 
 
@@ -124,10 +202,14 @@
 <script src="<?= base_url('assets/plugins/datatables/jquery.dataTables.min.js') ?>"></script>
 <script src="<?= base_url('assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') ?>"></script>
 
-<!-- <script src="<?= '' //base_url('assets/plugins/datatables-buttons/js/dataTables.buttons.min.js')  ?>"></script> -->
-<!-- <script src="<?= '' //base_url('/assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js')  ?>"></script> -->
-<!-- <script src="<?= '' //base_url('/assets/plugins/jszip/jszip.min.js')  ?>"></script> -->
-<!-- <script src="<?= '' //base_url('/assets/plugins/datatables-buttons/js/buttons.html5.min.js')  ?>"></script> -->
+<!-- <script src="<?= '' //base_url('assets/plugins/datatables-buttons/js/dataTables.buttons.min.js')  
+                  ?>"></script> -->
+<!-- <script src="<?= '' //base_url('/assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js')  
+                  ?>"></script> -->
+<!-- <script src="<?= '' //base_url('/assets/plugins/jszip/jszip.min.js')  
+                  ?>"></script> -->
+<!-- <script src="<?= '' //base_url('/assets/plugins/datatables-buttons/js/buttons.html5.min.js')  
+                  ?>"></script> -->
 
 <script>
   $(document).ready(function() {
@@ -145,7 +227,22 @@
       // action form
       $('form').attr('action', '/penduduk/' + $(this).data('id') + '/delete');
 
-      $('.modal').modal('show');
+      $('#mode-delete-confirmation').modal('show');
+    });
+
+    // keterangan modal
+    $('.btn-keterangan').click(function() {
+      $('#keterangan-berkas').text($(this).data('info') ? $(this).data('info') : 'Tidak ada keterangan');
+      $('#modal-keterangan').modal('show');
+    });
+
+    // upload kk
+    $('.btn-upload-kk').click(function() {
+      $('#upload-nik').text($(this).data('nik'));
+      $('#upload-nama').text($(this).data('nama'));
+      $('#upload-id').val($(this).data('id'));
+
+      $('#modal-upload-kk').modal('show');
     });
   });
 </script>
