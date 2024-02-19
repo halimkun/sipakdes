@@ -12,7 +12,7 @@
       </div>
       <div class="card-body">
         <?php if (isset($fields) && $fields) : ?>
-          <form action="/penduduk/store" method="post">
+          <form action="/keluarga/store" method="post">
             <div class="row">
               <?php foreach ($fields as $key => $field) : ?>
                 <!-- make 2 columns from total fields -->
