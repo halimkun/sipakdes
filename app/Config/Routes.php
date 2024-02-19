@@ -43,6 +43,12 @@ $routes->group('/penduduk', ['namespace' => 'App\Controllers', 'filter' => 'role
 // Keluarga
 $routes->group('/keluarga', ['namespace' => 'App\Controllers', 'filter' => 'role:admin,warga'], function ($routes) {
     $routes->get('', "Keluarga::index");
+    $routes->get('new', "Keluarga::new");
+    $routes->get('(:num/edit)', "Keluarga::edit/$1");
+
+    $routes->post('store', "Keluarga::store");
+    $routes->post('(:num)/update', "Keluarga::update/$1");
+    $routes->post('(:num)/delete', "Keluarga::delete/$1");
 });
 
 
