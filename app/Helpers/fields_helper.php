@@ -11,7 +11,7 @@ if (!function_exists('getFields')) {
     }
 
     $html  = '<div class="form-group row">';
-    $html .= '  <label for="' . $data['name'] . '" class="col-sm-2 col-form-label' . ($data['type'] == 'hidden' ? ' sr-only' : '') . '">' . $data['label'];
+    $html .= '  <label for="' . $data['name'] . '" class="col-sm-3 col-form-label' . ($data['type'] == 'hidden' ? ' sr-only' : '') . '">' . $data['label'] . " : ";
 
     if (isset($data['required']) && $data['required'] == true) {
       $html .= ' <span class="text-danger">*</span>';
@@ -26,7 +26,7 @@ if (!function_exists('getFields')) {
 
 
 
-    $html .= '  <div class="col-sm-10">';
+    $html .= '  <div class="col-sm-9">';
     // $html .= '    <input class="form-control" ';
 
     $html .= setField($data, $value);

@@ -2,7 +2,7 @@
 
 <!-- ----- error -->
 <?php if (session()->get('error')) : ?>
-    <blockquote class="quote-danger fade show" role="alert">
+    <blockquote class="quote-danger fade show m-0 mb-3" role="alert">
         <strong class="mr-1">
             <i class="mr-1 fas fa-exclamation-triangle"></i> Error!
         </strong>
@@ -12,7 +12,7 @@
 
 <!-- ----- errors -->
 <?php if (session()->get('errors')) : ?>
-    <blockquote class="quote-danger fade show" role="alert">
+    <blockquote class="quote-danger fade show m-0 mb-3" role="alert">
         <strong class="mr-1">
             <i class="mr-1 fas fa-exclamation-triangle"></i> Error!
         </strong>
@@ -28,7 +28,7 @@
 
 <!-- ----- success -->
 <?php if (session()->get('success')) : ?>
-    <blockquote class="quote-success fade show" role="alert">
+    <blockquote class="quote-success fade show m-0 mb-3" role="alert">
         <strong class="mr-1">
             <i class="mr-1 fas fa-check"></i> Success!
         </strong>
