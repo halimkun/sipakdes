@@ -12,14 +12,14 @@ class Penduduk extends BaseController
     protected $userModel;
 
     // Options 
-    protected $optionJenisKelamin = [["value" => "Laki-laki", "name" => "Laki-laki"], ["value" => "Perempuan", "name" => "Perempuan"]];
-    protected $optionGolonganDarah = [["value" => "-", "name" => "-"], ["value" => "A", "name" => "A"], ["value" => "B", "name" => "B"], ["value" => "AB", "name" => "AB"], ["value" => "O", "name" => "O"]];
-    protected $optionAgama = [["value" => "Islam", "name" => "Islam"], ["value" => "Kristen", "name" => "Kristen"], ["value" => "Katolik", "name" => "Katolik"], ["value" => "Hindu", "name" => "Hindu"], ["value" => "Budha", "name" => "Budha"], ["value" => "Konghucu", "name" => "Konghucu"]];
-    protected $optionPendidikan = [["value" => "Tidak Sekolah", "name" => "Tidak Sekolah"], ["value" => "SD", "name" => "SD"], ["value" => "SMP", "name" => "SMP"], ["value" => "SMA", "name" => "SMA"], ["value" => "Diploma", "name" => "Diploma"], ["value" => "S1", "name" => "S1"], ["value" => "S2", "name" => "S2"], ["value" => "S3", "name" => "S3"]];
-    protected $optionJenisPekerjaan = [["value" => "Tidak Bekerja", "name" => "Tidak Bekerja"], ["value" => "Pelajar/Mahasiswa", "name" => "Pelajar/Mahasiswa"], ["value" => "PNS", "name" => "PNS"], ["value" => "TNI", "name" => "TNI"], ["value" => "POLRI", "name" => "POLRI"], ["value" => "Swasta", "name" => "Swasta"], ["value" => "Wiraswasta", "name" => "Wiraswasta"], ["value" => "Petani", "name" => "Petani"], ["value" => "Nelayan", "name" => "Nelayan"], ["value" => "Ibu Rumah Tangga", "name" => "Ibu Rumah Tangga"], ["value" => "Lainnya", "name" => "Lainnya"]];
-    protected $optionHubungan = [["value" => "Kepala Keluarga", "name" => "Kepala Keluarga"], ["value" => "Ayah", "name" => "Ayah"], ["value" => "Ibu", "name" => "Ibu"], ["value" => "Anak", "name" => "Anak"]];
-    protected $optionKewarganegaraan = [["value" => "WNI", "name" => "WNI"], ["value" => "WNA", "name" => "WNA"]];
-    protected $optionStatusPerkawinan = [["value" => "Belum Kawin", "name" => "Belum Kawin"], ["value" => "Kawin", "name" => "Kawin"], ["value" => "Cerai Hidup", "name" => "Cerai Hidup"], ["value" => "Cerai Mati", "name" => "Cerai Mati"]];
+    public $optionJenisKelamin = [["value" => "Laki-laki", "name" => "Laki-laki"], ["value" => "Perempuan", "name" => "Perempuan"]];
+    public $optionGolonganDarah = [["value" => "-", "name" => "-"], ["value" => "A", "name" => "A"], ["value" => "B", "name" => "B"], ["value" => "AB", "name" => "AB"], ["value" => "O", "name" => "O"]];
+    public $optionAgama = [["value" => "Islam", "name" => "Islam"], ["value" => "Kristen", "name" => "Kristen"], ["value" => "Katolik", "name" => "Katolik"], ["value" => "Hindu", "name" => "Hindu"], ["value" => "Budha", "name" => "Budha"], ["value" => "Konghucu", "name" => "Konghucu"]];
+    public $optionPendidikan = [["value" => "Tidak Sekolah", "name" => "Tidak Sekolah"], ["value" => "SD", "name" => "SD"], ["value" => "SMP", "name" => "SMP"], ["value" => "SMA", "name" => "SMA"], ["value" => "Diploma", "name" => "Diploma"], ["value" => "S1", "name" => "S1"], ["value" => "S2", "name" => "S2"], ["value" => "S3", "name" => "S3"]];
+    public $optionJenisPekerjaan = [["value" => "Tidak Bekerja", "name" => "Tidak Bekerja"], ["value" => "Pelajar/Mahasiswa", "name" => "Pelajar/Mahasiswa"], ["value" => "PNS", "name" => "PNS"], ["value" => "TNI", "name" => "TNI"], ["value" => "POLRI", "name" => "POLRI"], ["value" => "Swasta", "name" => "Swasta"], ["value" => "Wiraswasta", "name" => "Wiraswasta"], ["value" => "Petani", "name" => "Petani"], ["value" => "Nelayan", "name" => "Nelayan"], ["value" => "Ibu Rumah Tangga", "name" => "Ibu Rumah Tangga"], ["value" => "Lainnya", "name" => "Lainnya"]];
+    public $optionHubungan = [["value" => "Kepala Keluarga", "name" => "Kepala Keluarga"], ["value" => "Ayah", "name" => "Ayah"], ["value" => "Ibu", "name" => "Ibu"], ["value" => "Anak", "name" => "Anak"]];
+    public $optionKewarganegaraan = [["value" => "WNI", "name" => "WNI"], ["value" => "WNA", "name" => "WNA"]];
+    public $optionStatusPerkawinan = [["value" => "Belum Kawin", "name" => "Belum Kawin"], ["value" => "Kawin", "name" => "Kawin"], ["value" => "Cerai Hidup", "name" => "Cerai Hidup"], ["value" => "Cerai Mati", "name" => "Cerai Mati"]];
 
     public function __construct()
     {
