@@ -2,7 +2,7 @@
 <?= $this->section('content'); ?>
 
 <div class="row">
-  <div class="col-lg-8 order-2 order-lg-1">
+  <div class="col-lg-9 order-2 order-lg-1">
     <div class="card card-outline card-info">
       <div class="card-header border-0">
         <div class="d-flex justify-content-between align-items-center">
@@ -16,13 +16,11 @@
           <thead>
             <tr>
               <th>No.</th>
-              <th>KK & NIK</th>
               <th>Nama</th>
               <th>Tgl Lahir</th>
-              <th>J. Kelamin</th>
+              <th>JK</th>
               <th>Pendidikan</th>
-              <th>J. Pekerjaan</th>
-              <th>verified</th>
+              <th>Hubungan</th>
               <th class="text-right">#</th>
             </tr>
           </thead>
@@ -31,14 +29,10 @@
               <tr>
                 <td><?= $key + 1; ?></td>
                 <td>
-                  <div class="d-flex flex-column align-items-start" style="gap: 0.5rem;">
-                    <div class="badge badge-secondary" data-toggle="tooltip" data-placement="left" title="nomor KK"><?= $kel->kk; ?></div>
-                    <div class="badge badge-success" data-toggle="tooltip" data-placement="left" title="nomor NIK"><?= $kel->nik; ?></div>
-                  </div>
-                </td>
-                <td>
-                  <p class="p-0 m-0"><?= $kel->nama; ?></p>
-                  <div class="badge <?= 'badge-' . getColorHubungan($kel->hubungan) ?>"><?= $kel->hubungan == 'Ayah' ? 'Kepala Keluarga' : $kel->hubungan; ?></div>
+                <p class="p-0 m-0">
+                  <?= $kel->is_verified ? '<i class="fa fa-check-circle text-success mr-1"></i>' : '<i class="fa fa-times-circle text-danger mr-1"></i>'; ?> 
+                  <?= $kel->nama; ?>
+                </p>
                 </td>
                 <td>
                   <p class="p-0 m-0"><?= \Carbon\Carbon::parse($kel->tanggal_lahir)->isoFormat('dddd, D MMMM Y'); ?></p>
@@ -46,16 +40,15 @@
                     <?= \Carbon\Carbon::parse($kel->tanggal_lahir)->diff(\Carbon\Carbon::now())->format('%y tahun %m bulan %d hari'); ?>
                   </small>
                 </td>
-                <td><?= $kel->jenis_kelamin; ?></td>
+                <td><?= $kel->jenis_kelamin == "Perempuan" ? "P" : "L"; ?></td>
                 <td><?= $kel->pendidikan; ?></td>
-                <td><?= $kel->jenis_pekerjaan; ?></td>
-                <td><?= $kel->is_verified ? '<span class="badge badge-success">Verified</span>' : '<span class="badge badge-warning">Unverified</span>'; ?></td>
+                <td><div class="badge <?= 'badge-' . getColorHubungan($kel->hubungan) ?>"><?= $kel->hubungan == 'Ayah' ? 'Kepala Keluarga' : $kel->hubungan; ?></div></td>
                 <td class="text-right">
                   <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
                     <a class="btn btn-info btn-edit" href="/keluarga/<?= $kel->id ?>/edit"><i class="fa fa-pen"></i></a>
-                    <a class="btn btn-danger btn-delete" href="#" data-id="<?= $kel->id; ?>" data-nik="<?= $kel->nik; ?>" data-nama="<?= $kel->nama; ?>">
+                    <button class="btn btn-danger btn-delete" <?= user()->id == $kel->id ? 'disabled' : '' ?> data-id="<?= $kel->id; ?>" data-nik="<?= $kel->nik; ?>" data-nama="<?= $kel->nama; ?>">
                       <i class="fa fa-trash"></i>
-                    </a>
+                    </button>
                   </div>
                 </td>
               <?php endforeach ?>
@@ -64,7 +57,7 @@
       </div>
     </div>
   </div>
-  <div class="col-lg-4 order-1 order-lg-2">
+  <div class="col-lg-3 order-1 order-lg-2">
     <div class="card card-outline card-success position-sticky" style="top: 1rem;">
       <div class="card-header border-0">
         <h3 class="card-title">
