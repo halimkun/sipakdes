@@ -36,6 +36,8 @@ class Keluarga extends BaseController
             ->whereIn('hubungan', ['Ayah', 'Kepala Keluarga'])
             ->first();
 
+        $berkasKk = $this->berkasKkModel->where('kk', $user->pendudukData()->kk)->first();
+
         return view('keluarga/index', [
             'title' => 'Data Keluarga',
             'breadcrumbs' => [
@@ -44,6 +46,7 @@ class Keluarga extends BaseController
             ],
 
             'user' => $user,
+            'berkasKk' => $berkasKk,
             'keluarga' => $keluarga,
             'kepalakeluarga' => $kepalakeluarga,
         ]);
@@ -99,7 +102,7 @@ class Keluarga extends BaseController
 
         $fields = [
             // ['name' => 'id', 'label' => 'ID', 'type' => 'hidden', 'required' => true], // hidden field 'id
-            ['name' => 'kk', 'label' => 'KK', 'type' => 'number', 'min' => 0, 'maxlength' => 16, 'required' => true],
+            ['name' => 'kk', 'label' => 'KK', 'type' => 'number', 'min' => 0, 'maxlength' => 16, 'required' => true, 'readonly' => true, 'disabled' => true], 
             ['name' => 'nik', 'label' => 'NIK', 'type' => 'number', 'min' => 0, 'maxlength' => 16, 'required' => true, 'readonly' => true, 'disabled' => true],
             ['name' => 'nama', 'label' => 'Nama', 'type' => 'text', 'required' => true],
             ['name' => 'tempat_lahir', 'label' => 'Tempat Lahir', 'type' => 'text', 'required' => true],
@@ -138,7 +141,7 @@ class Keluarga extends BaseController
     {
         $user = new \App\Entities\User(user()->toArray());
         $rules = [
-            'kk'                => 'required|numeric|exact_length[16]',
+            // 'kk'                => 'required|numeric|exact_length[16]',
             'nik'               => 'required|numeric|exact_length[16]|is_unique[penduduk.nik]',
             'nama'              => 'required|alpha_space|min_length[5]',
             'tempat_lahir'      => 'required|alpha_space|min_length[5]',
@@ -165,8 +168,14 @@ class Keluarga extends BaseController
 
         $data = $this->request->getPost();
         
+        // replace kk with authenticated user kk to avoid manipulation data 
         unset($data['kk']);
         $data['kk'] = $user->pendudukData()->kk;
+
+        // check username (nik) already exist
+        if ($this->userModel->where('username', $this->request->getPost('nik'))->countAllResults() > 0) {
+            return redirect()->to('/keluarga')->with('error', 'Data penduduk sudah ada.');
+        }
 
         if ($this->pendudukModel->save($this->request->getPost())) {
             $tgl_lahir = $this->request->getPost('tanggal_lahir');
@@ -194,6 +203,7 @@ class Keluarga extends BaseController
 
     public function update($id)
     {
+        $user = new \App\Entities\User(user()->toArray());
         $rules = [
             'kk'                => 'required|numeric|exact_length[16]',
             'nama'              => 'required|alpha_space|min_length[5]',
@@ -228,6 +238,10 @@ class Keluarga extends BaseController
         $penduduk = $this->pendudukModel->find($id);
 
         if ($penduduk) {
+            if ($penduduk->kk != $user->pendudukData()->kk) {
+                return redirect()->to('/keluarga')->with('error', 'Data yang anda ubah tidak termasuk dalam keluarga anda.');
+            }
+
             $penduduk->fill($this->request->getPost());
 
             if ($this->pendudukModel->save($penduduk)) {
@@ -308,7 +322,7 @@ class Keluarga extends BaseController
             }
 
         } else {
-            return redirect()->to('/penduduk')->with('error', 'Data penduduk tidak ditemukan.');
+            return redirect()->to('/keluarga')->with('error', 'Data penduduk tidak ditemukan.');
         }
     }
 }
