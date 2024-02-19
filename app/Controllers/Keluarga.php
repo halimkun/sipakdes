@@ -240,6 +240,48 @@ class Keluarga extends BaseController
         }
     }
 
+    public function uploadKk()
+    {
+        $rules = [
+            'kk'     => 'required|numeric|exact_length[16]',
+            'berkas' => 'uploaded[berkas]|max_size[berkas,10240]|ext_in[berkas,jpg,jpeg,png]|mime_in[berkas,image/jpg,image/jpeg,image/png]',
+        ];
+
+        if (!$this->validate($rules)) {
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        }
+
+        // move with random name
+        $file_name = $this->request->getFile('berkas')->getRandomName();
+
+        // find old data by kk
+        $old_data = $this->berkasKkModel->where('kk', $this->request->getPost('kk'))->first();
+
+        $data = [
+            'kk'         => $this->request->getPost('kk'),
+            'berkas'     => $file_name,
+            'keterangan' => $this->request->getPost('keterangan'),
+        ];
+
+        if ($old_data) {
+            $data['id'] = $old_data->id;
+        }
+
+        if ($this->berkasKkModel->save($data)) {
+            // delete old data if exist
+            if ($old_data && file_exists('uploads/bkk/' . $old_data->berkas)) {
+                unlink('uploads/bkk/' . $old_data->berkas);
+            }
+
+            // move file to uploads/bkk
+            $this->request->getFile('berkas')->move('uploads/bkk', $file_name);
+            
+            return redirect()->to('/keluarga')->with('success', 'Berkas KK berhasil diunggah.');
+        } else {
+            return redirect()->to('/keluarga')->with('errors', $this->berkasKkModel->errors());
+        }
+    }
+
     public function delete($id)
     {
         // penduduk

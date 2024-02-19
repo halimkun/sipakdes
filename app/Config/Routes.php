@@ -47,6 +47,7 @@ $routes->group('/keluarga', ['namespace' => 'App\Controllers', 'filter' => 'role
     $routes->get('(:num/edit)', "Keluarga::edit/$1");
 
     $routes->post('store', "Keluarga::store");
+    $routes->post('upload-kk', "Keluarga::uploadKk");
     $routes->post('(:num)/update', "Keluarga::update/$1");
     $routes->post('(:num)/delete', "Keluarga::delete/$1");
 });

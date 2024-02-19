@@ -29,10 +29,10 @@
               <tr>
                 <td><?= $key + 1; ?></td>
                 <td>
-                <p class="p-0 m-0">
-                  <?= $kel->is_verified ? '<i class="fa fa-check-circle text-success mr-1"></i>' : '<i class="fa fa-times-circle text-danger mr-1"></i>'; ?> 
-                  <?= $kel->nama; ?>
-                </p>
+                  <p class="p-0 m-0">
+                    <?= $kel->is_verified ? '<i class="fa fa-check-circle text-success mr-1"></i>' : '<i class="fa fa-times-circle text-danger mr-1"></i>'; ?>
+                    <?= $kel->nama; ?>
+                  </p>
                 </td>
                 <td>
                   <p class="p-0 m-0"><?= \Carbon\Carbon::parse($kel->tanggal_lahir)->isoFormat('dddd, D MMMM Y'); ?></p>
@@ -42,7 +42,9 @@
                 </td>
                 <td><?= $kel->jenis_kelamin == "Perempuan" ? "P" : "L"; ?></td>
                 <td><?= $kel->pendidikan; ?></td>
-                <td><div class="badge <?= 'badge-' . getColorHubungan($kel->hubungan) ?>"><?= $kel->hubungan == 'Ayah' ? 'Kepala Keluarga' : $kel->hubungan; ?></div></td>
+                <td>
+                  <div class="badge <?= 'badge-' . getColorHubungan($kel->hubungan) ?>"><?= $kel->hubungan == 'Ayah' ? 'Kepala Keluarga' : $kel->hubungan; ?></div>
+                </td>
                 <td class="text-right">
                   <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
                     <a class="btn btn-info btn-edit" href="/keluarga/<?= $kel->id ?>/edit"><i class="fa fa-pen"></i></a>
@@ -67,7 +69,7 @@
       <div class="card-body p-0">
         <div class="row">
           <div class="col-md-12 table-hover">
-            <table class="table table-borderless">
+            <table class="table table-sm table-borderless">
               <tr>
                 <th>Kepala Keluarga</th>
                 <td>:</td>
@@ -82,10 +84,17 @@
           </div>
           <div class="col-md-12">
             <div class="px-3 pb-3 h-100">
-              <div class="d-flex justify-content-center align-items-center flex-column h-100">
-                <a href="#" class="btn btn-primary btn-block btn-upload-kk">
-                  <i class="fas fa-upload mr-1"></i> Upload KK
-                </a>
+              <div class="d-flex justify-content-center align-items-center flex-column h-100" style="gap: 0.5rem;">
+                <div class="d-flex justify-content-center align-items-center w-100" style="gap: 0.5rem;">
+                  <?php if ($berkasKk) : ?>
+                    <a href="/uploads/bkk/<?= $berkasKk->berkas ?>" class="btn btn-info w-100" target="_blank">
+                      <i class="fas fa-search mr-1"></i> Lihat KK
+                    </a>
+                  <?php endif ?>
+                  <button class="btn btn-primary btn-upload-kk w-100">
+                    <i class="fas fa-upload mr-1"></i> <?= $berkasKk ? 'Ganti Kk' : 'Upload KK' ?>
+                  </button>
+                </div>
                 <a href="/keluarga/new" class="btn btn-success btn-block">
                   <i class="fas fa-plus mr-1"></i> Tambah Anggota Keluarga
                 </a>
@@ -151,30 +160,22 @@
         </button>
       </div>
       <div class="modal-body">
-        Anda akan mengupload berkas KK untuk penduduk dengan detail sebagai berikut:
-        <table class="table table-sm table-borderless table-hover">
-          <tr>
-            <td>NIK</td>
-            <td>:</td>
-            <td id="upload-nik"></td>
-          </tr>
-          <tr>
-            <td>Nama</td>
-            <td>:</td>
-            <td id="upload-nama"></td>
-          </tr>
-        </table>
+        Upload Kartu Keluarga untuk keluarga anda, pastikan file yang diupload adalah file yang valid.
 
         <form action="/keluarga/upload-kk" method="post" enctype="multipart/form-data">
-          <input type="hidden" name="id" id="upload-id">
-          <input type="hidden" name="kk" id="upload-kk">
-          <div class="form-group mb-3">
-            <label for="berkas-kk">Berkas KK</label>
-            <div class="custom-file">
-              <input type="file" class="custom-file-input" id="berkas" name="berkas" aria-describedby="berkas kk">
-              <label class="custom-file-label" for="berkas">Choose file</label>
+          <input type="hidden" name="kk" id="upload-kk" class="form-control" value="<?= $user->pendudukData()->kk ?>" />
+          
+          <div class="mb-3 mt-3">
+            <div class="form-group mb-0">
+              <label for="berkas-kk">Berkas KK</label>
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" id="berkas" name="berkas" aria-describedby="berkas kk">
+                <label class="custom-file-label" for="berkas">Choose file</label>
+              </div>
             </div>
+            <small>Berkas ini akan digunakan untuk keperluan administrasi dan verifikasi data keluarga anda.</small>
           </div>
+            
 
           <div class="d-flex justify-content-end" style="gap: 0.5rem;">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -188,8 +189,7 @@
 
 <?= $this->section('styles'); ?>
 <link rel="stylesheet" href="<?= base_url('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') ?>">
-<link rel="stylesheet" href="<?= '' // base_url('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') 
-                              ?>">
+<link rel="stylesheet" href="<?= '' // base_url('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') ?>">
 <?= $this->endSection(); ?>
 
 
@@ -197,14 +197,10 @@
 <script src="<?= base_url('assets/plugins/datatables/jquery.dataTables.min.js') ?>"></script>
 <script src="<?= base_url('assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') ?>"></script>
 
-<!-- <script src="<?= '' //base_url('assets/plugins/datatables-buttons/js/dataTables.buttons.min.js') 
-                  ?>"></script> -->
-<!-- <script src="<?= '' //base_url('/assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') 
-                  ?>"></script> -->
-<!-- <script src="<?= '' //base_url('/assets/plugins/jszip/jszip.min.js') 
-                  ?>"></script> -->
-<!-- <script src="<?= '' //base_url('/assets/plugins/datatables-buttons/js/buttons.html5.min.js') 
-                  ?>"></script> -->
+<!-- <script src="<?= '' //base_url('assets/plugins/datatables-buttons/js/dataTables.buttons.min.js') ?>"></script> -->
+<!-- <script src="<?= '' //base_url('/assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') ?>"></script> -->
+<!-- <script src="<?= '' //base_url('/assets/plugins/jszip/jszip.min.js') ?>"></script> -->
+<!-- <script src="<?= '' //base_url('/assets/plugins/datatables-buttons/js/buttons.html5.min.js') ?>"></script> -->
 
 <script>
   $(document).ready(function() {
@@ -224,6 +220,11 @@
 
       // show modal
       $('#mode-delete-confirmation').modal('show');
+    });
+
+    // upload kk
+    $('.btn-upload-kk').click(function() {
+      $('#modal-upload-kk').modal('show');
     });
   });
 </script>
