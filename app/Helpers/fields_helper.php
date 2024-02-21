@@ -1,6 +1,17 @@
 <?php
 if (!function_exists('getFields')) {
-  function getFields($data, $value = null)
+  /**
+   * getFields
+   * Membuat input form dengan basis style bootstrap 4
+   * 
+   * @param array $data - adalah array dari field yang akan dibuat, berisi name, type, label, options, dll.
+   * @param mixed $value - adalah nilai atau value dari field yang akan dibuat, value ini akan diterakan pada field yang dibuat sesuai dengan name yang diinputkan.
+   * @param boolean $multiLine - adalah boolean yang menentukan apakah field yang dibuat akan dijadikan satu baris dengan label atau tidak.
+   * 
+   * @return string
+   * 
+   * */ 
+  function getFields($data, $value = null, $multiLine = false)
   {
     if (!isset($data['name']) || !isset($data['type']) || !isset($data['label'])) {
       return 'The name, type, and label fields are required';
@@ -11,25 +22,23 @@ if (!function_exists('getFields')) {
     }
 
     $html  = '<div class="form-group row">';
-    $html .= '  <label for="' . $data['name'] . '" class="col-sm-3 col-form-label' . ($data['type'] == 'hidden' ? ' sr-only' : '') . '">' . $data['label'] . " : ";
+    $html .= '  <label for="' . $data['name'] . '" class="' . ($multiLine ? 'col-sm-12' : 'col-sm-3') . ' col-form-label' . ($data['type'] == 'hidden' ? ' sr-only' : '') . '">' . $data['label'] . " : ";
 
     if (isset($data['required']) && $data['required'] == true) {
       $html .= ' <span class="text-danger">*</span>';
     }
 
-    // readonly add small text below label
-    if (isset($data['readonly']) && $data['readonly'] == true) {
-      $html .= '  <br /><small class="text-muted"> (tidak bisa diubah)</small>';
-    }
-
     $html .= '  </label>';
 
-
-
-    $html .= '  <div class="col-sm-9">';
+    $html .= '  <div class="'.($multiLine ? 'col-sm-12' : 'col-sm-9').'">';
     // $html .= '    <input class="form-control" ';
 
     $html .= setField($data, $value);
+    
+    // readonly add small text below label
+    if (isset($data['readonly']) && $data['readonly'] == true) {
+      $html .= '<small class="text-muted"> (tidak bisa diubah)</small>';
+    }
 
     // $html .= '    >';
     $html .= '  </div>';
