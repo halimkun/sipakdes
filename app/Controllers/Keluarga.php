@@ -205,7 +205,6 @@ class Keluarga extends BaseController
     {
         $user = new \App\Entities\User(user()->toArray());
         $rules = [
-            'kk'                => 'required|numeric|exact_length[16]',
             'nama'              => 'required|alpha_space|min_length[5]',
             'tempat_lahir'      => 'required|alpha_space|min_length[5]',
             'tanggal_lahir'     => 'required|valid_date',
@@ -228,6 +227,11 @@ class Keluarga extends BaseController
         // if in post contain nik
         if ($this->request->getPost('nik')) {
             $rules['nik'] = 'required|numeric|exact_length[16]|is_unique[penduduk.nik,id,' . $id . ']';
+        }
+        
+        // if in post contain kk
+        if ($this->request->getPost('kk')) {
+            $rules['kk'] = 'required|numeric|exact_length[16]';
         }
 
         if (!$this->validate($rules)) {
