@@ -52,7 +52,12 @@ $routes->group('/keluarga', ['namespace' => 'App\Controllers', 'filter' => 'role
     $routes->post('(:num)/delete', "Keluarga::delete/$1");
 });
 
+// Profile
+$routes->group('/profile', ['namespace' => 'App\Controllers', 'filter' => 'role:admin,warga'], function ($routes) {
+    $routes->get('', "Profile::index");
 
+    $routes->post('user-update', "Profile::userUpdate");
+});
 
 
 
