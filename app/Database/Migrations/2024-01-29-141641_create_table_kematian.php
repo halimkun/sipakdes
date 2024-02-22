@@ -11,15 +11,14 @@ class Kematian extends Migration
         $this->forge->addField([
             'id'                     => [ 'type' => 'INT', 'constraint' => 11, 'auto_increment' => true],
             'id_penduduk'            => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true, 'null' => true],
-            'tanggal'                => [ 'type' => 'DATE', 'null' => true],
+            'tanggal'                => [ 'type' => 'DATETIME'],
             'tempat'                 => [ 'type' => 'VARCHAR', 'constraint' => 255, 'null' => true],
             'sebab'                  => [ 'type' => 'VARCHAR', 'constraint' => 255, 'null' => true],
-            'berkas_surat_pengantar' => [ 'type' => 'VARCHAR', 'constraint' => 255, 'null' => true],
+            
             'nik_pelapor'            => [ 'type' => 'VARCHAR', 'constraint' => 16, 'null' => true],
-            'nama_pelapor'           => [ 'type' => 'VARCHAR', 'constraint' => 255, 'null' => true],
-            'hubungan_pelapor'       => [ 'type' => 'VARCHAR', 'constraint' => 255, 'null' => true],
-            'alamat_pelapor'         => [ 'type' => 'VARCHAR', 'constraint' => 255, 'null' => true],
+            
             'status'                 => [ 'type' => 'ENUM', 'constraint' => [' ', 'invalid', 'pending'], 'default' => 'pending'],
+            
             'created_at'             => [ 'type' => 'DATETIME', 'null' => true, 'default' => null],
             'updated_at'             => [ 'type' => 'DATETIME', 'null' => true, 'default' => null],
             'deleted_at'             => [ 'type' => 'DATETIME', 'null' => true, 'default' => null],
