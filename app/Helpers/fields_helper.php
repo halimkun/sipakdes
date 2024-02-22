@@ -181,6 +181,10 @@ if (!function_exists('setFieldMinMaxStep')) {
 if (!function_exists('setFieldPlaceholder')) {
   function setFieldPlaceholder($data)
   {
+    if (isset($data['placeholder']) && $data['placeholder'] != '') {
+      return "placeholder='{$data['placeholder']}' ";
+    } 
+
     if (isset($data['name']) && isset($data['label'])) {
       if ($data['type'] == 'select') {
         return "placeholder='pilih " . strtolower($data['label']) . "' ";
