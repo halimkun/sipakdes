@@ -2,7 +2,7 @@
   <!-- Brand Logo -->
   <a href="/dashboard" class="brand-link">
     <img src="<?= base_url('assets/dist/img/AdminLTELogo.png') ?>" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-    <span class="brand-text font-weight-light">AdminLTE 3</span>
+    <span class="brand-text font-weight-light"><?= service('settings')->get('App.siteName'); ?></span>
   </a>
 
   <!-- Sidebar -->
@@ -44,7 +44,7 @@
         </li>
 
         <li class="nav-header">Data</li>
-        <?php if (logged_in() && array_intersect(user()->getRoles(), ['admin', 'warga'])) : ?>
+        <?php if (in_groups(['warga', 'admin'])) : ?>
           <li class="nav-item">
             <a href="/keluarga" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
@@ -53,7 +53,7 @@
           </li>
         <?php endif ?>
 
-        <?php if (logged_in() && array_intersect(user()->getRoles(), ['admin'])) : ?>
+        <?php if (in_groups(['admin', 'operator_kelurahan'])) : ?>
           <li class="nav-item">
             <a href="/penduduk" class="nav-link">
               <i class="nav-icon fas fa-user-friends"></i>
@@ -62,7 +62,7 @@
           </li>
         <?php endif ?>
 
-        <?php if (logged_in() && array_intersect(user()->getRoles(), ['admin'])) : ?>
+        <?php if (in_groups(['admin', 'operator_kelurahan'])) : ?>
           <li class="nav-item">
             <a href="/pengguna" class="nav-link">
               <i class="nav-icon fas fa-user"></i>
@@ -70,6 +70,17 @@
             </a>
           </li>
         <?php endif ?>
+
+        <?php if (in_groups(['admin'])) : ?>
+          <li class="nav-header">Settings</li>
+          <li class="nav-item">
+            <a href="/settings" class="nav-link">
+              <i class="nav-icon fas fa-cogs"></i>
+              <p>Settings</p>
+            </a>
+          </li>
+        <?php endif ?>
+
       </ul>
     </nav>
     <!-- /.sidebar-menu -->
