@@ -59,6 +59,16 @@ $routes->group('/profile', ['namespace' => 'App\Controllers', 'filter' => 'role:
     $routes->post('user-update', "Profile::userUpdate");
 });
 
+// settings
+$routes->group('/settings', ['namespace' => 'App\Controllers', 'filter' => 'role:admin'], function ($routes) {
+    $routes->get('', "Settings::index");
+    $routes->post('update', "Settings::update");
+    $routes->post('update-desa', "Settings::updateDesa");
+});
+
+
+
+
 
 
 
