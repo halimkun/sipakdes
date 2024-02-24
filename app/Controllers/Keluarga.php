@@ -206,7 +206,7 @@ class Keluarga extends BaseController
         $user = new \App\Entities\User(user()->toArray());
         $rules = [
             'nama'              => 'required|alpha_space|min_length[5]',
-            'tempat_lahir'      => 'required|alpha_space|min_length[5]',
+            'tempat_lahir'      => 'required|alpha_space',
             'tanggal_lahir'     => 'required|valid_date',
             'jenis_kelamin'     => 'required|in_list[Laki-laki,Perempuan]',
             'golongan_darah'    => 'required|in_list[-,A,B,AB,O]',

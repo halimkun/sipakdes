@@ -201,7 +201,7 @@ class User extends \Myth\Auth\Entities\User
      */
     public function unBan()
     {
-        $this->attributes['status'] = $this->status_message = '';
+        $this->attributes['status'] = $this->status_message = NULL;
 
         return $this;
     }
@@ -293,5 +293,11 @@ class User extends \Myth\Auth\Entities\User
     {
         $penduduk = model(\App\Models\PendudukModel::class)->where('id', $this->id_penduduk)->first();
         return $penduduk;
-    } 
+    }
+
+    // getName 
+    public function getName()
+    {
+        return $this->pendudukData()->nama;
+    }
 }
