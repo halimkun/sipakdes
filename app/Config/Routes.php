@@ -18,6 +18,8 @@ $routes->group('/surat', ['namespace' => 'App\Controllers', 'filter' => 'role:ad
     $routes->group('kematian', function ($routes) {
         $routes->get('', "Kematian::index");
         $routes->get('new', "Kematian::new");
+        $routes->get('(:num)/batal', "Kematian::batal/$1");
+        $routes->get('(:num)/print', "Kematian::print/$1");
 
         $routes->post('store', "Kematian::store");
     });

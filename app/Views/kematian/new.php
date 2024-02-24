@@ -103,9 +103,46 @@
 </div>
 <?= $this->endSection(); ?>
 
+
+<?= $this->section('styles') ;?>
+<link rel="stylesheet" href="<?= base_url('/assets/plugins/daterangepicker/daterangepicker.css') ?>">
+<style>
+  .daterangepicker .drp-calendar.left .calendar-table{
+    margin-right: 8px;
+    padding-right: 0px;
+  }
+</style>
+<?= $this->endSection() ;?>
+
+
 <?= $this->section('scripts'); ?>
+<script src="<?= base_url('/assets/plugins/moment/moment-with-locales.min.js') ?>"></script>
+<script src="<?= base_url('/assets/plugins/moment/locale/id.js') ?>"></script>
+<script src="<?= base_url('/assets/plugins/daterangepicker/daterangepicker.js') ?>"></script>
 <script>
   $(document).ready(function() {
+    // datepicker for tanggal
+    $('input[name="tanggal"]').daterangepicker({
+      singleDatePicker: true,
+      timePicker24Hour: true,
+      showDropdowns: true,
+      timePicker: true,
+      autoApply: true,
+      locale: {
+        format: 'YYYY-MM-DD HH:mm',
+        daysOfWeek: ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'],
+        monthNames: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'],
+      }
+    });
+
+    // input[name="tanggal"] set value now using moment.js
+    $('input[name="tanggal"]').val(moment().format('YYYY-MM-DD HH:mm'));
+
+    // if tr click then radio checked
+    $('#table-penduduk tbody tr').click(function() {
+      $(this).find('input[type="radio"]').prop('checked', true);
+    });
+
     $('input[name="nik_pelapor"]').attr('pattern', '[0-9]{16}');
     $('input[name="nik_pelapor"]').on('invalid', function(e) {
       e.target.setCustomValidity('');

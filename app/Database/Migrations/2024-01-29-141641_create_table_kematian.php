@@ -14,11 +14,9 @@ class Kematian extends Migration
             'tanggal'                => [ 'type' => 'DATETIME'],
             'tempat'                 => [ 'type' => 'VARCHAR', 'constraint' => 255, 'null' => true],
             'sebab'                  => [ 'type' => 'VARCHAR', 'constraint' => 255, 'null' => true],
-            
             'nik_pelapor'            => [ 'type' => 'VARCHAR', 'constraint' => 16, 'null' => true],
-            
-            'status'                 => [ 'type' => 'ENUM', 'constraint' => [' ', 'invalid', 'pending'], 'default' => 'pending'],
-            
+            'status'                 => [ 'type' => 'ENUM', 'constraint' => ['pending', 'approved', 'rejected', 'batal'], 'default' => 'pending'],
+            'keterangan'             => [ 'type' => 'TEXT', 'null' => true],
             'created_at'             => [ 'type' => 'DATETIME', 'null' => true, 'default' => null],
             'updated_at'             => [ 'type' => 'DATETIME', 'null' => true, 'default' => null],
             'deleted_at'             => [ 'type' => 'DATETIME', 'null' => true, 'default' => null],

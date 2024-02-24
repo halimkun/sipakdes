@@ -110,6 +110,72 @@ class Kematian extends BaseController
         
         return redirect()->to('/surat/kematian')->with('success', 'Surat kematian berhasil dibuat');
     }
+    public function batal($id)
+    {
+        $kematian = $this->kematianModel->find($id);
+        if ($kematian) {
+            $data = ['status' => 'batal'];
+            $kematian->fill($data);
+
+            if ($kematian->hasChanged()) {
+                $user = $this->userModel->where('id_penduduk', $kematian->id_penduduk)->first();
+                if ($user) {
+                    $user->activate();
+                    $user->unban();
+                    $this->userModel->save($user);
+                }
+
+                if ($this->kematianModel->save($kematian)) {
+                    return redirect()->back()->with('success', 'Surat kematian berhasil dibatalkan');
+                }
+            }
+
+            return redirect()->back()->with('errors', $this->kematianModel->errors());
+        }
+
+        return redirect()->back()->with('error', 'Surat kematian tidak ditemukan');
+    }
+
+    // updateStatus
+    public function updateStatus($id)
+    {
+        $kematian = $this->kematianModel->find($id);
+        if ($kematian) {
+            $data = [
+                'status' => $this->request->getPost('status'),
+                'keterangan' => $this->request->getPost('keterangan') ?? '',
+            ];
+            $kematian->fill($data);
+
+            if ($kematian->hasChanged()) {
+                // if status is approved, then deactivate the user
+                $user = $this->userModel->where('id_penduduk', $kematian->id_penduduk)->first();
+                if ($kematian->status == 'approved') {
+                    if ($user) {
+                        $user->deactivate();
+                        $user->ban("Penduduk dengan user ini telah meninggal, akun tidak dapat digunakan.");
+                        $this->userModel->save($user);
+                    }
+                } else {
+                    if ($user) {
+                        $user->activate();
+                        $user->unban();
+                        $this->userModel->save($user);
+                    }
+                }
+
+                if ($this->kematianModel->save($kematian)) {
+                    return redirect()->back()->with('success', 'Status surat kematian berhasil diubah');
+                }
+
+                return redirect()->back()->with('errors', $this->kematianModel->errors());
+            }
+
+            return redirect()->back()->with('errors', $this->kematianModel->errors());
+        }
+
+        return redirect()->back()->with('errors', 'Surat kematian tidak ditemukan');
+    }
 
     // check with same kk
     protected function checkNikPelapor($id_penduduk, $nik_pelapor)
