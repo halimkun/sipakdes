@@ -28,6 +28,8 @@ class Filters extends BaseConfig
         'login'         => \Myth\Auth\Filters\LoginFilter::class,
         'role'          => \Myth\Auth\Filters\RoleFilter::class,
         'permission'    => \Myth\Auth\Filters\PermissionFilter::class,
+
+        'penduduk'      => \App\Filters\PendudukFilter::class,
     ];
 
     /**
@@ -40,7 +42,7 @@ class Filters extends BaseConfig
         'before' => [
             // 'honeypot',
             // 'csrf',
-            'invalidchars',
+            'invalidchars'
         ],
         'after' => [
             'toolbar',
@@ -73,8 +75,11 @@ class Filters extends BaseConfig
         'login' => [
             'before' => [
                 'dashboard',
-                'pengguna',
+                'surat',
+                'keluarga',
                 'penduduk',
+                'pengguna',
+                'setting',
             ]
         ],
     ];

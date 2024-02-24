@@ -10,11 +10,15 @@ use Config\Auth as AuthConfig;
 //  Default
 $routes->get('/', 'Home::index');
 
+// faker data
+$routes->get('/faker', 'Home::faker');
+
+
 // Dashboard
 $routes->get('/dashboard', "Dashboard::index");
 
 // Surat
-$routes->group('/surat', ['namespace' => 'App\Controllers', 'filter' => 'role:admin,warga'], function ($routes) {
+$routes->group('/surat', ['namespace' => 'App\Controllers', 'filter' => ['penduduk', 'role:admin,warga']], function ($routes) {
     $routes->group('kematian', function ($routes) {
         $routes->get('', "Kematian::index");
         $routes->get('new', "Kematian::new");
@@ -22,11 +26,12 @@ $routes->group('/surat', ['namespace' => 'App\Controllers', 'filter' => 'role:ad
         $routes->get('(:num)/print', "Kematian::print/$1");
 
         $routes->post('store', "Kematian::store");
+        $routes->post('(:num)/update-status', "Kematian::updateStatus/$1");
     });
 });
 
 // Pengguna
-$routes->group('/pengguna', ['namespace' => 'App\Controllers', 'filter' => 'role:admin'], function ($routes) {
+$routes->group('/pengguna', ['namespace' => 'App\Controllers', 'filter' => ['penduduk', 'role:admin']], function ($routes) {
     $routes->get('', "Pengguna::index");
     $routes->get('new', "Pengguna::new");
     $routes->get('(:num)/edit', "Pengguna::edit/$1");
@@ -35,12 +40,12 @@ $routes->group('/pengguna', ['namespace' => 'App\Controllers', 'filter' => 'role
     $routes->post('store', "Pengguna::store");
     $routes->post('(:num)/update', "Pengguna::update/$1");
     $routes->post('(:num)/change-role', "Pengguna::changeRole/$1");
-    
+
     $routes->post('reset-password', "Pengguna::resetPassword");
 });
 
 // Penduduk
-$routes->group('/penduduk', ['namespace' => 'App\Controllers', 'filter' => 'role:admin'], function ($routes) {
+$routes->group('/penduduk', ['namespace' => 'App\Controllers', 'filter' => ['penduduk', 'role:admin']], function ($routes) {
     $routes->get('', "Penduduk::index");
     $routes->get('new', "Penduduk::new");
     $routes->get('(:num)/edit', "Penduduk::edit/$1");
@@ -53,7 +58,7 @@ $routes->group('/penduduk', ['namespace' => 'App\Controllers', 'filter' => 'role
 });
 
 // Keluarga
-$routes->group('/keluarga', ['namespace' => 'App\Controllers', 'filter' => 'role:admin,warga'], function ($routes) {
+$routes->group('/keluarga', ['namespace' => 'App\Controllers', 'filter' => ['penduduk', 'role:admin,warga']], function ($routes) {
     $routes->get('', "Keluarga::index");
     $routes->get('new', "Keluarga::new");
     $routes->get('(:num/edit)', "Keluarga::edit/$1");
@@ -65,14 +70,14 @@ $routes->group('/keluarga', ['namespace' => 'App\Controllers', 'filter' => 'role
 });
 
 // Profile
-$routes->group('/profile', ['namespace' => 'App\Controllers', 'filter' => 'role:admin,warga'], function ($routes) {
+$routes->group('/profile', ['namespace' => 'App\Controllers', 'filter' => ['penduduk', 'role:admin,warga']], function ($routes) {
     $routes->get('', "Profile::index");
 
     $routes->post('user-update', "Profile::userUpdate");
 });
 
 // settings
-$routes->group('/settings', ['namespace' => 'App\Controllers', 'filter' => 'role:admin'], function ($routes) {
+$routes->group('/settings', ['namespace' => 'App\Controllers', 'filter' => ['penduduk', 'role:admin']], function ($routes) {
     $routes->get('', "Settings::index");
     $routes->post('update', "Settings::update");
     $routes->post('update-desa', "Settings::updateDesa");
