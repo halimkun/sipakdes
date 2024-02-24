@@ -43,6 +43,14 @@
           </a>
         </li>
 
+        <li class="nav-header">Permintaan Surat</li>
+        <li class="nav-item">
+          <a href="/surat/kematian" class="nav-link">
+            <i class="nav-icon fas fa-dizzy"></i>
+            <p>Kematian</p>
+          </a>
+        </li>
+
         <li class="nav-header">Data</li>
         <?php if (in_groups(['warga', 'admin'])) : ?>
           <li class="nav-item">

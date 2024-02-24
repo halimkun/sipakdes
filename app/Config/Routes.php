@@ -13,6 +13,16 @@ $routes->get('/', 'Home::index');
 // Dashboard
 $routes->get('/dashboard', "Dashboard::index");
 
+// Surat
+$routes->group('/surat', ['namespace' => 'App\Controllers', 'filter' => 'role:admin,warga'], function ($routes) {
+    $routes->group('kematian', function ($routes) {
+        $routes->get('', "Kematian::index");
+        $routes->get('new', "Kematian::new");
+
+        $routes->post('store', "Kematian::store");
+    });
+});
+
 // Pengguna
 $routes->group('/pengguna', ['namespace' => 'App\Controllers', 'filter' => 'role:admin'], function ($routes) {
     $routes->get('', "Pengguna::index");

@@ -21,6 +21,9 @@ class AlterTableUsers extends Migration
 
         // index for 'id_penduduk'
         $this->forge->addKey('id_penduduk');
+
+        // drop key for email columns
+        $this->forge->dropKey('users', 'email');
     }
 
     public function down()

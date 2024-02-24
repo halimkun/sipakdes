@@ -6,23 +6,33 @@ use CodeIgniter\Model;
 
 class KematianModel extends Model
 {
-    protected $table            = 'kematians';
+    protected $table            = 'kematian';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
-    protected $returnType       = 'array';
+    protected $returnType       = 'object';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [];
+    protected $allowedFields    = [
+        'id_penduduk', 'tanggal', 'tempat', 'sebab',
+        'nik_pelapor', 'status',
+    ];
 
     // Dates
-    protected $useTimestamps = false;
+    protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
     protected $deletedField  = 'deleted_at';
 
     // Validation
-    protected $validationRules      = [];
+    protected $validationRules      = [
+        'id_penduduk' => 'required|is_not_unique[penduduk.id]',
+        'tanggal'     => 'required|valid_date',
+        'tempat'      => 'permit_empty|max_length[255]',
+        'sebab'       => 'permit_empty|max_length[255]',
+        'nik_pelapor' => 'permit_empty|exact_length[16]',
+        'status'      => 'permit_empty|in_list[ ,invalid,pending]',
+    ];
     protected $validationMessages   = [];
     protected $skipValidation       = false;
     protected $cleanValidationRules = true;
