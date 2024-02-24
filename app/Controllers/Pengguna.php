@@ -50,7 +50,7 @@ class Pengguna extends BaseController
 
         $fields = [
             ['name' => 'email', 'label' => 'Email', 'type' => 'email', 'required' => true],
-            ['name' => 'username', 'label' => 'Username', 'type' => 'text', 'required' => true],
+            ['name' => 'username', 'label' => 'Username', 'type' => 'text', 'required' => true, 'placeholder' => 'default untuk penduduk (NIK)'],
             ['name' => 'password', 'label' => 'Password', 'type' => 'password', 'required' => true],
             ['name' => 'role', 'label' => 'Role', 'type' => 'select', 'options' => $roles_data, 'required' => true]
         ];
@@ -72,6 +72,10 @@ class Pengguna extends BaseController
         $role = $this->request->getPost('role');
         $data['active'] = 1;
 
+        $data_penduduk = [
+            'nik' => $this->request->getPost('username'),
+        ];
+
         if (!$role) {
             $role = $this->groupModel->where('name', config(\Config\Auth::class)->defaultUserGroup)->first();
             $role = $role->id;
@@ -79,8 +83,15 @@ class Pengguna extends BaseController
 
         unset($data['role']);
 
-        $user = new \Myth\Auth\Entities\User($data);
+        // insert penduduk
+        $penduduk = new \App\Entities\Penduduk($data_penduduk);
+        $this->pendudukModel->save($penduduk);
 
+        $penduduk_last_id = $this->pendudukModel->insertID();
+
+        $user = new \Myth\Auth\Entities\User($data);
+        $user->id_penduduk = $penduduk_last_id;
+        
         if ($this->userModel->save($user)) {
             $user_id = $this->userModel->insertID();
             $this->groupModel->addUserToGroup($user_id, $role);

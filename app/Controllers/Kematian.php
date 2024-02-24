@@ -25,8 +25,10 @@ class Kematian extends BaseController
 
     public function index()
     {
+        $user = new \App\Entities\User(user()->toArray());
         $dk = $this->kematianModel->select('kematian.*, penduduk.nama, penduduk.tanggal_lahir')
             ->join('penduduk', 'penduduk.id = kematian.id_penduduk')
+            ->where('penduduk.kk', $user->kk)
             ->orderBy('kematian.created_at', 'DESC')
             ->findAll();
 
