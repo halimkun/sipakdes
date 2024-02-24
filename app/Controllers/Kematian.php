@@ -25,12 +25,13 @@ class Kematian extends BaseController
 
     public function index()
     {
-        $dk = $this->kematianModel->select('kematian.*, penduduk.nama')
+        $dk = $this->kematianModel->select('kematian.*, penduduk.nama, penduduk.tanggal_lahir')
             ->join('penduduk', 'penduduk.id = kematian.id_penduduk')
+            ->orderBy('kematian.created_at', 'DESC')
             ->findAll();
 
         $data = [
-            'title' => 'Permintaan Surat Kematian Anda',
+            'title' => 'Permintaan Surat Kematian' . (in_groups('warga') ? ' Anda' : ' -'),
             'breadcrumbs' => [
                 ['title' => ucfirst(user()->username), 'url' => '/'],
                 ['title' => 'Kematian', 'url' => '/surat/kematian', 'active' => true],
@@ -47,8 +48,8 @@ class Kematian extends BaseController
         $user = new \App\Entities\User(user()->toArray());
         $keluarga = $this->pendudukModel->select('penduduk.*, berkas_kk.berkas, berkas_kk.status as status_berkas, berkas_kk.keterangan as keterangan_berkas')
             ->join('berkas_kk', 'berkas_kk.kk = penduduk.kk', 'left')
-            ->orderBy('penduduk.nama', 'ASC')
             ->where('penduduk.kk', $user->pendudukData()->kk)
+            ->orderBy('penduduk.nama', 'ASC')
             ->findAll();
 
         $data = [
@@ -79,20 +80,28 @@ class Kematian extends BaseController
         if (!$this->validate($rules)) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors())->withInput();
         }
-        
+
         // check if nik_pelapor have same kk with id_penduduk
         if (!$this->checkNikPelapor($this->request->getPost('id_penduduk'), $this->request->getPost('nik_pelapor'))) {
             return redirect()->back()->withInput()->with('errors', ['nik_pelapor' => 'NIK pelapor tidak terdaftar dalam KK yang sama'])->withInput();
         }
-        
+
         if (request()->getPost('id_penduduk') == user()->id_penduduk) {
             return redirect()->back()->withInput()->with('errors', ['id_penduduk' => 'Tidak boleh memilih diri sendiri'])->withInput();
         }
 
-        
+        $penduduk = $this->pendudukModel->find($this->request->getPost('id_penduduk'));
+        if (!$penduduk) {
+            return redirect()->back()->withInput()->with('errors', ['id_penduduk' => 'Penduduk tidak ditemukan'])->withInput();
+        }
+
+        if (!$penduduk->is_verified) {
+            return redirect()->back()->withInput()->with('errors', ['id_penduduk' => 'Data penduduk belum diverifikasi, silahkan hubungi pihak desa'])->withInput();
+        }
+
         // transaction
         $this->kematianModel->transBegin();
-        
+
         if ($this->kematianModel->save($this->request->getPost())) {
             // fing the user using id_penduduk
             $user = $this->userModel->where('id_penduduk', $this->request->getPost('id_penduduk'))->first();
@@ -107,7 +116,7 @@ class Kematian extends BaseController
         }
 
         $this->kematianModel->transCommit();
-        
+
         return redirect()->to('/surat/kematian')->with('success', 'Surat kematian berhasil dibuat');
     }
     public function batal($id)
@@ -194,8 +203,8 @@ class Kematian extends BaseController
     {
         return [
             ['name' => 'id_penduduk', 'label' => 'Penduduk', 'type' => 'hidden'],
-            ['name' => 'tanggal', 'label' => 'Tanggal', 'type' => 'date'],
             ['name' => 'tempat', 'label' => 'Tempat', 'type' => 'text', 'placeholder' => 'tempat pemakaman'],
+            ['name' => 'tanggal', 'label' => 'Tanggal', 'type' => 'text', 'placeholder' => 'tanggal kematian'],
             ['name' => 'sebab', 'label' => 'Sebab', 'type' => 'text', 'placeholder' => 'sakit, kecelakaan, dll'],
             ['name' => 'nik_pelapor', 'label' => 'NIK Pelapor', 'type' => 'text', 'placeholder' => 'NIK pelapor'],
         ];

@@ -30,7 +30,7 @@
                 <td><?= $key + 1; ?></td>
                 <td>
                   <p class="p-0 m-0">
-                    <?= $kel->is_verified ? '<i class="fa fa-check-circle text-success mr-1"></i>' : '<i class="fa fa-times-circle text-danger mr-1"></i>'; ?>
+                    <?= $kel->is_verified ? '<i class="fa fa-check-circle text-success mr-1" data-toggle="tooltip" title="data diverifikasi"></i>' : '<i class="fa fa-times-circle text-danger mr-1" data-toggle="tooltip" title="data belum diverifikasi"></i>'; ?>
                     <?= $kel->nama; ?>
                   </p>
                 </td>
@@ -46,11 +46,8 @@
                   <div class="badge <?= 'badge-' . getColorHubungan($kel->hubungan) ?>"><?= $kel->hubungan == 'Ayah' ? 'Kepala Keluarga' : $kel->hubungan; ?></div>
                 </td>
                 <td class="text-right">
-                  <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                  <div class="btn-group btn-group-sm" role="group" aria-label="Action">
                     <a class="btn btn-info btn-edit" href="/keluarga/<?= $kel->id ?>/edit"><i class="fa fa-pen"></i></a>
-                    <button class="btn btn-danger btn-delete" <?= user()->id == $kel->id ? 'disabled' : '' ?> data-id="<?= $kel->id; ?>" data-nik="<?= $kel->nik; ?>" data-nama="<?= $kel->nama; ?>">
-                      <i class="fa fa-trash"></i>
-                    </button>
                   </div>
                 </td>
               <?php endforeach ?>
@@ -104,46 +101,15 @@
         </div>
       </div>
     </div>
-  </div>
-</div>
 
-<!-- Modal delete confirmation -->
-<div class="modal fade " id="mode-delete-confirmation" tabindex="-1" role="dialog" data-backdrop="static">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Delete Confirmation</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+    <div class="card card-outline card-warning">
+      <div class="card-header border-0">
+        <h3 class="card-title">
+          <i class="fas fa-info-circle mr-1"></i> Informasi Lain
+        </h3>
       </div>
-      <div class="modal-body">
-        <form method="post">
-          <p>Are you sure you want to delete this data?</p>
-          <!-- nik dan nama -->
-          <table class="table table-sm table-borderless table-hover">
-            <tr>
-              <td>NIK</td>
-              <td>:</td>
-              <td id="delete-nik"></td>
-            </tr>
-            <tr>
-              <td>Nama</td>
-              <td>:</td>
-              <td id="delete-nama"></td>
-            </tr>
-          </table>
-
-          <div class="alert alert-danger">
-            <i class="fas fa-exclamation-triangle mr-1"></i> Warning!
-            <p class="p-0 m-0">This action will delete the user data, as a result the user cannot access the system anymore.</p>
-          </div>
-
-          <div class="d-flex justify-content-end" style="gap: 0.5rem;">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-danger">Delete</button>
-          </div>
-        </form>
+      <div class="card-body pb-0 pt-0">
+        <p>Jika terdapat kesalahan anggota keluarga, silahkan hubungi admin atau operator desa untuk melakukan perubahan.</p>
       </div>
     </div>
   </div>
