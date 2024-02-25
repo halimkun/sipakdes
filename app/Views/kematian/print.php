@@ -9,7 +9,7 @@
 
   <p class="mb-2 pb-2">Yang bertanda tangan dibawah ini kepala desa <?= service('settings')->get('App.desa'); ?> kecamatan <?= service('settings')->get('App.kecamatan'); ?> kabupaten <?= service('settings')->get('App.kabupaten'); ?> menerangkan dengan sesungguhnya bahwa :</p>
 
-  <table class="table table-sm table-compact table-borderless">
+  <table class="table table-sm table-compact table-borderless ml-3">
     <tr>
       <td>Nama</td>
       <td>: <?= $kematian->nama; ?></td>
@@ -34,7 +34,7 @@
 
   <p class="mb-1 pb-1">Bahwa yang bersangkutan telah meninggal dunia pada :</p>
 
-  <table class="table table-sm table-compact table-borderless">
+  <table class="table table-sm table-compact table-borderless ml-3">
     <tr>
       <td>Hari</td>
       <td>: <?= \Carbon\Carbon::parse($kematian->tanggal)->isoFormat('dddd'); ?></td>
