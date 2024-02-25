@@ -11,6 +11,8 @@ class Kematian extends BaseController
     protected $pendudukModel;
     protected $userModel;
 
+    protected $dompdf;
+
     protected $optionStatus = [
         ["value" => "pending", "name" => "Pending"],
         ["value" => "invalid", "name" => "Invalid"],
@@ -21,15 +23,30 @@ class Kematian extends BaseController
         $this->kematianModel = new \App\Models\KematianModel();
         $this->pendudukModel = new \App\Models\PendudukModel();
         $this->userModel = new \App\Models\UserModel();
+
+        $this->dompdf = new \Dompdf\Dompdf([
+            'dpi' => 96,
+            'isPhpEnabled' => true,
+            'isRemoteEnabled' => false,
+            'isJavascriptEnabled' => true,
+            'isHtml5ParserEnabled' => true,
+            'isFontSubsettingEnabled' => true,
+            'defaultPaperSize' => 'A4',
+            'defaultFont' => 'times',
+        ]);
     }
 
     public function index()
     {
         $user = new \App\Entities\User(user()->toArray());
         $dk = $this->kematianModel->select('kematian.*, penduduk.nama, penduduk.tanggal_lahir')
-            ->join('penduduk', 'penduduk.id = kematian.id_penduduk')
-            ->where('penduduk.kk', $user->kk)
-            ->orderBy('kematian.created_at', 'DESC')
+            ->join('penduduk', 'penduduk.id = kematian.id_penduduk');
+
+        if (in_groups('warga')) {
+            $dk = $dk->where('penduduk.kk', $user->pendudukData()->kk);
+        }
+
+        $dk = $dk->orderBy('kematian.created_at', 'DESC')
             ->findAll();
 
         $data = [
@@ -121,6 +138,39 @@ class Kematian extends BaseController
 
         return redirect()->to('/surat/kematian')->with('success', 'Surat kematian berhasil dibuat');
     }
+
+    public function print($id)
+    {
+        $kematian = $this->kematianModel->select('penduduk.*, kematian.*')
+            ->join('penduduk', 'penduduk.id = kematian.id_penduduk', 'left');
+
+        // if warga, only approved kematian
+        if (in_groups('warga')) {
+            $kematian = $kematian->where('kematian.status', 'approved');
+        }
+
+        $kematian = $kematian->find($id);
+
+        if (!$kematian) {
+            return redirect()->back()->with('error', 'Surat kematian tidak ditemukan, atau tidak dapat diakses');
+        }
+
+        $pelapor = $this->pendudukModel->select('nama')->where('nik', $kematian->nik_pelapor)->first();
+
+        $html = view('kematian/print', [
+            'kematian' => $kematian,
+            'noSurat' => $this->genNomorSurat($kematian->created_at),
+            'pelapor' => $pelapor,
+        ]);
+    
+        $this->dompdf->loadHtml($html);
+        $this->dompdf->render();
+
+        $this->dompdf->stream('Surat Kematian - ' . $kematian->nama, ['Attachment' => 0]);
+
+        exit(0);
+    }
+
     public function batal($id)
     {
         $kematian = $this->kematianModel->find($id);
@@ -186,6 +236,17 @@ class Kematian extends BaseController
         }
 
         return redirect()->back()->with('errors', 'Surat kematian tidak ditemukan');
+    }
+
+    protected function genNomorSurat($created_at)
+    {
+        // count all kematian on this year where < = created_at
+        $count = $this->kematianModel->where('YEAR(created_at)', date('Y'))->where('created_at <=', $created_at)->countAllResults();
+        $count = str_pad($count, 3, '0', STR_PAD_LEFT);
+
+        // count / SKK / 2 digit day / 2 diigit month / year
+        $nmr = $count . '/' . 'SKK' . '/' . date('d') . '/' . date('m') . '/' . date('Y');
+        return $nmr;
     }
 
     // check with same kk

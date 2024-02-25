@@ -13,6 +13,7 @@
         "php": "^7.4 || ^8.0",
         "codeigniter4/framework": "^4.0",
         "codeigniter4/settings": "^2.2",
+        "dompdf/dompdf": "^2.0",
         "fakerphp/faker": "^1.23",
         "myth/auth": "^1.2",
         "nesbot/carbon": "^2.72"
