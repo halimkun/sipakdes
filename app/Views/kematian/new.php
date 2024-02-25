@@ -48,7 +48,7 @@
                         </td>
                         <td><?= $kel->jenis_kelamin ?></td>
                         <td>
-                          <div class="badge <?= 'badge-' . getColorHubungan($kel->hubungan) ?>"><?= $kel->hubungan == 'Ayah' ? 'Kepala Keluarga' : $kel->hubungan; ?></div>
+                          <div class="badge <?= 'badge-' . getColorHubungan($kel->hubungan) ?>"><?= $kel->hubungan; ?></div>
                         </td>
                       <?php endforeach ?>
                   </tbody>

@@ -43,7 +43,7 @@
                 <td><?= $kel->jenis_kelamin == "Perempuan" ? "P" : "L"; ?></td>
                 <td><?= $kel->pendidikan; ?></td>
                 <td>
-                  <div class="badge <?= 'badge-' . getColorHubungan($kel->hubungan) ?>"><?= $kel->hubungan == 'Ayah' ? 'Kepala Keluarga' : $kel->hubungan; ?></div>
+                  <div class="badge <?= 'badge-' . getColorHubungan($kel->hubungan) ?>"><?= $kel->hubungan; ?></div>
                 </td>
                 <td class="text-right">
                   <div class="btn-group btn-group-sm" role="group" aria-label="Action">

@@ -31,9 +31,8 @@ class Keluarga extends BaseController
             ->where('penduduk.kk', $user->pendudukData()->kk)
             ->findAll();
 
-        // hunungan in [Ayah, Kepala Keluarga]
         $kepalakeluarga = $this->pendudukModel->where('kk', $user->pendudukData()->kk)
-            ->whereIn('hubungan', ['Ayah', 'Kepala Keluarga'])
+            ->where('is_kepala_keluarga', 1)
             ->first();
 
         $berkasKk = $this->berkasKkModel->where('kk', $user->pendudukData()->kk)->first();
@@ -69,6 +68,7 @@ class Keluarga extends BaseController
             ['name' => 'hubungan', 'label' => 'Hubungan', 'type' => 'select', 'options' => $this->pendudukController->optionHubungan, 'required' => true],
             ['name' => 'kewarganegaraan', 'label' => 'Kebangsaan', 'type' => 'select', 'options' => $this->pendudukController->optionKewarganegaraan, 'required' => true],
             ['name' => 'status_perkawinan', 'label' => 'Stts Perkawinan', 'type' => 'select', 'options' => $this->pendudukController->optionStatusPerkawinan, 'required' => true],
+            ['name' => 'is_kepala_keluarga', 'label' => 'Kepala Keluarga', 'type' => 'select', 'options' => $this->pendudukController->optionIsKepalaKeluarga, 'required' => true],
             ['name' => 'rt', 'label' => 'RT', 'type' => 'number', 'required' => true],
             ['name' => 'rw', 'label' => 'RW', 'type' => 'number', 'required' => true],
             ['name' => 'kelurahan', 'label' => 'Kelurahan', 'type' => 'text', 'required' => true],
@@ -114,6 +114,7 @@ class Keluarga extends BaseController
             ['name' => 'hubungan', 'label' => 'Hubungan', 'type' => 'select', 'options' => $this->pendudukController->optionHubungan, 'required' => true],
             ['name' => 'kewarganegaraan', 'label' => 'Kebangsaan', 'type' => 'select', 'options' => $this->pendudukController->optionKewarganegaraan, 'required' => true],
             ['name' => 'status_perkawinan', 'label' => 'Stts Perkawinan', 'type' => 'select', 'options' => $this->pendudukController->optionStatusPerkawinan, 'required' => true],
+            ['name' => 'is_kepala_keluarga', 'label' => 'Kepala Keluarga', 'type' => 'select', 'options' => $this->pendudukController->optionIsKepalaKeluarga, 'required' => true],
             ['name' => 'rt', 'label' => 'RT', 'type' => 'number', 'required' => true],
             ['name' => 'rw', 'label' => 'RW', 'type' => 'number', 'required' => true],
             ['name' => 'kelurahan', 'label' => 'Kelurahan', 'type' => 'text', 'required' => true],
@@ -150,7 +151,7 @@ class Keluarga extends BaseController
             'agama'             => 'required|in_list[-,Islam,Kristen,Katolik,Hindu,Budha,Konghucu]',
             'pendidikan'        => 'required|in_list[Tidak Sekolah,SD,SMP,SMA,Diploma,S1,S2,S3]',
             'jenis_pekerjaan'   => 'required|in_list[Tidak Bekerja,Pelajar/Mahasiswa,PNS,TNI,POLRI,Swasta,Wiraswasta,Petani,Nelayan,Ibu Rumah Tangga,Lainnya]',
-            'hubungan'          => 'required|in_list[Kepala Keluarga,Ayah,Ibu,Anak]',
+            'hubungan'          => 'required|in_list[Ayah,Ibu,Anak]',
             'kewarganegaraan'   => 'required|in_list[WNI,WNA]',
             'status_perkawinan' => 'required|in_list[Belum Kawin,Kawin,Cerai Hidup,Cerai Mati]',
             'rt'                => 'required|numeric',
@@ -212,7 +213,7 @@ class Keluarga extends BaseController
             'agama'             => 'required|in_list[-,Islam,Kristen,Katolik,Hindu,Budha,Konghucu]',
             'pendidikan'        => 'required|in_list[Tidak Sekolah,SD,SMP,SMA,Diploma,S1,S2,S3]',
             'jenis_pekerjaan'   => 'required|in_list[Tidak Bekerja,Pelajar/Mahasiswa,PNS,TNI,POLRI,Swasta,Wiraswasta,Petani,Nelayan,Ibu Rumah Tangga,Lainnya]',
-            'hubungan'          => 'required|in_list[Kepala Keluarga,Ayah,Ibu,Anak]',
+            'hubungan'          => 'required|in_list[Ayah,Ibu,Anak]',
             'kewarganegaraan'   => 'required|in_list[WNI,WNA]',
             'status_perkawinan' => 'required|in_list[Belum Kawin,Kawin,Cerai Hidup,Cerai Mati]',
             'rt'                => 'required|numeric',

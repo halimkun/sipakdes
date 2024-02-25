@@ -17,9 +17,10 @@ class Penduduk extends BaseController
     public $optionAgama = [["value" => "Islam", "name" => "Islam"], ["value" => "Kristen", "name" => "Kristen"], ["value" => "Katolik", "name" => "Katolik"], ["value" => "Hindu", "name" => "Hindu"], ["value" => "Budha", "name" => "Budha"], ["value" => "Konghucu", "name" => "Konghucu"]];
     public $optionPendidikan = [["value" => "Tidak Sekolah", "name" => "Tidak Sekolah"], ["value" => "SD", "name" => "SD"], ["value" => "SMP", "name" => "SMP"], ["value" => "SMA", "name" => "SMA"], ["value" => "Diploma", "name" => "Diploma"], ["value" => "S1", "name" => "S1"], ["value" => "S2", "name" => "S2"], ["value" => "S3", "name" => "S3"]];
     public $optionJenisPekerjaan = [["value" => "Tidak Bekerja", "name" => "Tidak Bekerja"], ["value" => "Pelajar/Mahasiswa", "name" => "Pelajar/Mahasiswa"], ["value" => "PNS", "name" => "PNS"], ["value" => "TNI", "name" => "TNI"], ["value" => "POLRI", "name" => "POLRI"], ["value" => "Swasta", "name" => "Swasta"], ["value" => "Wiraswasta", "name" => "Wiraswasta"], ["value" => "Petani", "name" => "Petani"], ["value" => "Nelayan", "name" => "Nelayan"], ["value" => "Ibu Rumah Tangga", "name" => "Ibu Rumah Tangga"], ["value" => "Lainnya", "name" => "Lainnya"]];
-    public $optionHubungan = [["value" => "Kepala Keluarga", "name" => "Kepala Keluarga"], ["value" => "Ayah", "name" => "Ayah"], ["value" => "Ibu", "name" => "Ibu"], ["value" => "Anak", "name" => "Anak"]];
+    public $optionHubungan = [["value" => "Ayah", "name" => "Ayah"], ["value" => "Ibu", "name" => "Ibu"], ["value" => "Anak", "name" => "Anak"]];
     public $optionKewarganegaraan = [["value" => "WNI", "name" => "WNI"], ["value" => "WNA", "name" => "WNA"]];
     public $optionStatusPerkawinan = [["value" => "Belum Kawin", "name" => "Belum Kawin"], ["value" => "Kawin", "name" => "Kawin"], ["value" => "Cerai Hidup", "name" => "Cerai Hidup"], ["value" => "Cerai Mati", "name" => "Cerai Mati"]];
+    public $optionIsKepalaKeluarga = [["value" => 0, "name" => "Tidak"], ["value" => 1, "name" => "Ya"]];
 
     public function __construct()
     {
@@ -61,6 +62,7 @@ class Penduduk extends BaseController
             ['name' => 'hubungan', 'label' => 'Hubungan', 'type' => 'select', 'options' => $this->optionHubungan, 'required' => true],
             ['name' => 'kewarganegaraan', 'label' => 'Kebangsaan', 'type' => 'select', 'options' => $this->optionKewarganegaraan, 'required' => true],
             ['name' => 'status_perkawinan', 'label' => 'Stts Perkawinan', 'type' => 'select', 'options' => $this->optionStatusPerkawinan, 'required' => true],
+            ['name' => 'is_kepala_keluarga', 'label' => 'Kepala Keluarga', 'type' => 'select', 'options' => $this->optionIsKepalaKeluarga, 'required' => true],
             ['name' => 'rt', 'label' => 'RT', 'type' => 'number', 'required' => true],
             ['name' => 'rw', 'label' => 'RW', 'type' => 'number', 'required' => true],
             ['name' => 'kelurahan', 'label' => 'Kelurahan', 'type' => 'text', 'required' => true],
@@ -94,7 +96,7 @@ class Penduduk extends BaseController
             'agama'             => 'required|in_list[-,Islam,Kristen,Katolik,Hindu,Budha,Konghucu]',
             'pendidikan'        => 'required|in_list[Tidak Sekolah,SD,SMP,SMA,Diploma,S1,S2,S3]',
             'jenis_pekerjaan'   => 'required|in_list[Tidak Bekerja,Pelajar/Mahasiswa,PNS,TNI,POLRI,Swasta,Wiraswasta,Petani,Nelayan,Ibu Rumah Tangga,Lainnya]',
-            'hubungan'          => 'required|in_list[Kepala Keluarga,Ayah,Ibu,Anak]',
+            'hubungan'          => 'required|in_list[Ayah,Ibu,Anak]',
             'kewarganegaraan'   => 'required|in_list[WNI,WNA]',
             'status_perkawinan' => 'required|in_list[Belum Kawin,Kawin,Cerai Hidup,Cerai Mati]',
             'rt'                => 'required|numeric',
@@ -157,6 +159,7 @@ class Penduduk extends BaseController
             ['name' => 'hubungan', 'label' => 'Hubungan', 'type' => 'select', 'options' => $this->optionHubungan, 'required' => true],
             ['name' => 'kewarganegaraan', 'label' => 'Kebangsaan', 'type' => 'select', 'options' => $this->optionKewarganegaraan, 'required' => true],
             ['name' => 'status_perkawinan', 'label' => 'Stts Perkawinan', 'type' => 'select', 'options' => $this->optionStatusPerkawinan, 'required' => true],
+            ['name' => 'is_kepala_keluarga', 'label' => 'Kepala Keluarga', 'type' => 'select', 'options' => $this->optionIsKepalaKeluarga, 'required' => true],
             ['name' => 'rt', 'label' => 'RT', 'type' => 'number', 'required' => true],
             ['name' => 'rw', 'label' => 'RW', 'type' => 'number', 'required' => true],
             ['name' => 'kelurahan', 'label' => 'Kelurahan', 'type' => 'text', 'required' => true],
@@ -192,7 +195,7 @@ class Penduduk extends BaseController
             'agama'             => 'required|in_list[-,Islam,Kristen,Katolik,Hindu,Budha,Konghucu]',
             'pendidikan'        => 'required|in_list[Tidak Sekolah,SD,SMP,SMA,Diploma,S1,S2,S3]',
             'jenis_pekerjaan'   => 'required|in_list[Tidak Bekerja,Pelajar/Mahasiswa,PNS,TNI,POLRI,Swasta,Wiraswasta,Petani,Nelayan,Ibu Rumah Tangga,Lainnya]',
-            'hubungan'          => 'required|in_list[Kepala Keluarga,Ayah,Ibu,Anak]',
+            'hubungan'          => 'required|in_list[Ayah,Ibu,Anak]',
             'kewarganegaraan'   => 'required|in_list[WNI,WNA]',
             'status_perkawinan' => 'required|in_list[Belum Kawin,Kawin,Cerai Hidup,Cerai Mati]',
             'rt'                => 'required|numeric',

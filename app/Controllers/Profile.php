@@ -105,6 +105,7 @@ class Profile extends BaseController
             ['name' => 'hubungan', 'label' => 'Hubungan', 'type' => 'select', 'options' => $this->pendudukController->optionHubungan, 'disabled' => true, 'readonly' => true],
             ['name' => 'kewarganegaraan', 'label' => 'Kebangsaan', 'type' => 'select', 'options' => $this->pendudukController->optionKewarganegaraan, 'disabled' => true, 'readonly' => true],
             ['name' => 'status_perkawinan', 'label' => 'Stts Perkawinan', 'type' => 'select', 'options' => $this->pendudukController->optionStatusPerkawinan, 'disabled' => true, 'readonly' => true],
+            ['name' => 'is_kepala_keluarga', 'label' => 'Kepala Keluarga', 'type' => 'select', 'options' => $this->pendudukController->optionIsKepalaKeluarga, 'disabled' => true, 'readonly' => true],
             ['name' => 'rt', 'label' => 'RT', 'type' => 'number', 'disabled' => true, 'readonly' => true],
             ['name' => 'rw', 'label' => 'RW', 'type' => 'number', 'disabled' => true, 'readonly' => true],
             ['name' => 'kelurahan', 'label' => 'Kelurahan', 'type' => 'text', 'disabled' => true, 'readonly' => true],

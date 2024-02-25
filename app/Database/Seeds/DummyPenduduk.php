@@ -39,7 +39,7 @@ class DummyPenduduk extends Seeder
                 'agama' => $faker->randomElement(['Islam', 'Kristen', 'Katolik', 'Hindu', 'Budha', 'Konghucu']),
                 'pendidikan' => $faker->randomElement(['Tidak Sekolah', 'SD', 'SMP', 'SMA', 'Diploma', 'S1', 'S2', 'S3']),
                 'jenis_pekerjaan' => $faker->randomElement(['Tidak Bekerja', 'Pelajar/Mahasiswa', 'PNS', 'TNI', 'POLRI', 'Swasta', 'Wiraswasta', 'Petani', 'Nelayan', 'Ibu Rumah Tangga', 'Lainnya']),
-                'hubungan' => $faker->randomElement(['Kepala Keluarga', 'Ayah', 'Ibu', 'Anak']),
+                'hubungan' => $faker->randomElement(['Ayah', 'Ibu', 'Anak']),
                 'kewarganegaraan' => $faker->randomElement(['WNI', 'WNA']),
                 'status_perkawinan' => $faker->randomElement(['Belum Kawin', 'Kawin', 'Cerai Hidup', 'Cerai Mati']),
                 'rt' => $faker->numberBetween(1, 8),
@@ -48,7 +48,8 @@ class DummyPenduduk extends Seeder
                 'kecamatan' => 'warungasem',
                 'kabupaten' => 'batang',
                 'provinsi' => 'jawa tengah',
-                'is_verified' => $faker->boolean(50),
+                'is_kepala_keluarga' => $faker->boolean(80), // 80% chance 'true' and 'false
+                'is_verified' => $faker->boolean(80),
             ];
 
             // using penduduk model
@@ -68,15 +69,10 @@ class DummyPenduduk extends Seeder
             $jk = $faker->randomElement(['Laki-laki', 'Perempuan']);
 
             // find and get penduduk data by kk 
-            $hbgn = ['Kepala Keluarga', 'Ayah', 'Ibu', 'Anak'];
+            $hbgn = ['Ayah', 'Ibu', 'Anak'];
             $p = $penduduk->where('kk', $kk)->findAll();
             
-            // if in p contain Kepala Keluarga then unset Kepala Keluarga from $hbgn
             foreach ($p as $key => $value) {
-                if ($value->hubungan == 'Kepala Keluarga') {
-                    unset($hbgn[0]);
-                }
-
                 // if in p contain Ayah then unset Ayah from $hbgn
                 if ($value->hubungan == 'Ayah') {
                     unset($hbgn[1]);

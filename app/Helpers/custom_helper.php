@@ -3,7 +3,6 @@
     function getColorHubungan($hubungan)
     {
         $colors = [
-            'Kepala Keluarga' => 'primary',
             'Ayah' => 'primary',
             'Ibu' => 'success',
             'Anak' => 'info',
