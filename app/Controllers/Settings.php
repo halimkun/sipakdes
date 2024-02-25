@@ -24,6 +24,10 @@ class Settings extends BaseController
             ],
 
             'settingDesa' => [
+                'App.desa' => service('settings')->get('App.desa'),
+                'App.kecamatan' => service('settings')->get('App.kecamatan'),
+                'App.kabupaten' => service('settings')->get('App.kabupaten'),
+
                 'App.kepalaDesa' => service('settings')->get('App.kepalaDesa'),
             ],
         ];
@@ -87,6 +91,9 @@ class Settings extends BaseController
     protected function settingDesaFields()
     {
         return [
+            ['name' => 'App.desa', 'label' => 'Nama Desa', 'type' => 'text', 'required' => true],
+            ['name' => 'App.kecamatan', 'label' => 'Kecamatan', 'type' => 'text', 'required' => true],
+            ['name' => 'App.kabupaten', 'label' => 'Kabupaten', 'type' => 'text', 'required' => true],
             ['name' => 'App.kepalaDesa', 'label' => 'Kepala Desa', 'type' => 'text', 'required' => true],
         ];
     }
