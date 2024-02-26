@@ -8,7 +8,7 @@ class ReqKelahiran extends Migration
 {
     public function up()
     {
-        // this for table request surat kelahiran (req_kelahiran)
+        // this for table request surat kelahiran (kelahiran)
         $this->forge->addField([
             'id'        => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true, 'auto_increment' => true],
             'id_penduduk' => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true],
@@ -21,11 +21,11 @@ class ReqKelahiran extends Migration
 
         $this->forge->addKey('id', true);
         $this->forge->addForeignKey('id_penduduk', 'penduduk', 'id', 'CASCADE', 'CASCADE');
-        $this->forge->createTable('req_kelahiran', true);
+        $this->forge->createTable('kelahiran', true);
     }
 
     public function down()
     {
-        $this->forge->dropTable('req_kelahiran', true);
+        $this->forge->dropTable('kelahiran', true);
     }
 }

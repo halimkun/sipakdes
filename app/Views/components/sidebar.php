@@ -45,6 +45,12 @@
 
         <li class="nav-header">Permintaan Surat</li>
         <li class="nav-item">
+          <a href="/surat/kelahiran" class="nav-link">
+            <i class="nav-icon fas fa-baby"></i>
+            <p>Kelahiran</p>
+          </a>
+        </li>
+        <li class="nav-item">
           <a href="/surat/kematian" class="nav-link">
             <i class="nav-icon fas fa-dizzy"></i>
             <p>Kematian</p>

@@ -28,6 +28,16 @@ $routes->group('/surat', ['namespace' => 'App\Controllers', 'filter' => ['pendud
         $routes->post('store', "Kematian::store");
         $routes->post('(:num)/update-status', "Kematian::updateStatus/$1");
     });
+
+    $routes->group('kelahiran', function ($routes) {
+        $routes->get('', "Kelahiran::index");
+        $routes->get('new', "Kelahiran::new");
+        $routes->get('(:num)/batal', "Kelahiran::batal/$1");
+        $routes->get('(:num)/print', "Kelahiran::print/$1");
+
+        $routes->post('store', "Kelahiran::store");
+        $routes->post('(:num)/update-status', "Kelahiran::updateStatus/$1");
+    });
 });
 
 // Pengguna
