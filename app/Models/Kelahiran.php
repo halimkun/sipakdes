@@ -27,7 +27,7 @@ class Kelahiran extends Model
 
       // Validation
     protected $validationRules      = [
-        'id_penduduk' => 'required|is_not_unique[kelahiran.id_penduduk]',
+        'id_penduduk' => 'required|is_not_unique[penduduk.id]',
         'status'      => 'required|in_list[pending,selesai,ditolak]',
         'keterangan'  => 'permit_empty|string|max_length[255]',
     ];
