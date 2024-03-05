@@ -57,7 +57,7 @@
                                                         <i class="fa fa-cog"></i>
                                                     </button>
                                                     <div class="dropdown-menu">
-                                                        <a class="dropdown-item" href="/surat/kelahiran/<?= $d->id ?>/print"><i class="fa fa-print mr-1"></i> Cetak</a>
+                                                        <a class="dropdown-item" href="/surat/kelahiran/<?= $d->id_kelahiran ?>/print"><i class="fa fa-print mr-1"></i> Cetak</a>
                                                         <div class="dropdown-divider"></div>
                                                         <a class="dropdown-item btn-update-status" href="#!" data-id="<?= $d->id_kelahiran ?>" data-nama="<?= $d->nama ?>" data-tempat-lahir="<?= $d->tempat_lahir ?>"><i class="fa fa-pen mr-1"></i> Update Status</a>
                                                     </div>
@@ -66,11 +66,11 @@
                                                 <div class="btn-group btn-group-sm" role="group" aria-label="Aksi Penduduk">
                                                     <?php if (!in_array($d->status, ['pending'])) : ?>
                                                         <?php if ($d->status == 'selesai') : ?>
-                                                            <a href="/surat/kelahiran/<?= $d->id ?>/print" class="btn btn-sm btn-primary" data-toggle="tooltip" title="cetak"><i class="fa fa-print"></i></a>
+                                                            <a href="/surat/kelahiran/<?= $d->id_kelahiran ?>/print" class="btn btn-sm btn-primary" data-toggle="tooltip" title="cetak"><i class="fa fa-print"></i></a>
                                                         <?php endif ?>
-                                                        <button data-toggle="tooltip" title="batal" class="btn btn-sm btn-secondary btn-batal" disabled data-id="<?= $d->id ?>"><i class="fa fa-times-circle"></i></button>
+                                                        <button data-toggle="tooltip" title="batal" class="btn btn-sm btn-secondary btn-batal" disabled data-id="<?= $d->id_kelahiran ?>"><i class="fa fa-times-circle"></i></button>
                                                     <?php else : ?>
-                                                        <a href="/surat/kelahiran/<?= $d->id ?>/batal" data-toggle="tooltip" title="batal" class="btn btn-sm btn-secondary" onclick="return confirm('Apakah anda yakin ingin membatalkan surat ini?')"><i class="fa fa-times-circle"></i></a>
+                                                        <a href="/surat/kelahiran/<?= $d->id_kelahiran ?>/batal" data-toggle="tooltip" title="batal" class="btn btn-sm btn-secondary" onclick="return confirm('Apakah anda yakin ingin membatalkan surat ini?')"><i class="fa fa-times-circle"></i></a>
                                                     <?php endif ?>
                                                 </div>
                                             <?php endif ?>

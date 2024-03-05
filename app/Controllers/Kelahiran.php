@@ -10,12 +10,25 @@ class Kelahiran extends BaseController
     protected $kelahiranModel;
     protected $pendudukModel;
 
+    protected $dompdf;
+
     protected $pendudukController;
 
     public function __construct()
     {
         $this->kelahiranModel = new \App\Models\Kelahiran();
         $this->pendudukModel = new \App\Models\PendudukModel();
+
+        $this->dompdf = new \Dompdf\Dompdf([
+            'dpi' => 96,
+            'isPhpEnabled' => true,
+            'isRemoteEnabled' => false,
+            'isJavascriptEnabled' => true,
+            'isHtml5ParserEnabled' => true,
+            'isFontSubsettingEnabled' => true,
+            'defaultPaperSize' => 'A4',
+            'defaultFont' => 'times',
+        ]);
 
         $this->pendudukController = new \App\Controllers\Penduduk();
     }
@@ -126,6 +139,56 @@ class Kelahiran extends BaseController
         }
 
         return redirect()->back()->with('error', 'Surat kelahiran tidak ditemukan');
+    }
+
+    public function print($id)
+    {
+        $kelahiran = $this->kelahiranModel->select('penduduk.*, kelahiran.*')
+        ->join('penduduk', 'penduduk.id = kelahiran.id_penduduk', 'left');
+        
+        // if warga, only approved kelahiran
+        if (in_groups('warga')) {
+            $kelahiran = $kelahiran->where('kelahiran.status', 'selesai');
+        }
+        
+        $kelahiran = $kelahiran->find($id);
+        
+        if (!$kelahiran) {
+            return redirect()->back()->with('error', 'Surat kelahiran tidak ditemukan, atau tidak dapat diakses');
+        }
+
+        // if kelahiran dont has kk 
+        if (!$kelahiran->kk) {
+            return redirect()->back()->with('error', 'Surat kelahiran tidak dapat dicetak, karena data KK tidak ditemukan');
+        }
+
+        $ibu = $this->pendudukModel->where('kk', $kelahiran->kk)->where('hubungan', 'ibu')->first();
+        $ayah = $this->pendudukModel->where('kk', $kelahiran->kk)->where('hubungan', 'ayah')->first();
+
+        $html = view('kelahiran/print', [
+            'kelahiran' => $kelahiran,
+            'noSurat' => $this->genNomorSurat($kelahiran->created_at),
+            'ibu' => $ibu,
+            'ayah' => $ayah,
+        ]);
+    
+        $this->dompdf->loadHtml($html);
+        $this->dompdf->render();
+
+        $this->dompdf->stream('Surat kelahiran - ' . $kelahiran->nama, ['Attachment' => 0]);
+
+        exit(0);
+    }
+
+    protected function genNomorSurat($created_at)
+    {
+        // count all kematian on this year where < = created_at
+        $count = $this->kelahiranModel->where('YEAR(created_at)', date('Y'))->where('created_at <=', $created_at)->countAllResults();
+        $count = str_pad($count, 3, '0', STR_PAD_LEFT);
+
+        // count / SKK / 2 digit day / 2 diigit month / year
+        $nmr = $count . '/' . 'SKL' . '/' . date('d') . '/' . date('m') . '/' . date('Y');
+        return $nmr;
     }
 
     protected function kelahiranFields()
