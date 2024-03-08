@@ -5,7 +5,7 @@
     <div class="card card-outline card-success">
       <div class="card-header border-0">
         <h3 class="card-title">
-          <i class="fas fa-dizzy mr-1"></i> Surat Kematian
+          <i class="fas fa-heart-broken mr-1"></i> Surat Kematian
         </h3>
       </div>
       <div class="card-body">

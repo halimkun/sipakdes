@@ -164,7 +164,7 @@
     $('.table').DataTable({
       dom: '<"row"<"col-md-6"l><"col-md-6 text-right"f>>rt<"row"<"col-md-6"i><"col-md-6"p>>',
       // buttons: ["csv", "excel"],
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    });
 
     $('#modalResetPassword').on('show.bs.modal', function(event) {
       var button = $(event.relatedTarget);
