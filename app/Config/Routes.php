@@ -18,30 +18,84 @@ $routes->get('/faker', 'Home::faker');
 $routes->get('/dashboard', "Dashboard::index");
 
 // Surat
-$routes->group('/surat', ['namespace' => 'App\Controllers', 'filter' => ['penduduk', 'role:admin,warga']], function ($routes) {
-    $routes->group('kematian', function ($routes) {
-        $routes->get('', "Kematian::index");
-        $routes->get('new', "Kematian::new");
-        $routes->get('(:num)/batal', "Kematian::batal/$1");
-        $routes->get('(:num)/print', "Kematian::print/$1");
+$routes->group('/surat', ['namespace' => 'App\Controllers'], function ($routes) {
+    $routes->group('pengantar', function ($routes) {
+        $routes->group('skck', function ($routes) {
+            // GET
+            $routes->get('', "PengantarSKCK::index", [
+                'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']
+            ]);
+            $routes->get('new', "PengantarSKCK::new", [
+                'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']
+            ]);
+            $routes->get('(:num)/batal', "PengantarSKCK::batal/$1", [
+                'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']
+            ]);
+            $routes->get('(:num)/print', "PengantarSKCK::print/$1", [
+                'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']
+            ]);
+    
+            // POST 
+            $routes->post('store', "PengantarSKCK::store", [
+                'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']
+            ]);
+            $routes->post('(:num)/update-status', "PengantarSKCK::updateStatus/$1", [
+                'filter' => ['penduduk', 'role:admin,operator_kelurahan']
+            ]);
+        });
+    });
 
-        $routes->post('store', "Kematian::store");
-        $routes->post('(:num)/update-status', "Kematian::updateStatus/$1");
+    $routes->group('kematian', function ($routes) {
+        // GET
+        $routes->get('', "Kematian::index", [
+            'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']
+        ]);
+        $routes->get('new', "Kematian::new", [
+            'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']
+        ]);
+        $routes->get('(:num)/batal', "Kematian::batal/$1", [
+            'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']
+        ]);
+        $routes->get('(:num)/print', "Kematian::print/$1", [
+            'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']
+        ]);
+
+        // POST 
+        $routes->post('store', "Kematian::store", [
+            'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']
+        ]);
+        $routes->post('(:num)/update-status', "Kematian::updateStatus/$1", [
+            'filter' => ['penduduk', 'role:admin,operator_kelurahan']
+        ]);
     });
 
     $routes->group('kelahiran', function ($routes) {
-        $routes->get('', "Kelahiran::index");
-        $routes->get('new', "Kelahiran::new");
-        $routes->get('(:num)/batal', "Kelahiran::batal/$1");
-        $routes->get('(:num)/print', "Kelahiran::print/$1");
+        // GET
+        $routes->get('', "Kelahiran::index", [
+            'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']
+        ]);
+        $routes->get('new', "Kelahiran::new", [
+            'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']
+        ]);
+        $routes->get('(:num)/batal', "Kelahiran::batal/$1", [
+            'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']
+        ]);
+        $routes->get('(:num)/print', "Kelahiran::print/$1", [
+            'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']
+        ]);
 
-        $routes->post('store', "Kelahiran::store");
-        $routes->post('(:num)/update-status', "Kelahiran::updateStatus/$1");
+        // POST
+        $routes->post('store', "Kelahiran::store", [
+            'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']
+        ]);
+        $routes->post('(:num)/update-status', "Kelahiran::updateStatus/$1", [
+            'filter' => ['penduduk', 'role:admin,operator_kelurahan']
+        ]);
     });
 });
 
 // Pengguna
-$routes->group('/pengguna', ['namespace' => 'App\Controllers', 'filter' => ['penduduk', 'role:admin']], function ($routes) {
+$routes->group('/pengguna', ['namespace' => 'App\Controllers', 'filter' => ['penduduk', 'role:admin,operator_kelurahan']], function ($routes) {
     $routes->get('', "Pengguna::index");
     $routes->get('new', "Pengguna::new");
     $routes->get('(:num)/edit', "Pengguna::edit/$1");
@@ -55,7 +109,7 @@ $routes->group('/pengguna', ['namespace' => 'App\Controllers', 'filter' => ['pen
 });
 
 // Penduduk
-$routes->group('/penduduk', ['namespace' => 'App\Controllers', 'filter' => ['penduduk', 'role:admin']], function ($routes) {
+$routes->group('/penduduk', ['namespace' => 'App\Controllers', 'filter' => ['penduduk', 'role:admin,operator_kelurahan']], function ($routes) {
     $routes->get('', "Penduduk::index");
     $routes->get('new', "Penduduk::new");
     $routes->get('(:num)/edit', "Penduduk::edit/$1");
@@ -68,7 +122,7 @@ $routes->group('/penduduk', ['namespace' => 'App\Controllers', 'filter' => ['pen
 });
 
 // Keluarga
-$routes->group('/keluarga', ['namespace' => 'App\Controllers', 'filter' => ['penduduk', 'role:admin,warga']], function ($routes) {
+$routes->group('/keluarga', ['namespace' => 'App\Controllers', 'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']], function ($routes) {
     $routes->get('', "Keluarga::index");
     $routes->get('new', "Keluarga::new");
     $routes->get('(:num/edit)', "Keluarga::edit/$1");
@@ -80,7 +134,7 @@ $routes->group('/keluarga', ['namespace' => 'App\Controllers', 'filter' => ['pen
 });
 
 // Profile
-$routes->group('/profile', ['namespace' => 'App\Controllers', 'filter' => ['penduduk', 'role:admin,warga']], function ($routes) {
+$routes->group('/profile', ['namespace' => 'App\Controllers', 'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']], function ($routes) {
     $routes->get('', "Profile::index");
 
     $routes->post('user-update', "Profile::userUpdate");
