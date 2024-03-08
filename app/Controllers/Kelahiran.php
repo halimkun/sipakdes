@@ -44,7 +44,7 @@ class Kelahiran extends BaseController
         }
 
         $dk = $dk->findAll();
-        
+
         $data = [
             'title' => 'Kelahiran',
             'breadcrumbs' => [
@@ -61,6 +61,7 @@ class Kelahiran extends BaseController
 
     public function new()
     {
+        $user = new \App\Entities\User(user()->toArray());
         $data = [
             'title' => 'Kelahiran',
             'breadcrumbs' => [
@@ -75,6 +76,7 @@ class Kelahiran extends BaseController
                 'hubungan' => 'Anak',
                 'kewarganegaraan' => 'WNI',
                 'status_perkawinan' => 'Belum Kawin',
+                'kk' => $user->pendudukData()->kk,
             ],
         ];
 
@@ -84,12 +86,13 @@ class Kelahiran extends BaseController
     public function store()
     {
         $rules = [
-            'nama' => 'required|min_length[3]',
-            'tempat_lahir' => 'required|min_length[3]',
-            'tanggal_lahir' => 'required|valid_date',
-            'jenis_kelamin' => 'required|in_list[Laki-laki,Perempuan]',
-            'hubungan' => 'required|in_list[Anak]',
-            'kewarganegaraan' => 'required|in_list[WNI]',
+            'kk'                => 'required|is_not_unique[penduduk.kk]',
+            'nama'              => 'required|min_length[3]',
+            'tempat_lahir'      => 'required|min_length[3]',
+            'tanggal_lahir'     => 'required|valid_date',
+            'jenis_kelamin'     => 'required|in_list[Laki-laki,Perempuan]',
+            'hubungan'          => 'required|in_list[Anak]',
+            'kewarganegaraan'   => 'required|in_list[WNI]',
             'status_perkawinan' => 'required|in_list[Belum Kawin]',
         ];
 
@@ -98,7 +101,12 @@ class Kelahiran extends BaseController
         }
 
         $penduduk = new \App\Entities\Penduduk($this->request->getPost());
-        
+
+        $kk = $this->pendudukModel->where('kk', $penduduk->kk)->first();
+        if (!$kk) {
+            return redirect()->back()->withInput()->with('errors', ['Data keluar tidak ditemukan']);
+        }
+
         if ($this->pendudukModel->save($penduduk)) {
             $kelahiran = new \App\Entities\Kelahiran();
             $kelahiran->id_penduduk = $this->pendudukModel->insertID();
@@ -144,15 +152,15 @@ class Kelahiran extends BaseController
     public function print($id)
     {
         $kelahiran = $this->kelahiranModel->select('penduduk.*, kelahiran.*')
-        ->join('penduduk', 'penduduk.id = kelahiran.id_penduduk', 'left');
-        
+            ->join('penduduk', 'penduduk.id = kelahiran.id_penduduk', 'left');
+
         // if warga, only approved kelahiran
         if (in_groups('warga')) {
             $kelahiran = $kelahiran->where('kelahiran.status', 'selesai');
         }
-        
+
         $kelahiran = $kelahiran->find($id);
-        
+
         if (!$kelahiran) {
             return redirect()->back()->with('error', 'Surat kelahiran tidak ditemukan, atau tidak dapat diakses');
         }
@@ -171,7 +179,7 @@ class Kelahiran extends BaseController
             'ibu' => $ibu,
             'ayah' => $ayah,
         ]);
-    
+
         $this->dompdf->loadHtml($html);
         $this->dompdf->render();
 
@@ -199,8 +207,8 @@ class Kelahiran extends BaseController
             ['name' => 'tanggal_lahir', 'label' => 'Tanggal Lahir', 'type' => 'date', 'required' => true],
             ['name' => 'jenis_kelamin', 'label' => 'Jenis Kelamin', 'type' => 'select', 'options' => $this->pendudukController->optionJenisKelamin, 'required' => true],
             ['name' => 'hubungan', 'label' => 'Hubungan', 'type' => 'text', 'required' => true, 'readonly' => true],
-            ['name' => 'kewarganegaraan', 'label' => 'Kewarganegaraan', 'type' => 'text', 'required' => true, 'readonly' => true],
-            ['name' => 'status_perkawinan', 'label' => 'Status Perkawinan', 'type' => 'text', 'required' => true, 'readonly' => true],
+            ['name' => 'kewarganegaraan', 'label' => 'Kebangsaan', 'type' => 'text', 'required' => true, 'readonly' => true],
+            ['name' => 'status_perkawinan', 'label' => 'Stts Perkawinan', 'type' => 'text', 'required' => true, 'readonly' => true],
         ];
     }
 }

@@ -14,6 +14,15 @@
         <?php if (isset($fields) && $fields) : ?>
           <form action="/surat/kelahiran/store" method="post">
             <div class="row">
+              <div class="col-md-6">
+                <?= getFields([
+                  'type' => 'text',
+                  'name' => 'kk',
+                  'label' => 'Nomor KK',
+                  'required' => true,
+                  'readonly' => true,
+                ], $value); ?>
+              </div>
               <?php foreach ($fields as $key => $field) : ?>
                 <div class="col-md-6">
                   <?= getFields($field, $value) ?>
