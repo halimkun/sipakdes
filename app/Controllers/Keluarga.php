@@ -101,8 +101,8 @@ class Keluarga extends BaseController
         if (!$keluarga) return redirect()->to('/keluarga')->with('error', 'Data keluarga tidak ditemukan.');
 
         $fields = [
-            ['name' => 'kk', 'label' => 'KK', 'type' => 'number', 'min' => 0, 'maxlength' => 16, 'required' => true, 'readonly' => isLengkap(user()->id), 'disabled' => isLengkap(user()->id)], // hidden field 'kk'
-            ['name' => 'nik', 'label' => 'NIK', 'type' => 'number', 'min' => 0, 'maxlength' => 16, 'required' => true, 'readonly' => true, 'disabled' => true],
+            ['name' => 'kk', 'label' => 'KK', 'type' => 'number', 'min' => 0, 'maxlength' => 16, 'required' => true, 'readonly' => isMarkFilled($keluarga->kk), 'disabled' => isMarkFilled($keluarga->kk)],  // hidden field 'kk'
+            ['name' => 'nik', 'label' => 'NIK', 'type' => 'number', 'min' => 0, 'maxlength' => 16, 'required' => true, 'readonly' => isMarkFilled($keluarga->nik), 'disabled' => isMarkFilled($keluarga->nik)],
             ['name' => 'nama', 'label' => 'Nama', 'type' => 'text', 'required' => true],
             ['name' => 'tempat_lahir', 'label' => 'Tempat Lahir', 'type' => 'text', 'required' => true],
             ['name' => 'tanggal_lahir', 'label' => 'Tanggal Lahir', 'type' => 'date', 'required' => true],
@@ -167,7 +167,7 @@ class Keluarga extends BaseController
         }
 
         $data = $this->request->getPost();
-        
+
         // replace kk with authenticated user kk to avoid manipulation data 
         unset($data['kk']);
         $data['kk'] = $user->pendudukData()->kk;
@@ -228,7 +228,7 @@ class Keluarga extends BaseController
         if ($this->request->getPost('nik')) {
             $rules['nik'] = 'required|numeric|exact_length[16]|is_unique[penduduk.nik,id,' . $id . ']';
         }
-        
+
         // if in post contain kk
         if ($this->request->getPost('kk')) {
             $rules['kk'] = 'required|numeric|exact_length[16]';
@@ -293,7 +293,7 @@ class Keluarga extends BaseController
 
             // move file to uploads/bkk
             $this->request->getFile('berkas')->move('uploads/bkk', $file_name);
-            
+
             return redirect()->to('/keluarga')->with('success', 'Berkas KK berhasil diunggah.');
         } else {
             return redirect()->to('/keluarga')->with('errors', $this->berkasKkModel->errors());
@@ -324,7 +324,6 @@ class Keluarga extends BaseController
             } else {
                 return redirect()->to('/keluarga')->with('error', 'Data penduduk tidak bisa dihapus, setidaknya harus ada 1 anggota keluarga.');
             }
-
         } else {
             return redirect()->to('/keluarga')->with('error', 'Data penduduk tidak ditemukan.');
         }
