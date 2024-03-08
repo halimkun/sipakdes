@@ -28,7 +28,6 @@ class PendudukFilter implements FilterInterface
         helper('warga');
         helper('auth');
 
-        
         if (service('authentication')->check()) {
             if (!isLengkapOnFilter(user()->id) && uri_string() != 'profile' && !preg_match('/keluarga\/\d+\/edit/', uri_string())) {
                 return redirect()->to('/profile')->with('error', '<br />Anda tidak dapat mengakses fitur dan layanan aplikasi ini. <br />Silahkan lengkapi data diri dan keluarga terlebih dahulu, sebelum menggunakan fitur dan layanan aplikasi ini. <br />Terima kasih.');

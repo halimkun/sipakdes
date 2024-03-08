@@ -45,20 +45,60 @@
 
         <li class="nav-header">Permintaan Surat</li>
         <li class="nav-item">
+          <a href="/surat/sktm" class="nav-link">
+            <i class="nav-icon fas fa-donate"></i>
+            <p>
+              SKTM
+              <span class="right badge badge-danger">blm</span>
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="/surat/domisili" class="nav-link">
+            <i class="nav-icon fas fa-map-marked-alt"></i>
+            <p>
+              Domisili
+              <span class="right badge badge-danger">blm</span>
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="/surat/pengantar/kia" class="nav-link">
+            <i class="nav-icon fas fa-id-card-alt"></i>
+            <p>
+              Pengantar KIA
+              <span class="right badge badge-danger">blm</span>
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="/surat/pengantar/skck" class="nav-link">
+            <i class="nav-icon fas fa-fingerprint"></i>
+            <p>
+              Pengantar SKCK
+              <span class="right badge badge-danger">blm</span>
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
           <a href="/surat/kelahiran" class="nav-link">
             <i class="nav-icon fas fa-baby"></i>
-            <p>Kelahiran</p>
+            <p>
+              Keterangan Lahir
+            </p>
           </a>
         </li>
         <li class="nav-item">
           <a href="/surat/kematian" class="nav-link">
-            <i class="nav-icon fas fa-dizzy"></i>
-            <p>Kematian</p>
+            <i class="nav-icon fas fa-heart-broken"></i>
+            <p>
+              Keterangan Meninggal
+            </p>
           </a>
         </li>
 
         <li class="nav-header">Data</li>
-        <?php if (in_groups(['warga', 'admin'])) : ?>
+        <?php if (in_groups(['warga', 'operator_kelurahan', 'admin'])) : ?>
           <li class="nav-item">
             <a href="/keluarga" class="nav-link">
               <i class="nav-icon fas fa-users"></i>

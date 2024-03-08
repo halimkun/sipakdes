@@ -22,7 +22,7 @@ if (!function_exists('isLengkap')) {
     if ($data) {
       foreach ($data->toArray() as $key => $value) {
         if (!in_array($key, ['created_at', 'updated_at', 'deleted_at'])) {
-          if ($key == 'is_verified') {
+          if (in_array($key, ['is_verified', 'is_kepala_keluarga'])) {
             continue;
           }
 
@@ -53,7 +53,7 @@ if (!function_exists('isLengkapOnFilter')) {
     if ($data) {
       foreach ($data->toArray() as $key => $value) {
         if (!in_array($key, ['created_at', 'updated_at', 'deleted_at'])) {
-          if ($key == 'is_verified') {
+          if (in_array($key, ['is_verified', 'is_kepala_keluarga'])) {
             continue;
           }
 
@@ -86,7 +86,7 @@ if (!function_exists('dataLengkap')) {
   {
     foreach ($data as $key => $value) {
       if (!in_array($key, ['created_at', 'updated_at', 'deleted_at'])) {
-        if ($key == 'is_verified') {
+        if (in_array($key, ['is_verified', 'is_kepala_keluarga'])) {
           continue;
         }
 

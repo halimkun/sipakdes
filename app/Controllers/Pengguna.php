@@ -193,7 +193,7 @@ class Pengguna extends BaseController
     {
         $id = $this->request->getPost('user_id');
         // $password = $this->request->getPost('password');
-
+        
         $user = $this->userModel->find($id);
 
         if ($user) {
