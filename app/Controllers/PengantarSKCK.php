@@ -154,7 +154,7 @@ class PengantarSKCK extends BaseController
     protected function genNomorSurat($created_at)
     {
         // count all kematian on this year where < = created_at
-        $count = $this->pengantarModel->where('YEAR(created_at)', date('Y'))->where('created_at <=', $created_at)->countAllResults();
+        $count = $this->pengantarModel->where('tipe', 'skck')->where('YEAR(created_at)', date('Y'))->where('created_at <=', $created_at)->countAllResults();
         $count = str_pad($count, 3, '0', STR_PAD_LEFT);
 
         // count / SKK / 2 digit day / 2 diigit month / year

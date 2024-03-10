@@ -42,4 +42,19 @@ class PendudukModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    // firstOrNew
+    public function firstOrNew($where, $data = [])
+    {
+        $penduduk = $this->where($where)->first();
+        if ($penduduk) {
+            return $penduduk;
+        }
+
+        // insert and retun data
+        $penduduk = new \App\Entities\Penduduk($data);
+        $this->insert($penduduk);
+        
+        return $penduduk;
+    }
 }

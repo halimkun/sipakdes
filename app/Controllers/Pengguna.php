@@ -68,6 +68,17 @@ class Pengguna extends BaseController
 
     public function store()
     {
+        $rules = [
+            'email' => 'required|valid_email|is_unique[users.email]',
+            'username' => 'required|is_unique[users.username]',
+            'password' => 'required|min_length[8]',
+            'role' => 'required|is_not_unique[auth_groups.id]',
+        ];
+
+        if (!$this->validate($rules)) {
+            return redirect()->to('/pengguna/new')->withInput()->with('errors', $this->validator->getErrors());
+        }
+
         $data = $this->request->getPost();
         $role = $this->request->getPost('role');
         $data['active'] = 1;
@@ -85,9 +96,9 @@ class Pengguna extends BaseController
 
         // insert penduduk
         $penduduk = new \App\Entities\Penduduk($data_penduduk);
-        $this->pendudukModel->save($penduduk);
+        $penduduk = $this->pendudukModel->firstOrNew(['nik' => $data_penduduk['nik']], $penduduk);
 
-        $penduduk_last_id = $this->pendudukModel->insertID();
+        $penduduk_last_id = $penduduk->id;
 
         $user = new \Myth\Auth\Entities\User($data);
         $user->id_penduduk = $penduduk_last_id;
