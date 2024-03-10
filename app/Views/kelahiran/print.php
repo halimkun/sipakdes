@@ -37,15 +37,15 @@
   <table class="table table-sm table-compact table-borderless ml-3">
     <tr>
       <td style="width:30%;">Nama</td>
-      <td>: <?= $ibu->nama; ?></td>
+      <td>: <?= $ibu ? $ibu->nama : "-"; ?></td>
     </tr>
     <tr>
       <td style="width:30%;">Tanggal Lahir</td>
-      <td>: <?= \Carbon\Carbon::parse($ibu->tanggal_lahir)->isoFormat('D MMMM Y'); ?></td>
+      <td>: <?= $ibu ? \Carbon\Carbon::parse($ibu->tanggal_lahir)->isoFormat('D MMMM Y') : '-' ?></td>
     </tr>
     <tr>
       <td style="width:30%;">Usia</td>
-      <td>: <?= \Carbon\Carbon::parse($ibu->tanggal_lahir)->diff(\Carbon\Carbon::now())->format('%y Tahun %m Bulan %d Hari'); ?></td>
+      <td>: <?= $ibu ? \Carbon\Carbon::parse($ibu->tanggal_lahir)->diff(\Carbon\Carbon::now())->format('%y Tahun %m Bulan %d Hari') : '-' ?></td>
     </tr>
     <tr>
       <td style="width:30%;">Istri dari</td>
