@@ -50,7 +50,7 @@ class Kematian extends BaseController
             ->findAll();
 
         $data = [
-            'title' => 'Permintaan Surat Kematian' . (in_groups('warga') ? ' Anda' : ' -'),
+            'title' => 'Permintaan Surat Kematian' . (in_groups('warga') ? ' Anda' : ''),
             'breadcrumbs' => [
                 ['title' => ucfirst(user()->username), 'url' => '/'],
                 ['title' => 'Kematian', 'url' => '/surat/kematian', 'active' => true],
