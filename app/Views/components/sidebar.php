@@ -67,7 +67,6 @@
             <i class="nav-icon fas fa-id-card-alt"></i>
             <p>
               Pengantar KIA
-              <span class="right badge badge-danger">blm</span>
             </p>
           </a>
         </li>
@@ -76,7 +75,6 @@
             <i class="nav-icon fas fa-fingerprint"></i>
             <p>
               Pengantar SKCK
-              <span class="right badge badge-danger">blm</span>
             </p>
           </a>
         </li>
