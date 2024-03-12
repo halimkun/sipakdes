@@ -56,28 +56,30 @@
               <?php endif ?>
             </td>
             <td>
-              <div class="d-flex justify-content-end">
-                <div class="btn-group dropleft">
-                  <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
-                    <i class="fas fa-cog"></i>
-                  </button>
-                  <div class="dropdown-menu">
-                    <a class="dropdown-item" href="/pengguna/<?= $user->user_id ?>/edit"><i class="fa fa-edit mr-1"></i> Edit Data</a>
-                    <a class="dropdown-item" href="/penduduk/<?= $user->id_penduduk ?>/edit"><i class="fa fa-user-edit mr-1"></i> Edit Data Penduduk</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#" data-toggle="modal" data-id="<?= $user->user_id ?>" data-target="#modalUbahRole"><i class="fa fa-key mr-1"></i> Ubah Hak Akses</a>
-                    <a class="dropdown-item" href="#" data-toggle="modal" data-id="<?= $user->user_id ?>" data-target="#modalResetPassword"><i class="fa fa-lock mr-1"></i> Reset Password</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item <?= $user->active ? 'text-danger' : 'text-success' ?>" href="/pengguna/<?= $user->user_id ?>/toggle" onclick="return confirm('Apakah anda yakin akan mengubah status pengguna ini?')">
-                      <?php if ($user->active) : ?>
-                        <i class="fa fa-ban mr-1"></i> Nonaktifkan
-                      <?php else : ?>
-                        <i class="fa fa-check mr-1"></i> Aktifkan
-                      <?php endif ?>
-                    </a>
+              <?php if (!in_groups('admin') && !in_array($user->role, ['admin'])) : ?>
+                <div class="d-flex justify-content-end">
+                  <div class="btn-group dropleft">
+                    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                      <i class="fas fa-cog"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="/pengguna/<?= $user->user_id ?>/edit"><i class="fa fa-edit mr-1"></i> Edit Data</a>
+                      <a class="dropdown-item" href="/penduduk/<?= $user->id_penduduk ?>/edit"><i class="fa fa-user-edit mr-1"></i> Edit Data Penduduk</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="#" data-toggle="modal" data-id="<?= $user->user_id ?>" data-target="#modalUbahRole"><i class="fa fa-key mr-1"></i> Ubah Hak Akses</a>
+                      <a class="dropdown-item" href="#" data-toggle="modal" data-id="<?= $user->user_id ?>" data-target="#modalResetPassword"><i class="fa fa-lock mr-1"></i> Reset Password</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item <?= $user->active ? 'text-danger' : 'text-success' ?>" href="/pengguna/<?= $user->user_id ?>/toggle" onclick="return confirm('Apakah anda yakin akan mengubah status pengguna ini?')">
+                        <?php if ($user->active) : ?>
+                          <i class="fa fa-ban mr-1"></i> Nonaktifkan
+                        <?php else : ?>
+                          <i class="fa fa-check mr-1"></i> Aktifkan
+                        <?php endif ?>
+                      </a>
+                    </div>
                   </div>
                 </div>
-              </div>
+              <?php endif ?>
             </td>
           </tr>
         <?php endforeach ?>
@@ -145,7 +147,8 @@
 
 <?= $this->section('styles'); ?>
 <link rel="stylesheet" href="<?= base_url('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') ?>">
-<link rel="stylesheet" href="<?= '' // base_url('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') ?>">
+<link rel="stylesheet" href="<?= '' // base_url('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') 
+                              ?>">
 <?= $this->endSection(); ?>
 
 
@@ -153,10 +156,14 @@
 <script src="<?= base_url('assets/plugins/datatables/jquery.dataTables.min.js') ?>"></script>
 <script src="<?= base_url('assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') ?>"></script>
 
-<!-- <script src="<?= '' //base_url('assets/plugins/datatables-buttons/js/dataTables.buttons.min.js') ?>"></script> -->
-<!-- <script src="<?= '' //base_url('/assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') ?>"></script> -->
-<!-- <script src="<?= '' //base_url('/assets/plugins/jszip/jszip.min.js') ?>"></script> -->
-<!-- <script src="<?= '' //base_url('/assets/plugins/datatables-buttons/js/buttons.html5.min.js') ?>"></script> -->
+<!-- <script src="<?= '' //base_url('assets/plugins/datatables-buttons/js/dataTables.buttons.min.js') 
+                  ?>"></script> -->
+<!-- <script src="<?= '' //base_url('/assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') 
+                  ?>"></script> -->
+<!-- <script src="<?= '' //base_url('/assets/plugins/jszip/jszip.min.js') 
+                  ?>"></script> -->
+<!-- <script src="<?= '' //base_url('/assets/plugins/datatables-buttons/js/buttons.html5.min.js') 
+                  ?>"></script> -->
 
 <script>
   $(document).ready(function() {
