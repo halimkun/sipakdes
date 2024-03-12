@@ -29,7 +29,7 @@ class Pengantar extends Model
     protected $validationRules      = [
         'id_penduduk' => 'required|is_not_unique[penduduk.id]',
         'status'      => 'required|in_list[pending,selesai,ditolak,batal]',
-        'tipe'        => 'required|in_list[-,skck,kia]',
+        'tipe'        => 'required|in_list[-,skck,kia,sktm]',
         'keperluan'   => 'permit_empty|alpha_numeric_punct|min_length[10]',
     ];
     protected $validationMessages   = [];

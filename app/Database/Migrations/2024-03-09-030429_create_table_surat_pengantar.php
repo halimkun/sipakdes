@@ -12,7 +12,7 @@ class CreateTableSuratPengantar extends Migration
             'id'          => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true, 'auto_increment' => true],
             'id_penduduk' => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true],
             'status'      => ['type' => 'ENUM', 'constraint' => ['pending', 'selesai', 'ditolak', 'batal'], 'default' => 'pending'],
-            'tipe'        => ['type' => 'ENUM', 'constraint' => ['-', 'skck', 'kia'], 'default' => '-'],
+            'tipe'        => ['type' => 'ENUM', 'constraint' => ['-', 'skck', 'kia', 'sktm'], 'default' => '-'],
             'keperluan'   => ['type' => 'TEXT', 'null' => true],
             'created_at'  => ['type' => 'DATETIME', 'null' => true, 'default' => null],
             'updated_at'  => ['type' => 'DATETIME', 'null' => true, 'default' => null],

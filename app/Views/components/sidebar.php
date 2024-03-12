@@ -49,7 +49,6 @@
             <i class="nav-icon fas fa-donate"></i>
             <p>
               SKTM
-              <span class="right badge badge-danger">blm</span>
             </p>
           </a>
         </li>

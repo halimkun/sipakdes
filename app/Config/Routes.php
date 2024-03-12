@@ -72,6 +72,31 @@ $routes->group('/surat', ['namespace' => 'App\Controllers'], function ($routes) 
         });
     });
 
+    // SKTM
+    $routes->group('sktm', function ($routes) {
+        // GET
+        $routes->get('', "KeteranganTidakMampu::index", [
+            'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']
+        ]);
+        $routes->get('new', "KeteranganTidakMampu::new", [
+            'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']
+        ]);
+        $routes->get('(:num)/batal', "KeteranganTidakMampu::batal/$1", [
+            'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']
+        ]);
+        $routes->get('(:num)/print', "KeteranganTidakMampu::print/$1", [
+            'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']
+        ]);
+
+        // POST 
+        $routes->post('store', "KeteranganTidakMampu::store", [
+            'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']
+        ]);
+        $routes->post('(:num)/update-status', "KeteranganTidakMampu::updateStatus/$1", [
+            'filter' => ['penduduk', 'role:admin,operator_kelurahan']
+        ]);
+    });
+
     // Domisili
     $routes->group('domisili', function ($routes) {
         // GET
