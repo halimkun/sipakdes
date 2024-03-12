@@ -28,7 +28,13 @@ class Pengguna extends BaseController
 
         // myth auth get all roles
         $roles_data = $this->groupModel->findAll();
-
+        // if in_groups not admin then remove admin from roles
+        if (!in_groups('admin')) {
+            $roles_data = array_filter($roles_data, function ($role) {
+                return $role->name != 'admin';
+            });
+        }
+        
         return view('pengguna/index', [
             'title' => 'Data Pengguna',
             'breadcrumbs' => [
@@ -47,6 +53,13 @@ class Pengguna extends BaseController
         $roles_data = array_map(function ($role) {
             return $role->toArray();
         }, $roles_data);
+
+        // if in_groups not admin then remove admin from roles
+        if (!in_groups('admin')) {
+            $roles_data = array_filter($roles_data, function ($role) {
+                return $role['name'] != 'admin';
+            });
+        }
 
         $fields = [
             ['name' => 'email', 'label' => 'Email', 'type' => 'email', 'required' => true],

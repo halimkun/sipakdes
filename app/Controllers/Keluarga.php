@@ -38,7 +38,7 @@ class Keluarga extends BaseController
         $berkasKk = $this->berkasKkModel->where('kk', $user->pendudukData()->kk)->first();
 
         return view('keluarga/index', [
-            'title' => 'Data Keluarga',
+            'title' => 'Data Anggota Keluarga Anda',
             'breadcrumbs' => [
                 ['title' => ucfirst(user()->username), 'url' => '/'],
                 ['title' => 'Keluarga', 'url' => '/keluarga', 'active' => true],

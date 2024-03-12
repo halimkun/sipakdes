@@ -146,8 +146,8 @@ class Penduduk extends BaseController
 
         $fields = [
             ['name' => 'id', 'label' => 'ID', 'type' => 'hidden', 'required' => true], // hidden field 'id
-            ['name' => 'kk', 'label' => 'KK', 'type' => 'number', 'min' => 0, 'maxlength' => 16, 'required' => true],
-            ['name' => 'nik', 'label' => 'NIK', 'type' => 'number', 'min' => 0, 'maxlength' => 16, 'required' => true, 'readonly' => true, 'disabled' => true],
+            ['name' => 'kk', 'label' => 'KK', 'type' => 'number', 'min' => 0, 'maxlength' => 16, 'required' => true, 'readonly' => $penduduk->kk, 'disabled' => $penduduk->kk],
+            ['name' => 'nik', 'label' => 'NIK', 'type' => 'number', 'min' => 0, 'maxlength' => 16, 'required' => true, 'readonly' => $penduduk->nik, 'disabled' => $penduduk->nik],
             ['name' => 'nama', 'label' => 'Nama', 'type' => 'text', 'required' => true],
             ['name' => 'tempat_lahir', 'label' => 'Tempat Lahir', 'type' => 'text', 'required' => true],
             ['name' => 'tanggal_lahir', 'label' => 'Tanggal Lahir', 'type' => 'date', 'required' => true],
@@ -186,7 +186,7 @@ class Penduduk extends BaseController
     public function update($id)
     {
         $rules = [
-            'kk'                => 'required|numeric|exact_length[16]',
+            // 'kk'                => 'required|numeric|exact_length[16]',
             'nama'              => 'required|alpha_space|min_length[5]',
             'tempat_lahir'      => 'required|alpha_space|min_length[5]',
             'tanggal_lahir'     => 'required|valid_date',
@@ -209,6 +209,11 @@ class Penduduk extends BaseController
         // if in post contain nik
         if ($this->request->getPost('nik')) {
             $rules['nik'] = 'required|numeric|exact_length[16]|is_unique[penduduk.nik,id,' . $id . ']';
+        }
+        
+        // if in post contain nik
+        if ($this->request->getPost('kk')) {
+            $rules['nik'] = 'required|numeric|exact_length[16]';
         }
 
         if (!$this->validate($rules)) {
@@ -288,7 +293,7 @@ class Penduduk extends BaseController
 
             // move file to uploads/bkk
             $this->request->getFile('berkas')->move('uploads/bkk', $file_name);
-            
+
             return redirect()->to('/penduduk')->with('success', 'Berkas KK berhasil diunggah.');
         } else {
             return redirect()->to('/penduduk')->with('errors', $this->berkasKkModel->errors());
