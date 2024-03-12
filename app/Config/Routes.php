@@ -19,6 +19,7 @@ $routes->get('/dashboard', "Dashboard::index");
 
 // Surat
 $routes->group('/surat', ['namespace' => 'App\Controllers'], function ($routes) {
+    // Pengantar
     $routes->group('pengantar', function ($routes) {
         // Penagantar SKCK
         $routes->group('skck', function ($routes) {
@@ -71,6 +72,32 @@ $routes->group('/surat', ['namespace' => 'App\Controllers'], function ($routes) 
         });
     });
 
+    // Domisili
+    $routes->group('domisili', function ($routes) {
+        // GET
+        $routes->get('', "Domisili::index", [
+            'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']
+        ]);
+        $routes->get('new', "Domisili::new", [
+            'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']
+        ]);
+        $routes->get('(:num)/batal', "Domisili::batal/$1", [
+            'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']
+        ]);
+        $routes->get('(:num)/print', "Domisili::print/$1", [
+            'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']
+        ]);
+
+        // POST 
+        $routes->post('store', "Domisili::store", [
+            'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']
+        ]);
+        $routes->post('(:num)/update-status', "Domisili::updateStatus/$1", [
+            'filter' => ['penduduk', 'role:admin,operator_kelurahan']
+        ]);
+    });
+
+    // Kematian
     $routes->group('kematian', function ($routes) {
         // GET
         $routes->get('', "Kematian::index", [
@@ -95,6 +122,7 @@ $routes->group('/surat', ['namespace' => 'App\Controllers'], function ($routes) 
         ]);
     });
 
+    // kelahiran
     $routes->group('kelahiran', function ($routes) {
         // GET
         $routes->get('', "Kelahiran::index", [
