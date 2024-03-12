@@ -58,7 +58,6 @@
             <i class="nav-icon fas fa-map-marked-alt"></i>
             <p>
               Domisili
-              <span class="right badge badge-danger">blm</span>
             </p>
           </a>
         </li>
