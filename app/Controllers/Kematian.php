@@ -65,9 +65,15 @@ class Kematian extends BaseController
     public function new()
     {
         $user = new \App\Entities\User(user()->toArray());
-        $keluarga = $this->pendudukModel->select('penduduk.*, berkas_kk.berkas, berkas_kk.status as status_berkas, berkas_kk.keterangan as keterangan_berkas')
+        $keluarga = $this->pendudukModel->select('penduduk.*, berkas_kk.berkas, berkas_kk.status as status_berkas, berkas_kk.keterangan as keterangan_berkas, kematian.id as kematian_id, kematian.created_at as kematian_created_at')
             ->join('berkas_kk', 'berkas_kk.kk = penduduk.kk', 'left')
-            ->where('penduduk.kk', $user->pendudukData()->kk)
+            ->join('kematian', 'kematian.id_penduduk = penduduk.id', 'left');
+
+        if (in_groups('warga')) {
+            $keluarga = $keluarga->where('penduduk.kk', $user->pendudukData()->kk);
+        }
+
+        $keluarga = $keluarga->where('kematian.id', null)
             ->orderBy('penduduk.nama', 'ASC')
             ->findAll();
 
@@ -162,7 +168,7 @@ class Kematian extends BaseController
             'noSurat' => $this->genNomorSurat($kematian->created_at),
             'pelapor' => $pelapor,
         ]);
-    
+
         $this->dompdf->loadHtml($html);
         $this->dompdf->render();
 
