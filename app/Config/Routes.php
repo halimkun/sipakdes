@@ -20,6 +20,7 @@ $routes->get('/dashboard', "Dashboard::index");
 // Surat
 $routes->group('/surat', ['namespace' => 'App\Controllers'], function ($routes) {
     $routes->group('pengantar', function ($routes) {
+        // Penagantar SKCK
         $routes->group('skck', function ($routes) {
             // GET
             $routes->get('', "PengantarSKCK::index", [
@@ -40,6 +41,31 @@ $routes->group('/surat', ['namespace' => 'App\Controllers'], function ($routes) 
                 'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']
             ]);
             $routes->post('(:num)/update-status', "PengantarSKCK::updateStatus/$1", [
+                'filter' => ['penduduk', 'role:admin,operator_kelurahan']
+            ]);
+        });
+        
+        // Pengantar KIA
+        $routes->group('kia', function ($routes) {
+            // GET
+            $routes->get('', "PengantarKIA::index", [
+                'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']
+            ]);
+            $routes->get('new', "PengantarKIA::new", [
+                'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']
+            ]);
+            $routes->get('(:num)/batal', "PengantarKIA::batal/$1", [
+                'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']
+            ]);
+            $routes->get('(:num)/print', "PengantarKIA::print/$1", [
+                'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']
+            ]);
+    
+            // POST 
+            $routes->post('store', "PengantarKIA::store", [
+                'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']
+            ]);
+            $routes->post('(:num)/update-status', "PengantarKIA::updateStatus/$1", [
                 'filter' => ['penduduk', 'role:admin,operator_kelurahan']
             ]);
         });
