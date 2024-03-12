@@ -172,7 +172,7 @@ class PengantarKIA extends BaseController
     public function fieldsPengantarKIA()
     {
         return [
-            ['name' => 'keperluan', 'label' => 'Keperluan', 'type' => 'text', 'placeholder' => 'keperluan KIA', 'required' => true, 'readonly' => true]
+            ['name' => 'keperluan', 'label' => 'Keperluan', 'type' => 'text', 'placeholder' => 'keperluan pembuatan KIA', 'required' => true]
         ];
     }
 }

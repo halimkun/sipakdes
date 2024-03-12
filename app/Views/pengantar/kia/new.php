@@ -14,10 +14,9 @@
         <?php if (isset($fields) && $fields) : ?>
           <form action="/surat/pengantar/kia/store" method="post">
             <div class="row">
-              <?php $value = ['keperluan' => 'Pengajuan KIA']; ?>
               <?php foreach ($fields as $key => $field) : ?>
                 <div class="col-12">
-                  <?= getFields($field, $value) ?>
+                  <?= getFields($field) ?>
                 </div>
               <?php endforeach ?>
             </div>
