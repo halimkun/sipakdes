@@ -108,7 +108,7 @@ class Profile extends BaseController
             ['name' => 'is_kepala_keluarga', 'label' => 'Kepala Keluarga', 'type' => 'select', 'options' => $this->pendudukController->optionIsKepalaKeluarga, 'disabled' => true, 'readonly' => true],
             ['name' => 'rt', 'label' => 'RT', 'type' => 'number', 'disabled' => true, 'readonly' => true],
             ['name' => 'rw', 'label' => 'RW', 'type' => 'number', 'disabled' => true, 'readonly' => true],
-            ['name' => 'kelurahan', 'label' => 'Kelurahan', 'type' => 'text', 'disabled' => true, 'readonly' => true],
+            ['name' => 'kelurahan', 'label' => 'Desa', 'type' => 'text', 'disabled' => true, 'readonly' => true],
             ['name' => 'kecamatan', 'label' => 'Kecamatan', 'type' => 'text', 'disabled' => true, 'readonly' => true],
             ['name' => 'kabupaten', 'label' => 'Kabupaten', 'type' => 'text', 'disabled' => true, 'readonly' => true],
             ['name' => 'provinsi', 'label' => 'Provinsi', 'type' => 'text', 'disabled' => true, 'readonly' => true],

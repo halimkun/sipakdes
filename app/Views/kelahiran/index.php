@@ -109,7 +109,7 @@
                     Surat keterangan kelahiran keluaraan adalah surat yang diterbitkan oleh instansi pemerintah setempat dan berfungsi sebagai bukti resmi bahwa seseorang telah lahir di wilayah tersebut.
                 </p>
                 <p class="text-muted">
-                    Penduduk yang terdaftar pada menu ini belum bisa menggunakan layanan yang tersedia pada aplikasi ini. untuk bisa menggunakan layanan harus terlebih dahulu melakukan pendaftaran di kantor kelurahan.
+                    Penduduk yang terdaftar pada menu ini belum bisa menggunakan layanan yang tersedia pada aplikasi ini. untuk bisa menggunakan layanan harus terlebih dahulu melakukan pendaftaran di kantor kepala desa.
                 </p>
             </div>
         </div>

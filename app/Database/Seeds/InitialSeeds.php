@@ -11,12 +11,12 @@ class InitialSeeds extends Seeder
     {
         $faker = Factory::create('id_ID');
 
-        // --- ----- Groups users (admin, operator_kelurahan, admin_posyandu, warga) 
+        // --- ----- Groups users (admin, operator_desa, admin_posyandu, warga) 
 
         // table auth_groups
         $data_auth_groups = [
             ['name' => 'admin', 'description' => 'System Administrator',],
-            ['name' => 'operator_kelurahan', 'description' => 'Operator Kelurahan',],
+            ['name' => 'operator_desa', 'description' => 'Operator Desa',],
             ['name' => 'warga', 'description' => 'Warga',],
         ];
 
@@ -59,12 +59,12 @@ class InitialSeeds extends Seeder
         }
 
 
-        // --- ----- Add other users (operator_kelurahan, operator_posyandu)
+        // --- ----- Add other users (operator_desa, operator_posyandu)
         $data_others_users = [
             [
                 'email' => $faker->email,
-                'username' => 'operator_kelurahan',
-                'password' => 'operator_kelurahan',
+                'username' => 'operator_desa',
+                'password' => 'operator_desa',
                 'active' => '1',
             ],
         ];
@@ -79,7 +79,7 @@ class InitialSeeds extends Seeder
         }
 
 
-        // --- ----- Add other users to group (operator_kelurahan, operator_posyandu)
+        // --- ----- Add other users to group (operator_desa, operator_posyandu)
         foreach ($data_others_users as $data_user) {
             $user = new \Myth\Auth\Entities\User($data_user);
 

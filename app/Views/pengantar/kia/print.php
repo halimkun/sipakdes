@@ -2,7 +2,7 @@
 <?= $this->section('content'); ?>
 <?php
 $p = $pengantar->toArray();
-$alamat = "Kelurahan {$p['kelurahan']} RT " . str_pad($p['rt'], 3, 0, STR_PAD_LEFT) . " RW " . str_pad($p['rw'], 3, 0, STR_PAD_LEFT) . " kecamatan {$p['kecamatan']} kabupaten {$p['kabupaten']} provinsi {$p['provinsi']}";
+$alamat = "Desa {$p['kelurahan']} RT " . str_pad($p['rt'], 3, 0, STR_PAD_LEFT) . " RW " . str_pad($p['rw'], 3, 0, STR_PAD_LEFT) . " kecamatan {$p['kecamatan']} kabupaten {$p['kabupaten']} provinsi {$p['provinsi']}";
 ?>
 
 <div style="text-align: justify; line-height: 1.5;">

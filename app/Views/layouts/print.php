@@ -48,7 +48,7 @@
         <td class="text-center">
           <p class="text-center p-0 m-0" style="font-weight: bold; line-height: 1.2;;">PEMERINTAH KABUPATEN <?= strtoupper(service('settings')->get('App.kabupaten')) ?></p>
           <p class="text-center p-0 m-0" style="font-weight: bold; line-height: 1.2;;">KECAMATAN <?= strtoupper(service('settings')->get('App.kecamatan')) ?></p>
-          <h5 class="p-0 m-0">KANTOR KELURAHAN DESA <?= strtoupper(service('settings')->get('App.desa')) ?></h5>
+          <h5 class="p-0 m-0">KANTOR KEPALA DESA <?= strtoupper(service('settings')->get('App.desa')) ?></h5>
           <small>Jl Raya Cepagan RT 01/01, Kecamatan Warungasem, Kabupaten Batang, Jawa Tengah.</small>
         </td>
       </tr>

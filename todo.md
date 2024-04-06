@@ -5,9 +5,9 @@
 <!-- ----- dummy data -->
 [x] buat dummy data untuk tabel users
 [x] buat dummy data untuk tabel keluarga
-[] sesuaikan data dummy keluarga untuk 1 kelurahan spesifik (cepegan)
-[] tambah beberapa data untuk nomor kk yang sama (sebagai anggota keluarga)
-[] tambahkan user untuk anggota keluarga dengan username nik 
+[x] sesuaikan data dummy keluarga untuk 1 kelurahan spesifik (cepegan)
+[x] tambah beberapa data untuk nomor kk yang sama (sebagai anggota keluarga)
+[x] tambahkan user untuk anggota keluarga dengan username nik 
 
 <!-- ----- relasi -->
 [x] buat relasi tabel users dengan tabel keluarga
@@ -17,6 +17,6 @@
 [x] buat auth untuk anggota keluarga
 
 <!-- ----- Admin -->
-[] buat dashboard admin
-[] buat crud untuk tabel users
-[] buat crud untuk tabel keluarga & anggota keluarga
+[x] buat dashboard admin
+[x] buat crud untuk tabel users
+[x] buat crud untuk tabel keluarga & anggota keluarga

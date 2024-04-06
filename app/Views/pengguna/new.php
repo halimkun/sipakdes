@@ -42,7 +42,7 @@
       </div>
       <div class="card-body">
         <p><code>Data user</code> adalah data pengguna untuk bisa melakukan login ke dalam sistem.</p>
-        <p>Data ini berbeda dengan <code class="text-success">data penduduk</code> yang merupakan data penduduk yang ada di kelurahan. <code class="text-success">Data penduduk</code> dan <code>data user</code> akan saling terkait satu sama lain.</p>
+        <p>Data ini berbeda dengan <code class="text-success">data penduduk</code> yang merupakan data penduduk yang ada di desa. <code class="text-success">Data penduduk</code> dan <code>data user</code> akan saling terkait satu sama lain.</p>
         <p>
           Setiap <code>data user</code> akan memiliki 1 <code class="text-success">data penduduk</code> yang terkait. dan masing-masing <code class="text-success">data penduduk</code> akan memiliki 1 <code>data user</code> yang terkait yang bisa digunakan untuk login dan mengakses sistem.
         </p>

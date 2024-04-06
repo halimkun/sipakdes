@@ -25,24 +25,24 @@ $routes->group('/surat', ['namespace' => 'App\Controllers'], function ($routes) 
         $routes->group('skck', function ($routes) {
             // GET
             $routes->get('', "PengantarSKCK::index", [
-                'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']
+                'filter' => ['penduduk', 'role:admin,operator_desa,warga']
             ]);
             $routes->get('new', "PengantarSKCK::new", [
-                'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']
+                'filter' => ['penduduk', 'role:admin,operator_desa,warga']
             ]);
             $routes->get('(:num)/batal', "PengantarSKCK::batal/$1", [
-                'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']
+                'filter' => ['penduduk', 'role:admin,operator_desa,warga']
             ]);
             $routes->get('(:num)/print', "PengantarSKCK::print/$1", [
-                'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']
+                'filter' => ['penduduk', 'role:admin,operator_desa,warga']
             ]);
     
             // POST 
             $routes->post('store', "PengantarSKCK::store", [
-                'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']
+                'filter' => ['penduduk', 'role:admin,operator_desa,warga']
             ]);
             $routes->post('(:num)/update-status', "PengantarSKCK::updateStatus/$1", [
-                'filter' => ['penduduk', 'role:admin,operator_kelurahan']
+                'filter' => ['penduduk', 'role:admin,operator_desa']
             ]);
         });
         
@@ -50,24 +50,24 @@ $routes->group('/surat', ['namespace' => 'App\Controllers'], function ($routes) 
         $routes->group('kia', function ($routes) {
             // GET
             $routes->get('', "PengantarKIA::index", [
-                'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']
+                'filter' => ['penduduk', 'role:admin,operator_desa,warga']
             ]);
             $routes->get('new', "PengantarKIA::new", [
-                'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']
+                'filter' => ['penduduk', 'role:admin,operator_desa,warga']
             ]);
             $routes->get('(:num)/batal', "PengantarKIA::batal/$1", [
-                'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']
+                'filter' => ['penduduk', 'role:admin,operator_desa,warga']
             ]);
             $routes->get('(:num)/print', "PengantarKIA::print/$1", [
-                'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']
+                'filter' => ['penduduk', 'role:admin,operator_desa,warga']
             ]);
     
             // POST 
             $routes->post('store', "PengantarKIA::store", [
-                'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']
+                'filter' => ['penduduk', 'role:admin,operator_desa,warga']
             ]);
             $routes->post('(:num)/update-status', "PengantarKIA::updateStatus/$1", [
-                'filter' => ['penduduk', 'role:admin,operator_kelurahan']
+                'filter' => ['penduduk', 'role:admin,operator_desa']
             ]);
         });
     });
@@ -76,24 +76,24 @@ $routes->group('/surat', ['namespace' => 'App\Controllers'], function ($routes) 
     $routes->group('sktm', function ($routes) {
         // GET
         $routes->get('', "KeteranganTidakMampu::index", [
-            'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']
+            'filter' => ['penduduk', 'role:admin,operator_desa,warga']
         ]);
         $routes->get('new', "KeteranganTidakMampu::new", [
-            'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']
+            'filter' => ['penduduk', 'role:admin,operator_desa,warga']
         ]);
         $routes->get('(:num)/batal', "KeteranganTidakMampu::batal/$1", [
-            'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']
+            'filter' => ['penduduk', 'role:admin,operator_desa,warga']
         ]);
         $routes->get('(:num)/print', "KeteranganTidakMampu::print/$1", [
-            'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']
+            'filter' => ['penduduk', 'role:admin,operator_desa,warga']
         ]);
 
         // POST 
         $routes->post('store', "KeteranganTidakMampu::store", [
-            'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']
+            'filter' => ['penduduk', 'role:admin,operator_desa,warga']
         ]);
         $routes->post('(:num)/update-status', "KeteranganTidakMampu::updateStatus/$1", [
-            'filter' => ['penduduk', 'role:admin,operator_kelurahan']
+            'filter' => ['penduduk', 'role:admin,operator_desa']
         ]);
     });
 
@@ -101,24 +101,24 @@ $routes->group('/surat', ['namespace' => 'App\Controllers'], function ($routes) 
     $routes->group('domisili', function ($routes) {
         // GET
         $routes->get('', "Domisili::index", [
-            'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']
+            'filter' => ['penduduk', 'role:admin,operator_desa,warga']
         ]);
         $routes->get('new', "Domisili::new", [
-            'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']
+            'filter' => ['penduduk', 'role:admin,operator_desa,warga']
         ]);
         $routes->get('(:num)/batal', "Domisili::batal/$1", [
-            'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']
+            'filter' => ['penduduk', 'role:admin,operator_desa,warga']
         ]);
         $routes->get('(:num)/print', "Domisili::print/$1", [
-            'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']
+            'filter' => ['penduduk', 'role:admin,operator_desa,warga']
         ]);
 
         // POST 
         $routes->post('store', "Domisili::store", [
-            'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']
+            'filter' => ['penduduk', 'role:admin,operator_desa,warga']
         ]);
         $routes->post('(:num)/update-status', "Domisili::updateStatus/$1", [
-            'filter' => ['penduduk', 'role:admin,operator_kelurahan']
+            'filter' => ['penduduk', 'role:admin,operator_desa']
         ]);
     });
 
@@ -126,24 +126,24 @@ $routes->group('/surat', ['namespace' => 'App\Controllers'], function ($routes) 
     $routes->group('kematian', function ($routes) {
         // GET
         $routes->get('', "Kematian::index", [
-            'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']
+            'filter' => ['penduduk', 'role:admin,operator_desa,warga']
         ]);
         $routes->get('new', "Kematian::new", [
-            'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']
+            'filter' => ['penduduk', 'role:admin,operator_desa,warga']
         ]);
         $routes->get('(:num)/batal', "Kematian::batal/$1", [
-            'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']
+            'filter' => ['penduduk', 'role:admin,operator_desa,warga']
         ]);
         $routes->get('(:num)/print', "Kematian::print/$1", [
-            'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']
+            'filter' => ['penduduk', 'role:admin,operator_desa,warga']
         ]);
 
         // POST 
         $routes->post('store', "Kematian::store", [
-            'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']
+            'filter' => ['penduduk', 'role:admin,operator_desa,warga']
         ]);
         $routes->post('(:num)/update-status', "Kematian::updateStatus/$1", [
-            'filter' => ['penduduk', 'role:admin,operator_kelurahan']
+            'filter' => ['penduduk', 'role:admin,operator_desa']
         ]);
     });
 
@@ -151,30 +151,30 @@ $routes->group('/surat', ['namespace' => 'App\Controllers'], function ($routes) 
     $routes->group('kelahiran', function ($routes) {
         // GET
         $routes->get('', "Kelahiran::index", [
-            'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']
+            'filter' => ['penduduk', 'role:admin,operator_desa,warga']
         ]);
         $routes->get('new', "Kelahiran::new", [
-            'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']
+            'filter' => ['penduduk', 'role:admin,operator_desa,warga']
         ]);
         $routes->get('(:num)/batal', "Kelahiran::batal/$1", [
-            'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']
+            'filter' => ['penduduk', 'role:admin,operator_desa,warga']
         ]);
         $routes->get('(:num)/print', "Kelahiran::print/$1", [
-            'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']
+            'filter' => ['penduduk', 'role:admin,operator_desa,warga']
         ]);
 
         // POST
         $routes->post('store', "Kelahiran::store", [
-            'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']
+            'filter' => ['penduduk', 'role:admin,operator_desa,warga']
         ]);
         $routes->post('(:num)/update-status', "Kelahiran::updateStatus/$1", [
-            'filter' => ['penduduk', 'role:admin,operator_kelurahan']
+            'filter' => ['penduduk', 'role:admin,operator_desa']
         ]);
     });
 });
 
 // Pengguna
-$routes->group('/pengguna', ['namespace' => 'App\Controllers', 'filter' => ['penduduk', 'role:admin,operator_kelurahan']], function ($routes) {
+$routes->group('/pengguna', ['namespace' => 'App\Controllers', 'filter' => ['penduduk', 'role:admin,operator_desa']], function ($routes) {
     $routes->get('', "Pengguna::index");
     $routes->get('new', "Pengguna::new");
     $routes->get('(:num)/edit', "Pengguna::edit/$1");
@@ -188,7 +188,7 @@ $routes->group('/pengguna', ['namespace' => 'App\Controllers', 'filter' => ['pen
 });
 
 // Penduduk
-$routes->group('/penduduk', ['namespace' => 'App\Controllers', 'filter' => ['penduduk', 'role:admin,operator_kelurahan']], function ($routes) {
+$routes->group('/penduduk', ['namespace' => 'App\Controllers', 'filter' => ['penduduk', 'role:admin,operator_desa']], function ($routes) {
     $routes->get('', "Penduduk::index");
     $routes->get('new', "Penduduk::new");
     $routes->get('(:num)/edit', "Penduduk::edit/$1");
@@ -201,7 +201,7 @@ $routes->group('/penduduk', ['namespace' => 'App\Controllers', 'filter' => ['pen
 });
 
 // Keluarga
-$routes->group('/keluarga', ['namespace' => 'App\Controllers', 'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']], function ($routes) {
+$routes->group('/keluarga', ['namespace' => 'App\Controllers', 'filter' => ['penduduk', 'role:admin,operator_desa,warga']], function ($routes) {
     $routes->get('', "Keluarga::index");
     $routes->get('new', "Keluarga::new");
     $routes->get('(:num/edit)', "Keluarga::edit/$1");
@@ -213,7 +213,7 @@ $routes->group('/keluarga', ['namespace' => 'App\Controllers', 'filter' => ['pen
 });
 
 // Profile
-$routes->group('/profile', ['namespace' => 'App\Controllers', 'filter' => ['penduduk', 'role:admin,operator_kelurahan,warga']], function ($routes) {
+$routes->group('/profile', ['namespace' => 'App\Controllers', 'filter' => ['penduduk', 'role:admin,operator_desa,warga']], function ($routes) {
     $routes->get('', "Profile::index");
 
     $routes->post('user-update', "Profile::userUpdate");

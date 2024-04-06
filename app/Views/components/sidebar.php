@@ -94,7 +94,7 @@
         </li>
 
         <li class="nav-header">Data</li>
-        <?php if (in_groups(['warga', 'operator_kelurahan', 'admin'])) : ?>
+        <?php if (in_groups(['warga', 'operator_desa', 'admin'])) : ?>
           <li class="nav-item">
             <a href="/keluarga" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
@@ -103,7 +103,7 @@
           </li>
         <?php endif ?>
 
-        <?php if (in_groups(['admin', 'operator_kelurahan'])) : ?>
+        <?php if (in_groups(['admin', 'operator_desa'])) : ?>
           <li class="nav-item">
             <a href="/penduduk" class="nav-link">
               <i class="nav-icon fas fa-user-friends"></i>
@@ -112,7 +112,7 @@
           </li>
         <?php endif ?>
 
-        <?php if (in_groups(['admin', 'operator_kelurahan'])) : ?>
+        <?php if (in_groups(['admin', 'operator_desa'])) : ?>
           <li class="nav-item">
             <a href="/pengguna" class="nav-link">
               <i class="nav-icon fas fa-user"></i>
