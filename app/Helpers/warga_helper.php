@@ -1,12 +1,5 @@
 <?php
 
-$penduduk_data = [
-  'nik', 'kk', 'nama', 'tempat_lahir', 'tanggal_lahir', 'jenis_kelamin',
-  'golongan_darah', 'agama', 'pendidikan', 'jenis_pekerjaan', 'hubungan',
-  'kewarganegaraan', 'status_perkawinan', 'rt', 'rw', 'kelurahan', 'kecamatan',
-  'kabupaten', 'provinsi'
-];
-
 // if function is not exists 
 if (!function_exists('isLengkap')) {
   function isLengkap($id_penduduk)
