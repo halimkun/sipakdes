@@ -8,11 +8,9 @@ use Config\Auth as AuthConfig;
  */
 
 // updater
-$routes->group('/update', ['namespace' => 'App\Controllers'], function ($routes) {
-    $routes->get('check', "AppUpdater::check", [
-        'filter' => ['role:admin']
-    ]);
-});
+$routes->get('update', "AppUpdater::update", [
+    'filter' => ['role:admin']
+]);
 
 //  Default
 $routes->get('/', 'Home::index');

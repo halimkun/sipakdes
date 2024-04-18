@@ -1,0 +1,38 @@
+{
+  "version": "1.0.2",
+  
+  "name": "SIPAKDES",
+  "description": "Sistem Informasi Pemerintahan Desa",
+  
+  "updated_at": "18-04-2024 19:00",
+  "license": "MIT",
+  "author": "-",
+
+  "changeLog": [
+    {
+      "version": "1.0.2",
+      "date": "18-04-2024 19:00",
+      "changes": [
+        "[+] feat : menambahkan fitur updater",
+        "[+] feat : menambahkan fitur log perubahan",
+        "[+] feat : menyesuaikan home page (halaman pertama saat aplikasi diakses)"
+      ]
+    },
+    {
+      "version": "1.0.1",
+      "date": "26-03-2024 12:48 ",
+      "changes": [
+        "[+] Perbaikan bug",
+        "[-] refactor : kelurahan menjadi desa",
+        "[-] refactor : rename user dan role operator_kelurahan menjadi operator_desa"
+      ]
+    },
+    {
+      "version": "1.0.0",
+      "date": "20-03-2024 09:30",
+      "changes": [
+        "[+] first release"
+      ]
+    }
+  ]
+}

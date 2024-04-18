@@ -9,12 +9,16 @@ class Settings extends BaseController
 {
     public function index()
     {
+        // read app-info.json file
+        $app_info = json_decode(file_get_contents(ROOTPATH . 'app-info.json'), true);
         $data = [
             'title' => 'Settings',
             'breadcrumbs' => [
                 ['title' => ucfirst(user()->username), 'url' => '/'],
                 ['title' => 'Settings', 'url' => '/settings', 'active' => true],
             ],
+
+            "info" => $app_info,
 
             'settingsFields' => $this->settingsFields(),
             'settingDesaFields' => $this->settingDesaFields(),
