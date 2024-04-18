@@ -7,6 +7,13 @@ use Config\Auth as AuthConfig;
  * @var RouteCollection $routes
  */
 
+// updater
+$routes->group('/update', ['namespace' => 'App\Controllers'], function ($routes) {
+    $routes->get('check', "AppUpdater::check", [
+        'filter' => ['role:admin']
+    ]);
+});
+
 //  Default
 $routes->get('/', 'Home::index');
 
