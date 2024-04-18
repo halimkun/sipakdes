@@ -5,9 +5,7 @@
   "description": "Sistem Informasi Pemerintahan Desa",
   
   "updated_at": "18-04-2024 19:00",
-  "license": "MIT",
-  "author": "-",
-
+  
   "changeLog": [
     {
       "version": "1.0.2",
