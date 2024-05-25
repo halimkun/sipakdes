@@ -56,7 +56,7 @@
               <?php endif ?>
             </td>
             <td>
-              <?php if (!in_groups('admin') && !in_array($user->role, ['admin'])) : ?>
+              <?php if (!in_array($user->role, ['admin'])) : ?>
                 <div class="d-flex justify-content-end">
                   <div class="btn-group dropleft">
                     <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
