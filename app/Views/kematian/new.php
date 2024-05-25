@@ -105,6 +105,7 @@
 
 
 <?= $this->section('styles') ;?>
+<link rel="stylesheet" href="<?= base_url('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') ?>">
 <link rel="stylesheet" href="<?= base_url('/assets/plugins/daterangepicker/daterangepicker.css') ?>">
 <style>
   .daterangepicker .drp-calendar.left .calendar-table{
@@ -116,11 +117,19 @@
 
 
 <?= $this->section('scripts'); ?>
+<script src="<?= base_url('assets/plugins/datatables/jquery.dataTables.min.js') ?>"></script>
+<script src="<?= base_url('assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') ?>"></script>
+
 <script src="<?= base_url('/assets/plugins/moment/moment-with-locales.min.js') ?>"></script>
 <script src="<?= base_url('/assets/plugins/moment/locale/id.js') ?>"></script>
 <script src="<?= base_url('/assets/plugins/daterangepicker/daterangepicker.js') ?>"></script>
 <script>
   $(document).ready(function() {
+    $('#table-penduduk').DataTable({
+      dom: '<"row"<"col-md-6"l><"col-md-6 text-right"f>>rt<"row"<"col-md-6"i><"col-md-6"p>>',
+      // buttons: ["csv", "excel"],
+    });
+    
     // datepicker for tanggal
     $('input[name="tanggal"]').daterangepicker({
       singleDatePicker: true,
