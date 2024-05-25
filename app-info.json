@@ -1,5 +1,5 @@
 {
-  "version": "1.0.2",
+  "version": "1.0.3",
   
   "name": "SIPAKDES",
   "description": "Sistem Informasi Pemerintahan Desa",
@@ -7,6 +7,17 @@
   "updated_at": "18-04-2024 19:00",
   
   "changeLog": [
+    {
+      "version": "1.0.3",
+      "date": "25-05-2024 10:48",
+      "changes": [
+        "[+] feat : membuat metode batal pada pengajuan berkas pengantar",
+        "[+] update : menambahkan fitur pencarian pada tabel penduduk di beberapa halaman",
+        "[+] update : menonaktifkan fungsi lupa sandi",
+        "[+] fix : memperbaiki bug pada alur pendaftaran",
+        "[+] fix : memperbaiki bug pada kondisi tombol aksi pada tabel pengguna dan penduduk"
+      ]
+    },
     {
       "version": "1.0.2",
       "date": "18-04-2024 19:00",
