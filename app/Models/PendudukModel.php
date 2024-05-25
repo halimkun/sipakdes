@@ -52,9 +52,12 @@ class PendudukModel extends Model
         }
 
         // insert and retun data
-        $penduduk = new \App\Entities\Penduduk($data);
+        $penduduk = new \App\Entities\Penduduk($data->toArray());
         $this->insert($penduduk);
         
-        return $penduduk;
+        // return $penduduk;
+
+        // return last inserted data
+        return $this->find($this->insertID());
     }
 }
