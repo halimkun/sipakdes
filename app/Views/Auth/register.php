@@ -23,7 +23,7 @@
                 </div>
 
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control <?php if (session('errors.username')) : ?>is-invalid<?php endif ?>" name="username" placeholder="<?= lang('Auth.username') ?>" value="<?= old('username') ?>">
+                    <input type="text" class="form-control <?php if (session('errors.username')) : ?>is-invalid<?php endif ?>" name="username" placeholder="NIK" value="<?= old('username') ?>">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <i class="fa fa-user"></i>

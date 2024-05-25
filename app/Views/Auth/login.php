@@ -74,12 +74,17 @@
 				</div>
 			</form>
 
-			<p class="mb-1">
-				<a href="<?= url_to('forgot') ?>">I forgot my password</a>
-			</p>
-			<p class="mb-0">
-				<a href="<?= url_to('register') ?>" class="text-center">Register a new membership</a>
-			</p>
+			<?php if ($config->activeResetter) : ?>
+				<p class="mb-1">
+					<a href="<?= url_to('forgot') ?>">I forgot my password</a>
+				</p>
+			<?php endif ?>
+			
+			<?php if ($config->allowRegistration) : ?>
+				<p class="mb-0">
+					<a href="<?= url_to('register') ?>" class="text-center">Register a new membership</a>
+				</p>
+			<?php endif ?>
 		</div>
 	</div>
 </div>
