@@ -4,9 +4,9 @@ namespace App\Controllers;
 
 use CodeIgniter\Controller;
 use CodeIgniter\Session\Session;
-use Myth\Auth\Config\Auth as AuthConfig;
-use Myth\Auth\Entities\User;
-use Myth\Auth\Models\UserModel;
+use App\Config\Auth as AuthConfig;
+use App\Entities\User;
+use App\Models\UserModel;
 
 class AuthController extends BaseController
 {
@@ -72,7 +72,7 @@ class AuthController extends BaseController
             $rules['login'] .= '|valid_email';
         }
 
-        if (! $this->validate($rules)) {
+        if (!$this->validate($rules)) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
@@ -84,7 +84,7 @@ class AuthController extends BaseController
         $type = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
 
         // Try to log them in...
-        if (! $this->auth->attempt([$type => $login, 'password' => $password], $remember)) {
+        if (!$this->auth->attempt([$type => $login, 'password' => $password], $remember)) {
             return redirect()->back()->withInput()->with('error', $this->auth->error() ?? lang('Auth.badAttempt'));
         }
 
@@ -126,7 +126,7 @@ class AuthController extends BaseController
         }
 
         // Check if registration is allowed
-        if (! $this->config->allowRegistration) {
+        if (!$this->config->allowRegistration) {
             return redirect()->back()->withInput()->with('error', lang('Auth.registerDisabled'));
         }
 
@@ -139,20 +139,24 @@ class AuthController extends BaseController
     public function attemptRegister()
     {
         // Check if registration is allowed
-        if (! $this->config->allowRegistration) {
+        if (!$this->config->allowRegistration) {
             return redirect()->back()->withInput()->with('error', lang('Auth.registerDisabled'));
         }
 
         $users = model(UserModel::class);
+        $pendudukModel = new \App\Models\PendudukModel();
+
+        // Start transaction
+        $db = \Config\Database::connect();
+        $db->transBegin();
 
         // Validate basics first since some password rules rely on these fields
         $rules = config('Validation')->registrationRules ?? [
-            // 'username' => 'required|alpha_numeric_space|min_length[3]|max_length[30]|is_unique[users.username]',
             'username' => 'required|numeric|min_length[16]|max_length[16]|is_unique[users.username]',
             'email'    => 'required|valid_email|is_unique[users.email]',
         ];
 
-        if (! $this->validate($rules)) {
+        if (!$this->validate($rules)) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
@@ -162,30 +166,42 @@ class AuthController extends BaseController
             'pass_confirm' => 'required|matches[password]',
         ];
 
-        if (! $this->validate($rules)) {
+        if (!$this->validate($rules)) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
         // Save the user
         $allowedPostFields = array_merge(['password'], $this->config->validFields, $this->config->personalFields);
-        $user              = new User($this->request->getPost($allowedPostFields));
+        $user = new User($this->request->getPost($allowedPostFields));
 
         $this->config->requireActivation === null ? $user->activate() : $user->generateActivateHash();
 
         // Ensure default group gets assigned if set
-        if (! empty($this->config->defaultUserGroup)) {
+        if (!empty($this->config->defaultUserGroup)) {
             $users = $users->withGroup($this->config->defaultUserGroup);
         }
 
-        if (! $users->save($user)) {
+        // save or update username as nik on penduduk table
+        $penduduk = $pendudukModel->firstOrNew(['nik' => $user->username], new \App\Entities\Penduduk(['nik' => $user->username]));
+
+        // Add id_penduduk to user
+        $user->id_penduduk = $penduduk->id; // TODO: Verify that $penduduk->id has a value before assigning it to $user->id_penduduk
+
+        // Save user
+        if (!$users->save($user)) {
+            // Rollback transaction
+            $db->transRollback();
             return redirect()->back()->withInput()->with('errors', $users->errors());
         }
 
+        // Commit transaction
+        $db->transCommit();
+
         if ($this->config->requireActivation !== null) {
             $activator = service('activator');
-            $sent      = $activator->send($user);
+            $sent = $activator->send($user);
 
-            if (! $sent) {
+            if (!$sent) {
                 return redirect()->back()->withInput()->with('error', $activator->error() ?? lang('Auth.unknownError'));
             }
 
@@ -230,7 +246,7 @@ class AuthController extends BaseController
             ],
         ];
 
-        if (! $this->validate($rules)) {
+        if (!$this->validate($rules)) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
@@ -249,7 +265,7 @@ class AuthController extends BaseController
         $resetter = service('resetter');
         $sent     = $resetter->send($user);
 
-        if (! $sent) {
+        if (!$sent) {
             return redirect()->back()->withInput()->with('error', $resetter->error() ?? lang('Auth.unknownError'));
         }
 
@@ -302,7 +318,7 @@ class AuthController extends BaseController
             'pass_confirm' => 'required|matches[password]',
         ];
 
-        if (! $this->validate($rules)) {
+        if (!$this->validate($rules)) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
@@ -315,7 +331,7 @@ class AuthController extends BaseController
         }
 
         // Reset token still valid?
-        if (! empty($user->reset_expires) && time() > $user->reset_expires->getTimestamp()) {
+        if (!empty($user->reset_expires) && time() > $user->reset_expires->getTimestamp()) {
             return redirect()->back()->withInput()->with('error', lang('Auth.resetTokenExpired'));
         }
 
@@ -400,7 +416,7 @@ class AuthController extends BaseController
         $activator = service('activator');
         $sent      = $activator->send($user);
 
-        if (! $sent) {
+        if (!$sent) {
             return redirect()->back()->withInput()->with('error', $activator->error() ?? lang('Auth.unknownError'));
         }
 
