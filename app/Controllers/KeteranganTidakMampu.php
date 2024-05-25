@@ -97,6 +97,29 @@ class KeteranganTidakMampu extends BaseController
         return redirect()->to('/surat/sktm')->with('success', 'Pengajuan surat pengantar SKTM berhasil dikirim');
     }
 
+    public function batal($id)
+    {
+        $pengantar = $this->pengantarModel->find($id);
+
+        if (!$pengantar) {
+            return redirect()->back()->with('error', 'Surat pengantar tidak ditemukan');
+        }
+
+
+        $data = [
+            'status' => "batal",
+            'keterangan' => $this->request->getPost('keterangan') ?? null
+        ];
+
+        $pengantar->fill($data);
+
+        if ($pengantar->hasChanged() && !$this->pengantarModel->save($pengantar)) {
+            return redirect()->back()->with('errors', $this->pengantarModel->errors());
+        }
+
+        return redirect()->back()->with('success', 'Status surat pengantar berhasil diubah');
+    }
+
     public function updateStatus($id)
     {
         $pengantar = $this->pengantarModel->find($id);
