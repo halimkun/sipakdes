@@ -1,5 +1,5 @@
 {
-  "version": "1.0.3",
+  "version": "1.0.4",
   
   "name": "SIPAKDES",
   "description": "Sistem Informasi Pemerintahan Desa",
@@ -7,6 +7,16 @@
   "updated_at": "18-04-2024 19:00",
   
   "changeLog": [
+    {
+      "version": "1.0.4",
+      "date": "31-05-2024 08:32",
+      "changes": [
+        "[+] feat : message box baru degan kondisi info",
+        "[+] update : perbaikan pada metode batal di beberapa data pengajuan",
+        "[+] update : penyesuaian data penduduk ketika mengajukan membuat pengajuan",
+        "[+] fix : perbaikan logika kondisi"
+      ]
+    },
     {
       "version": "1.0.3",
       "date": "25-05-2024 10:48",
