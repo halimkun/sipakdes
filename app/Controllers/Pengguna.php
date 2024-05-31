@@ -13,7 +13,7 @@ class Pengguna extends BaseController
 
     public function __construct()
     {
-        $this->userModel = new \Myth\Auth\Models\UserModel();
+        $this->userModel = new \App\Models\UserModel();
         $this->pendudukModel = new \App\Models\PendudukModel();
         $this->groupModel = new \Myth\Auth\Models\GroupModel();
     }
@@ -111,10 +111,8 @@ class Pengguna extends BaseController
         $penduduk = new \App\Entities\Penduduk($data_penduduk);
         $penduduk = $this->pendudukModel->firstOrNew(['nik' => $data_penduduk['nik']], $penduduk);
 
-        $penduduk_last_id = $penduduk->id;
-
         $user = new \Myth\Auth\Entities\User($data);
-        $user->id_penduduk = $penduduk_last_id;
+        $user->id_penduduk = $penduduk->id;
         
         if ($this->userModel->save($user)) {
             $user_id = $this->userModel->insertID();

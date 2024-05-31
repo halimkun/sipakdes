@@ -185,7 +185,7 @@ class AuthController extends BaseController
         $penduduk = $pendudukModel->firstOrNew(['nik' => $user->username], new \App\Entities\Penduduk(['nik' => $user->username]));
 
         // Add id_penduduk to user
-        $user->id_penduduk = $penduduk->id; // TODO: Verify that $penduduk->id has a value before assigning it to $user->id_penduduk
+        $user->id_penduduk = $penduduk->id;
 
         // Save user
         if (!$users->save($user)) {
