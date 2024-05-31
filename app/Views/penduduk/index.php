@@ -73,9 +73,9 @@
                       <?php endif ?>
                     </a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item text-danger btn-delete" href="#" data-id="<?= $pen->id; ?>" data-nik="<?= $pen->nik; ?>" data-nama="<?= $pen->nama; ?>">
+                    <!-- <a class="dropdown-item text-danger btn-delete" href="#" data-id="<?= $pen->id; ?>" data-nik="<?= $pen->nik; ?>" data-nama="<?= $pen->nama; ?>">
                       <i class="fa fa-trash mr-1"></i> Hapus Data
-                    </a>
+                    </a> -->
                   </div>
                 </div>
               </div>
@@ -216,16 +216,16 @@
     });
 
     // delete modal
-    $('.btn-delete').click(function() {
-      $('#delete-nik').text($(this).data('nik'));
-      $('#delete-nama').text($(this).data('nama'));
+    // $('.btn-delete').click(function() {
+    //   $('#delete-nik').text($(this).data('nik'));
+    //   $('#delete-nama').text($(this).data('nama'));
 
-      // action form
-      $('form').attr('action', '/penduduk/' + $(this).data('id') + '/delete');
+    //   // action form
+    //   $('form').attr('action', '/penduduk/' + $(this).data('id') + '/delete');
 
-      // show modal
-      $('#mode-delete-confirmation').modal('show');
-    });
+    //   // show modal
+    //   $('#mode-delete-confirmation').modal('show');
+    // });
 
     // keterangan modal
     $('.btn-keterangan').click(function() {
