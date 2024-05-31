@@ -247,9 +247,13 @@ class Keluarga extends BaseController
             }
 
             $penduduk->fill($this->request->getPost());
+            
+            if (!$penduduk->hasChanged()) {
+                return redirect()->back()->with('info', 'Tidak ada data yang diubah.');
+            }
 
             if ($this->pendudukModel->save($penduduk)) {
-                return redirect()->to('/keluarga')->with('success', 'Data penduduk berhasil diubah.');
+                return redirect()->back()->with('success', 'Data penduduk berhasil diubah.');
             } else {
                 return redirect()->back()->withInput()->with('errors', $this->pendudukModel->errors())->withInput();
             }

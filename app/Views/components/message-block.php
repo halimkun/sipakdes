@@ -35,3 +35,13 @@
         <?= session()->get('success') ?>
     </blockquote>
 <?php endif ?>
+
+<!-- ----- info -->
+<?php if (session()->get('info')) : ?>
+    <blockquote class="quote-info fade show m-0 mb-3" role="alert">
+        <strong class="mr-1">
+            <i class="mr-1 fas fa-info-circle"></i> Info!
+        </strong>
+        <?= session()->get('info') ?>
+    </blockquote>
+<?php endif ?>

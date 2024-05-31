@@ -15,11 +15,11 @@ if (!function_exists('isLengkap')) {
     if ($data) {
       foreach ($data->toArray() as $key => $value) {
         if (!in_array($key, ['created_at', 'updated_at', 'deleted_at'])) {
-          if (in_array($key, ['is_verified', 'is_kepala_keluarga'])) {
+          if (in_array($key, ['golongan_darah', 'is_verified', 'is_kepala_keluarga'])) {
             continue;
           }
 
-          if ($value == null || $value == '' || $value == 0 || $value == '-') {
+          if ($value === null || $value === '' || $value === 0 || $value === '-') {
             return false;
           }
         }
@@ -46,11 +46,11 @@ if (!function_exists('isLengkapOnFilter')) {
     if ($data) {
       foreach ($data->toArray() as $key => $value) {
         if (!in_array($key, ['created_at', 'updated_at', 'deleted_at'])) {
-          if (in_array($key, ['is_verified', 'is_kepala_keluarga'])) {
+          if (in_array($key, ['golongan_darah', 'is_verified', 'is_kepala_keluarga'])) {
             continue;
           }
 
-          if ($value == null || $value == '' || $value == 0 || $value == '-') {
+          if ($value === null || $value === '' || $value === 0 || $value === '-') {
             return false;
           }
         }
@@ -79,11 +79,11 @@ if (!function_exists('dataLengkap')) {
   {
     foreach ($data as $key => $value) {
       if (!in_array($key, ['created_at', 'updated_at', 'deleted_at'])) {
-        if (in_array($key, ['is_verified', 'is_kepala_keluarga'])) {
+        if (in_array($key, ['golongan_darah', 'is_verified', 'is_kepala_keluarga'])) {
           continue;
         }
 
-        if ($value == null || $value == '' || $value == 0 || $value == '-') {
+        if ($value === null || $value === '' || $value === 0 || $value === '-') {
           return false;
         }
       }
