@@ -58,7 +58,9 @@ class Domisili extends BaseController
     public function new()
     {
         $user     = new \App\Entities\User(user()->toArray());
-        $penduduk = $this->pendudukModel->select('*');
+        $penduduk = $this->pendudukModel->select('penduduk.*, users.active')
+            ->join('users', 'users.id_penduduk = penduduk.id', 'left')
+            ->where('users.active', '1');
 
         if (in_groups('warga')) {
             $penduduk->where('kk', $user->pendudukData()->kk);

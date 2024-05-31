@@ -50,11 +50,17 @@ class PengantarSKCK extends BaseController
 
     public function new()
     {
-        $data_penduduk = $this->pendudukModel->select('penduduk.*, users.active')
+        $user     = new \App\Entities\User(user()->toArray());
+        $penduduk = $this->pendudukModel->select('penduduk.*, users.active')
             ->join('users', 'users.id_penduduk = penduduk.id', 'left')
-            ->where('users.active', '1')
-            ->findAll();
+            ->where('users.active', '1');
 
+        if (in_groups('warga')) {
+            $penduduk->where('kk', $user->pendudukData()->kk);
+        }
+
+        $penduduk = $penduduk->findAll();
+            
         return view('pengantar/skck/new', [
             'title'       => 'Pengajuan Surat Pengantar SKCK',
             'breadcrumbs' => [
@@ -63,7 +69,7 @@ class PengantarSKCK extends BaseController
                 ['title' => 'SKCK', 'url' => '/pengantar/skck'],
                 ['title' => 'buat', 'url' => '/pengantar/skck/new', 'active' => true]
             ],
-            'penduduk' => $data_penduduk,
+            'penduduk' => $penduduk,
             'fields'   => $this->fieldsPengantarSkck()
         ]);
     }
