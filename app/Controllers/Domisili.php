@@ -109,6 +109,29 @@ class Domisili extends BaseController
         return redirect()->back()->withInput()->with('errors', ['Data gagal disimpan']);
     }
 
+    public function batal($id)
+    {
+        $domisili = $this->domisiliModel->find($id);
+
+        if (!$domisili) {
+            return redirect()->back()->with('error', 'Surat domisili tidak ditemukan');
+        }
+
+
+        $data = [
+            'status' => "batal",
+            'keterangan' => $this->request->getPost('keterangan') ?? null
+        ];
+
+        $domisili->fill($data);
+
+        if ($domisili->hasChanged() && !$this->domisiliModel->save($domisili)) {
+            return redirect()->back()->with('errors', $this->domisiliModel->errors());
+        }
+
+        return redirect()->back()->with('success', 'Status surat domisili berhasil diubah');
+    }
+
     public function updateStatus($id)
     {
         $pengantar = $this->domisiliModel->find($id);

@@ -93,6 +93,29 @@ class PengantarSKCK extends BaseController
         return redirect()->to('/surat/pengantar/skck')->with('success', 'Pengajuan surat pengantar SKCK berhasil dikirim');
     }
 
+    public function batal($id)
+    {
+        $domisili = $this->pengantarModel->find($id);
+
+        if (!$domisili) {
+            return redirect()->back()->with('error', 'Surat domisili tidak ditemukan');
+        }
+
+
+        $data = [
+            'status' => "batal",
+            'keterangan' => $this->request->getPost('keterangan') ?? null
+        ];
+
+        $domisili->fill($data);
+
+        if ($domisili->hasChanged() && !$this->pengantarModel->save($domisili)) {
+            return redirect()->back()->with('errors', $this->pengantarModel->errors());
+        }
+
+        return redirect()->back()->with('success', 'Status surat domisili berhasil diubah');
+    }
+
     public function updateStatus($id)
     {
         $pengantar = $this->pengantarModel->find($id);
