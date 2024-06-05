@@ -68,7 +68,7 @@
                       <div class="btn-group btn-group-sm" role="group" aria-label="Aksi Penduduk">
                         <?php if (!in_array($skck->status, ['pending'])) : ?>
                           <?php if ($skck->status == 'selesai') : ?>
-                            <a href="/surat/pengantar/skck/<?= $skck->pengantar_id ?>/print" class="btn btn-sm btn-primary" data-toggle="tooltip" title="cetak"><i class="fa fa-print"></i></a>
+                            <!-- <a href="/surat/pengantar/skck/<?= $skck->pengantar_id ?>/print" class="btn btn-sm btn-primary" data-toggle="tooltip" title="cetak"><i class="fa fa-print"></i></a> -->
                           <?php endif ?>
                           <!-- <button data-toggle="tooltip" title="batal" class="btn btn-sm btn-secondary btn-batal" disabled data-id="<?= $skck->pengantar_id ?>"><i class="fa fa-times-circle"></i></button> -->
                         <?php else : ?>

@@ -72,7 +72,7 @@
                     <div class="btn-group btn-group-sm" role="group" aria-label="Aksi Penduduk">
                       <?php if (!in_array($d->status, ['pending'])) : ?>
                         <?php if ($d->status == 'approved') : ?>
-                          <a href="/surat/kematian/<?= $d->id ?>/print" class="btn btn-sm btn-primary" data-toggle="tooltip" title="cetak"><i class="fa fa-print"></i></a>
+                          <!-- <a href="/surat/kematian/<?= $d->id ?>/print" class="btn btn-sm btn-primary" data-toggle="tooltip" title="cetak"><i class="fa fa-print"></i></a> -->
                         <?php endif ?>
                         <!-- <button data-toggle="tooltip" title="batal" class="btn btn-sm btn-secondary btn-batal" disabled data-id="<?= $d->id ?>"><i class="fa fa-times-circle"></i></button> -->
                       <?php else : ?>
