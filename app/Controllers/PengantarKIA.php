@@ -50,9 +50,21 @@ class PengantarKIA extends BaseController
 
     public function new()
     {
-        $data_penduduk = $this->pendudukModel->select('penduduk.*')
+        // $data_penduduk = $this->pendudukModel->select('penduduk.*')
+        //     ->where('TIMESTAMPDIFF(YEAR, penduduk.tanggal_lahir, CURDATE()) <=', 17)
+        //     ->findAll();
+
+        $user     = new \App\Entities\User(user()->toArray());
+        $penduduk = $this->pendudukModel->select('penduduk.*, users.active')
+            ->join('users', 'users.id_penduduk = penduduk.id', 'left')
             ->where('TIMESTAMPDIFF(YEAR, penduduk.tanggal_lahir, CURDATE()) <=', 17)
-            ->findAll();
+            ->where('users.active', '1');
+
+        if (in_groups('warga')) {
+            $penduduk->where('kk', $user->pendudukData()->kk);
+        }
+
+        $penduduk = $penduduk->findAll();
 
         return view('pengantar/kia/new', [
             'title'       => 'Pengajuan Surat Pengantar KIA',
@@ -62,7 +74,7 @@ class PengantarKIA extends BaseController
                 ['title' => 'KIA', 'url' => '/pengantar/kia'],
                 ['title' => 'buat', 'url' => '/pengantar/kia/new', 'active' => true]
             ],
-            'penduduk' => $data_penduduk,
+            'penduduk' => $penduduk,
             'fields'   => $this->fieldsPengantarKIA()
         ]);
     }

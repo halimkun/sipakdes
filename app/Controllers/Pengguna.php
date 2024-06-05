@@ -119,6 +119,8 @@ class Pengguna extends BaseController
             $this->groupModel->addUserToGroup($user_id, $role);
 
             return redirect()->to('/pengguna')->with('success', 'Pengguna berhasil ditambahkan');
+        } else {
+            return redirect()->back()->withInput()->with('errors', $this->userModel->errors());
         }
     }
 
@@ -207,6 +209,8 @@ class Pengguna extends BaseController
             $this->groupModel->addUserToGroup($id, $role);
 
             return redirect()->to('/pengguna')->with('success', 'Pengguna berhasil diubah');
+        } else {
+            return redirect()->back()->withInput()->with('errors', $this->userModel->errors());
         }
     }
 

@@ -107,7 +107,7 @@ class Kematian extends BaseController
         }
 
         // check if nik_pelapor have same kk with id_penduduk
-        if (!$this->checkNikPelapor($this->request->getPost('id_penduduk'), $this->request->getPost('nik_pelapor'))) {
+        if (!in_groups('admin') && !$this->checkNikPelapor($this->request->getPost('id_penduduk'), $this->request->getPost('nik_pelapor'))) {
             return redirect()->back()->withInput()->with('errors', ['nik_pelapor' => 'NIK pelapor tidak terdaftar dalam KK yang sama'])->withInput();
         }
 
@@ -118,6 +118,14 @@ class Kematian extends BaseController
         $penduduk = $this->pendudukModel->find($this->request->getPost('id_penduduk'));
         if (!$penduduk) {
             return redirect()->back()->withInput()->with('errors', ['id_penduduk' => 'Penduduk tidak ditemukan'])->withInput();
+        }
+
+        if (in_groups('admin')) {
+            // update is_verified 
+            $penduduk->is_verified = 1;
+            $this->pendudukModel->save($penduduk);
+
+            $penduduk = $this->pendudukModel->find($this->request->getPost('id_penduduk'));
         }
 
         if (!$penduduk->is_verified) {

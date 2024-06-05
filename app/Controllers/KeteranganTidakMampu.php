@@ -31,7 +31,7 @@ class KeteranganTidakMampu extends BaseController
 
     public function index()
     {
-        $data_pengajuan = $this->pengantarModel->select('pengantar.id as pengantar_id, pengantar.id_penduduk, pengantar.status, pengantar.tipe, pengantar.keperluan, pengantar.created_at, penduduk.*')
+        $data_pengajuan = $this->pengantarModel->select('pengantar.id as pengantar_id, pengantar.id_penduduk, pengantar.keterangan, pengantar.status, pengantar.tipe, pengantar.keperluan, pengantar.created_at, penduduk.*')
             ->join('penduduk', 'penduduk.id = pengantar.id_penduduk')
             ->where('pengantar.tipe', 'sktm')
             ->findAll();
@@ -50,10 +50,21 @@ class KeteranganTidakMampu extends BaseController
 
     public function new()
     {
-        $data_penduduk = $this->pendudukModel->select('penduduk.*')
-            ->join('kematian', 'kematian.id_penduduk = penduduk.id', 'left')
-            ->where('kematian.id_penduduk', null)
-            ->findAll();
+        // $data_penduduk = $this->pendudukModel->select('penduduk.*')
+        //     ->join('kematian', 'kematian.id_penduduk = penduduk.id', 'left')
+        //     ->where('kematian.id_penduduk', null)
+        //     ->findAll();
+
+        $user     = new \App\Entities\User(user()->toArray());
+        $penduduk = $this->pendudukModel->select('penduduk.*, users.active')
+            ->join('users', 'users.id_penduduk = penduduk.id', 'left')
+            ->where('users.active', '1');
+
+        if (in_groups('warga')) {
+            $penduduk->where('kk', $user->pendudukData()->kk);
+        }
+
+        $penduduk = $penduduk->findAll();
 
         return view('sktm/new', [
             'title'       => 'Pengajuan Surat Pengantar SKTM',
@@ -63,7 +74,7 @@ class KeteranganTidakMampu extends BaseController
                 ['title' => 'SKTM', 'url' => '/surat/sktm'],
                 ['title' => 'buat', 'url' => '/surat/sktm/new', 'active' => true]
             ],
-            'penduduk' => $data_penduduk,
+            'penduduk' => $penduduk,
             'fields'   => $this->fieldsPengantarSKTM()
         ]);
     }
