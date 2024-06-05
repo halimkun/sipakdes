@@ -110,7 +110,7 @@ class PengantarSKCK extends BaseController
 
         $data = [
             'status' => "batal",
-            'keterangan' => $this->request->getPost('keterangan') ?? null
+            'keterangan' => $this->request->getPost('keterangan') ?? 'dibalikkan oleh pemohon'
         ];
 
         $domisili->fill($data);
@@ -128,7 +128,7 @@ class PengantarSKCK extends BaseController
         if ($pengantar) {
             $data = [
                 'status' => $this->request->getPost('status'),
-                'keterangan' => $this->request->getPost('keterangan') ?? '',
+                'keterangan' => $this->request->getPost('keterangan') ?? null,
             ];
 
             $pengantar->fill($data);

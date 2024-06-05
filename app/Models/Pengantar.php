@@ -13,7 +13,7 @@ class Pengantar extends Model
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
-        'id_penduduk', 'status', 'tipe', 'keperluan',
+        'id_penduduk', 'status', 'tipe', 'keperluan', 'keterangan'
     ];
 
     protected bool $allowEmptyInserts = false;

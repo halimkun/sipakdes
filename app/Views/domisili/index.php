@@ -15,6 +15,7 @@
               <th>#</th>
               <th>Nama</th>
               <th>Tanggal</th>
+              <th>Keterangan</th>
               <th>Status</th>
               <th>Aksi</th>
             </tr>
@@ -32,6 +33,11 @@
                 <td>
                   <?= \Carbon\Carbon::parse($d->tanggal)->isoFormat('dddd, D MMMM Y'); ?> <br>
                   <small><?= \Carbon\Carbon::parse($d->tanggal)->isoFormat('HH:mm'); ?> WIB</small>
+                </td>
+                <td>
+                  <div class="text-muted">
+                    <small><?= $d->keterangan ?></small>
+                  </div>
                 </td>
                 <td>
                   <?php if ($d->status == 'pending') : ?>
@@ -65,9 +71,9 @@
                         <?php if ($d->status == 'approved') : ?>
                           <a href="/surat/domisili/<?= $d->id_domisili ?>/print" class="btn btn-sm btn-primary" data-toggle="tooltip" title="cetak"><i class="fa fa-print"></i></a>
                         <?php endif ?>
-                        <button data-toggle="tooltip" title="batal" class="btn btn-sm btn-secondary btn-batal" disabled data-id="<?= $d->id_domisili ?>"><i class="fa fa-times-circle"></i></button>
+                        <!-- <button data-toggle="tooltip" title="batal" class="btn btn-sm btn-secondary btn-batal" disabled data-id="<?= $d->id_domisili ?>"><i class="fa fa-times-circle"></i></button> -->
                       <?php else : ?>
-                        <a href="/surat/domisili/<?= $d->id_domisili ?>/batal" data-toggle="tooltip" title="batal" class="btn btn-sm btn-secondary" onclick="return confirm('Apakah anda yakin ingin membatalkan surat ini?')"><i class="fa fa-times-circle"></i></a>
+                        <!-- <a href="/surat/domisili/<?= $d->id_domisili ?>/batal" data-toggle="tooltip" title="batal" class="btn btn-sm btn-secondary" onclick="return confirm('Apakah anda yakin ingin membatalkan surat ini?')"><i class="fa fa-times-circle"></i></a> -->
                       <?php endif ?>
                     </div>
                   <?php endif ?>

@@ -14,6 +14,7 @@ class CreateTableSuratPengantar extends Migration
             'status'      => ['type' => 'ENUM', 'constraint' => ['pending', 'selesai', 'ditolak', 'batal'], 'default' => 'pending'],
             'tipe'        => ['type' => 'ENUM', 'constraint' => ['-', 'skck', 'kia', 'sktm'], 'default' => '-'],
             'keperluan'   => ['type' => 'TEXT', 'null' => true],
+            'keterangan'  => ['type' => 'TEXT', 'null' => true],
             'created_at'  => ['type' => 'DATETIME', 'null' => true, 'default' => null],
             'updated_at'  => ['type' => 'DATETIME', 'null' => true, 'default' => null],
             'deleted_at'  => ['type' => 'DATETIME', 'null' => true, 'default' => null],

@@ -232,7 +232,7 @@ class Penduduk extends BaseController
                 return redirect()->back()->withInput()->with('errors', $this->pendudukModel->errors())->withInput();
             }
         } else {
-            return redirect()->to('/penduduk')->with('errors', 'Data penduduk tidak ditemukan.');
+            return redirect()->back()->withInput()->with('errors', 'Data penduduk tidak ditemukan.')->withInput();
         }
     }
 

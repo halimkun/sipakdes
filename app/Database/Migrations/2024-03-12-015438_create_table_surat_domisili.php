@@ -9,34 +9,13 @@ class CreateTableSuratDomisili extends Migration
     public function up()
     {
         $this->forge->addField([
-            'id' => [
-                'type' => 'INT',
-                'constraint' => 11,
-                'unsigned' => true,
-                'auto_increment' => true,
-            ],
-            'id_penduduk' => [
-                'type' => 'INT',
-                'constraint' => 11,
-                'unsigned' => true,
-            ],
-            'status' => [
-                'type' => 'ENUM',
-                'constraint' => ['pending', 'selesai', 'ditolak', 'batal'],
-                'default' => 'pending',
-            ],
-            'created_at' => [
-                'type' => 'DATETIME',
-                'null' => true,
-            ],
-            'updated_at' => [
-                'type' => 'DATETIME',
-                'null' => true,
-            ],
-            'deleted_at' => [
-                'type' => 'DATETIME',
-                'null' => true,
-            ],
+            'id' => [ 'type' => 'INT', 'constraint' => 11, 'unsigned' => true, 'auto_increment' => true, ],
+            'id_penduduk' => [ 'type' => 'INT', 'constraint' => 11, 'unsigned' => true, ],
+            'status' => [ 'type' => 'ENUM', 'constraint' => ['pending', 'selesai', 'ditolak', 'batal'], 'default' => 'pending', ],
+            'keterangan' => [ 'type' => 'TEXT', 'null' => true, ],
+            'created_at' => [ 'type' => 'DATETIME', 'null' => true, ],
+            'updated_at' => [ 'type' => 'DATETIME', 'null' => true, ],
+            'deleted_at' => [ 'type' => 'DATETIME', 'null' => true, ],
         ]);
 
         $this->forge->addPrimaryKey('id');

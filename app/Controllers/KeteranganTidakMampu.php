@@ -119,7 +119,7 @@ class KeteranganTidakMampu extends BaseController
 
         $data = [
             'status' => "batal",
-            'keterangan' => $this->request->getPost('keterangan') ?? null
+            'keterangan' => $this->request->getPost('keterangan') ?? 'dibalikkan oleh pemohon'
         ];
 
         $pengantar->fill($data);

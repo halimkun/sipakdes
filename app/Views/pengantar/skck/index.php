@@ -32,7 +32,10 @@
                     <div class="badge bdage-secondary"><?= $skck->nik ?></dc>
                   </td>
                   <td>
-                    <div class="text-muted"><?= $skck->keperluan ?></div>
+                    <div class="text-muted">
+                      <?= $skck->keperluan ?>
+                      <small><?= $skck->keterangan ?></small>
+                    </div>
                   </td>
                   <td><?= \Carbon\Carbon::parse($skck->created_at)->isoFormat('D MMMM Y'); ?></td>
                   <td>
@@ -67,9 +70,9 @@
                           <?php if ($skck->status == 'selesai') : ?>
                             <a href="/surat/pengantar/skck/<?= $skck->pengantar_id ?>/print" class="btn btn-sm btn-primary" data-toggle="tooltip" title="cetak"><i class="fa fa-print"></i></a>
                           <?php endif ?>
-                          <button data-toggle="tooltip" title="batal" class="btn btn-sm btn-secondary btn-batal" disabled data-id="<?= $skck->pengantar_id ?>"><i class="fa fa-times-circle"></i></button>
+                          <!-- <button data-toggle="tooltip" title="batal" class="btn btn-sm btn-secondary btn-batal" disabled data-id="<?= $skck->pengantar_id ?>"><i class="fa fa-times-circle"></i></button> -->
                         <?php else : ?>
-                          <a href="/surat/pengantar/skck/<?= $skck->pengantar_id ?>/batal" data-toggle="tooltip" title="batal" class="btn btn-sm btn-secondary" onclick="return confirm('Apakah anda yakin ingin membatalkan surat ini?')"><i class="fa fa-times-circle"></i></a>
+                          <!-- <a href="/surat/pengantar/skck/<?= $skck->pengantar_id ?>/batal" data-toggle="tooltip" title="batal" class="btn btn-sm btn-secondary" onclick="return confirm('Apakah anda yakin ingin membatalkan surat ini?')"><i class="fa fa-times-circle"></i></a> -->
                         <?php endif ?>
                       </div>
                     <?php endif ?>

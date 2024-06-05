@@ -119,7 +119,7 @@ class PengantarKIA extends BaseController
 
         $data = [
             'status' => "batal",
-            'keterangan' => $this->request->getPost('keterangan') ?? null
+            'keterangan' => $this->request->getPost('keterangan') ?? 'dibalikkan oleh pemohon'
         ];
 
         $domisili->fill($data);

@@ -36,7 +36,12 @@
                   <small><?= \Carbon\Carbon::parse($d->tanggal)->isoFormat('HH:mm'); ?> WIB</small>
                 </td>
                 <td><?= $d->tempat; ?></td>
-                <td><?= $d->sebab; ?></td>
+                <td>
+                  <div class="text-muted">
+                    <?= $d->sebab ?>
+                    <small><?= $d->keterangan ?></small>
+                  </div>
+                </td>
                 <td>
                   <?php if ($d->status == 'pending') : ?>
                     <span class="badge badge-info">Pending</span>
@@ -69,9 +74,9 @@
                         <?php if ($d->status == 'approved') : ?>
                           <a href="/surat/kematian/<?= $d->id ?>/print" class="btn btn-sm btn-primary" data-toggle="tooltip" title="cetak"><i class="fa fa-print"></i></a>
                         <?php endif ?>
-                        <button data-toggle="tooltip" title="batal" class="btn btn-sm btn-secondary btn-batal" disabled data-id="<?= $d->id ?>"><i class="fa fa-times-circle"></i></button>
+                        <!-- <button data-toggle="tooltip" title="batal" class="btn btn-sm btn-secondary btn-batal" disabled data-id="<?= $d->id ?>"><i class="fa fa-times-circle"></i></button> -->
                       <?php else : ?>
-                        <a href="/surat/kematian/<?= $d->id ?>/batal" data-toggle="tooltip" title="batal" class="btn btn-sm btn-secondary" onclick="return confirm('Apakah anda yakin ingin membatalkan surat ini?')"><i class="fa fa-times-circle"></i></a>
+                        <!-- <a href="/surat/kematian/<?= $d->id ?>/batal" data-toggle="tooltip" title="batal" class="btn btn-sm btn-secondary" onclick="return confirm('Apakah anda yakin ingin membatalkan surat ini?')"><i class="fa fa-times-circle"></i></a> -->
                       <?php endif ?>
                     </div>
                   <?php endif ?>

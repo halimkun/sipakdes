@@ -18,6 +18,7 @@
                                 <th>Tempat Lahir</th>
                                 <th>Tanggal Lahir</th>
                                 <th>Usia</th>
+                                <th>Keterangan</th>
                                 <th>Status</th>
                                 <th>#</th>
                             </tr>
@@ -36,6 +37,9 @@
                                         <td><?= $d->tempat_lahir; ?></td>
                                         <td><?= $d->tanggal_lahir; ?></td>
                                         <td><?= \Carbon\Carbon::parse($d->tanggal_lahir)->diff(\Carbon\Carbon::now())->format('%y tahun %m bulan %d hari'); ?></td>
+                                        <div class="text-muted">
+                                            <small><?= $d->keterangan ?></small>
+                                        </div>
                                         <td>
                                             <?php if ($d->status == 'pending') : ?>
                                                 <span class="badge badge-info">Pending</span>
@@ -68,9 +72,9 @@
                                                         <?php if ($d->status == 'selesai') : ?>
                                                             <a href="/surat/kelahiran/<?= $d->id_kelahiran ?>/print" class="btn btn-sm btn-primary" data-toggle="tooltip" title="cetak"><i class="fa fa-print"></i></a>
                                                         <?php endif ?>
-                                                        <button data-toggle="tooltip" title="batal" class="btn btn-sm btn-secondary btn-batal" disabled data-id="<?= $d->id_kelahiran ?>"><i class="fa fa-times-circle"></i></button>
+                                                        <!-- <button data-toggle="tooltip" title="batal" class="btn btn-sm btn-secondary btn-batal" disabled data-id="<?= $d->id_kelahiran ?>"><i class="fa fa-times-circle"></i></button> -->
                                                     <?php else : ?>
-                                                        <a href="/surat/kelahiran/<?= $d->id_kelahiran ?>/batal" data-toggle="tooltip" title="batal" class="btn btn-sm btn-secondary" onclick="return confirm('Apakah anda yakin ingin membatalkan surat ini?')"><i class="fa fa-times-circle"></i></a>
+                                                        <!-- <a href="/surat/kelahiran/<?= $d->id_kelahiran ?>/batal" data-toggle="tooltip" title="batal" class="btn btn-sm btn-secondary" onclick="return confirm('Apakah anda yakin ingin membatalkan surat ini?')"><i class="fa fa-times-circle"></i></a> -->
                                                     <?php endif ?>
                                                 </div>
                                             <?php endif ?>
