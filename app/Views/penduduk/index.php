@@ -26,7 +26,11 @@
           <th>J. Pekerjaan</th>
           <th>Berkas KK</th>
           <th>verified</th>
-          <th class="text-right">#</th>
+          <th class="text-right">
+            <?php if (!in_groups('warga')) : ?>
+              #
+            <?php endif ?>
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -39,7 +43,9 @@
                 <div class="badge badge-success" data-toggle="tooltip" data-placement="left" title="nomor NIK"><?= $pen->nik; ?></div>
               </div>
             </td>
-            <td><p class="p-0 m-0"><?= $pen->nama; ?></p></td>
+            <td>
+              <p class="p-0 m-0"><?= $pen->nama; ?></p>
+            </td>
             <td><?= date_diff(date_create($pen->tanggal_lahir), date_create('today'))->y; ?> Th</td>
             <td><?= $pen->jenis_kelamin; ?></td>
             <td><?= $pen->pendidikan; ?></td>
@@ -194,7 +200,8 @@
 
 <?= $this->section('styles'); ?>
 <link rel="stylesheet" href="<?= base_url('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') ?>">
-<link rel="stylesheet" href="<?= '' // base_url('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') ?>">
+<link rel="stylesheet" href="<?= '' // base_url('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') 
+                              ?>">
 <?= $this->endSection(); ?>
 
 
@@ -202,10 +209,10 @@
 <script src="<?= base_url('assets/plugins/datatables/jquery.dataTables.min.js') ?>"></script>
 <script src="<?= base_url('assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') ?>"></script>
 
-<!-- <script src="<?= '' //base_url('assets/plugins/datatables-buttons/js/dataTables.buttons.min.js') ?>"></script> -->
-<!-- <script src="<?= '' //base_url('/assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') ?>"></script> -->
-<!-- <script src="<?= '' //base_url('/assets/plugins/jszip/jszip.min.js') ?>"></script> -->
-<!-- <script src="<?= '' //base_url('/assets/plugins/datatables-buttons/js/buttons.html5.min.js') ?>"></script> -->
+<!-- <script src="<?= '' //base_url('assets/plugins/datatables-buttons/js/dataTables.buttons.min.js')  ?>"></script> -->
+<!-- <script src="<?= '' //base_url('/assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js')  ?>"></script> -->
+<!-- <script src="<?= '' //base_url('/assets/plugins/jszip/jszip.min.js')  ?>"></script> -->
+<!-- <script src="<?= '' //base_url('/assets/plugins/datatables-buttons/js/buttons.html5.min.js')  ?>"></script> -->
 
 <script>
   $(document).ready(function() {

@@ -12,13 +12,18 @@
         <table class="table table-striped table-hover" id="table-kematian">
           <thead>
             <tr>
-              <th>#</th>
+              <th>No</th>
               <th>Nama</th>
               <th>Tanggal</th>
               <th>Tempat</th>
               <th>Sebab</th>
+              <th>Keterangan</th>
               <th>Status</th>
-              <th>Aksi</th>
+              <th>
+                <?php if (!in_groups('warga')) : ?>
+                  Aksi
+                <?php endif ?>
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -36,6 +41,11 @@
                   <small><?= \Carbon\Carbon::parse($d->tanggal)->isoFormat('HH:mm'); ?> WIB</small>
                 </td>
                 <td><?= $d->tempat; ?></td>
+                <td>
+                  <div class="text-muted">
+                    <small><?= $d->keterangan ?></small>
+                  </div>
+                </td>
                 <td>
                   <div class="text-muted">
                     <?= $d->sebab ?>

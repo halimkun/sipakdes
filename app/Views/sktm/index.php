@@ -19,7 +19,11 @@
                 <th>Keperluan</th>
                 <th>Tgl Pengajuan</th>
                 <th>Status</th>
-                <th>Aksi</th>
+                <th>
+                  <?php if (!in_groups('warga')) : ?>
+                    Aksi
+                  <?php endif ?>
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -68,7 +72,7 @@
                       <div class="btn-group btn-group-sm" role="group" aria-label="Aksi Penduduk">
                         <?php if (!in_array($kia->status, ['pending'])) : ?>
                           <?php if ($kia->status == 'selesai') : ?>
-                            <a href="/surat/sktm/<?= $kia->pengantar_id ?>/print" class="btn btn-sm btn-primary" data-toggle="tooltip" title="cetak"><i class="fa fa-print"></i></a>
+                            <!-- <a href="/surat/sktm/<?= $kia->pengantar_id ?>/print" class="btn btn-sm btn-primary" data-toggle="tooltip" title="cetak"><i class="fa fa-print"></i></a> -->
                           <?php endif ?>
                           <!-- <button data-toggle="tooltip" title="batal" class="btn btn-sm btn-secondary btn-batal" disabled data-id="<?= $kia->pengantar_id ?>"><i class="fa fa-times-circle"></i></button> -->
                         <?php else : ?>

@@ -20,7 +20,11 @@
                                 <th>Usia</th>
                                 <th>Keterangan</th>
                                 <th>Status</th>
-                                <th>#</th>
+                                <th class="text-right">
+                                    <?php if (!in_groups('warga')) : ?>
+                                        #
+                                    <?php endif ?>
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -37,9 +41,9 @@
                                         <td><?= $d->tempat_lahir; ?></td>
                                         <td><?= $d->tanggal_lahir; ?></td>
                                         <td><?= \Carbon\Carbon::parse($d->tanggal_lahir)->diff(\Carbon\Carbon::now())->format('%y tahun %m bulan %d hari'); ?></td>
-                                        <div class="text-muted">
+                                        <td class="text-muted">
                                             <small><?= $d->keterangan ?></small>
-                                        </div>
+                                        </td>
                                         <td>
                                             <?php if ($d->status == 'pending') : ?>
                                                 <span class="badge badge-info">Pending</span>

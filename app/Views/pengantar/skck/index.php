@@ -19,7 +19,11 @@
                 <th>Keperluan</th>
                 <th>Tgl Pengajuan</th>
                 <th>Status</th>
-                <th>Aksi</th>
+                <th>
+                  <?php if (!in_groups('warga')) : ?>
+                    Aksi
+                  <?php endif ?>
+                </th>
               </tr>
             </thead>
             <tbody>

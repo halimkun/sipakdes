@@ -21,7 +21,11 @@
               <th>JK</th>
               <th>Pendidikan</th>
               <th>Hubungan</th>
-              <th class="text-right">#</th>
+              <th class="text-right">
+                <?php if (!in_groups('warga')) : ?>
+                  #
+                <?php endif ?>
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -130,7 +134,7 @@
 
         <form action="/keluarga/upload-kk" method="post" enctype="multipart/form-data">
           <input type="hidden" name="kk" id="upload-kk" class="form-control" value="<?= $user->pendudukData()->kk ?>" />
-          
+
           <div class="mb-3 mt-3">
             <div class="form-group mb-0">
               <label for="berkas-kk">Berkas KK</label>
@@ -141,7 +145,7 @@
             </div>
             <small>Berkas ini akan digunakan untuk keperluan administrasi dan verifikasi data keluarga anda.</small>
           </div>
-            
+
 
           <div class="d-flex justify-content-end" style="gap: 0.5rem;">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -155,7 +159,8 @@
 
 <?= $this->section('styles'); ?>
 <link rel="stylesheet" href="<?= base_url('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') ?>">
-<link rel="stylesheet" href="<?= '' // base_url('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') ?>">
+<link rel="stylesheet" href="<?= '' // base_url('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') 
+                              ?>">
 <?= $this->endSection(); ?>
 
 
@@ -163,10 +168,14 @@
 <script src="<?= base_url('assets/plugins/datatables/jquery.dataTables.min.js') ?>"></script>
 <script src="<?= base_url('assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') ?>"></script>
 
-<!-- <script src="<?= '' //base_url('assets/plugins/datatables-buttons/js/dataTables.buttons.min.js') ?>"></script> -->
-<!-- <script src="<?= '' //base_url('/assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') ?>"></script> -->
-<!-- <script src="<?= '' //base_url('/assets/plugins/jszip/jszip.min.js') ?>"></script> -->
-<!-- <script src="<?= '' //base_url('/assets/plugins/datatables-buttons/js/buttons.html5.min.js') ?>"></script> -->
+<!-- <script src="<?= '' //base_url('assets/plugins/datatables-buttons/js/dataTables.buttons.min.js') 
+                  ?>"></script> -->
+<!-- <script src="<?= '' //base_url('/assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') 
+                  ?>"></script> -->
+<!-- <script src="<?= '' //base_url('/assets/plugins/jszip/jszip.min.js') 
+                  ?>"></script> -->
+<!-- <script src="<?= '' //base_url('/assets/plugins/datatables-buttons/js/buttons.html5.min.js') 
+                  ?>"></script> -->
 
 <script>
   $(document).ready(function() {

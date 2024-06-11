@@ -12,12 +12,16 @@
         <table class="table table-striped table-hover" id="table-domisili">
           <thead>
             <tr>
-              <th>#</th>
+              <th>No</th>
               <th>Nama</th>
               <th>Tanggal</th>
               <th>Keterangan</th>
               <th>Status</th>
-              <th>Aksi</th>
+              <th>
+                <?php if (!in_groups('warga')) : ?>
+                  Aksi
+                <?php endif ?>
+              </th>
             </tr>
           </thead>
           <tbody>
