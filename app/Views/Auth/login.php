@@ -74,6 +74,10 @@
 				</div>
 			</form>
 
+			<center>
+				Lupa password hubungi kantor desa
+			</center>
+
 			<?php if ($config->activeResetter) : ?>
 				<p class="mb-1">
 					<a href="<?= url_to('forgot') ?>">I forgot my password</a>
