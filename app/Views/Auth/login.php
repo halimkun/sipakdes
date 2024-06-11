@@ -55,6 +55,11 @@
 					</div>
 				</div>
 
+				<?php if (!$config->activeResetter) : ?>
+					<center class="mb-3">
+						Lupa password hubungi kantor desa
+					</center>
+				<?php endif ?>
 
 				<div class="row">
 					<div class="col-8">
@@ -73,10 +78,6 @@
 					</div>
 				</div>
 			</form>
-
-			<center>
-				Lupa password hubungi kantor desa
-			</center>
 
 			<?php if ($config->activeResetter) : ?>
 				<p class="mb-1">
