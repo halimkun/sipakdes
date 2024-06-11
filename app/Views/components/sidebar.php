@@ -43,55 +43,57 @@
           </a>
         </li>
 
-        <li class="nav-header">Permintaan Surat</li>
-        <li class="nav-item">
-          <a href="/surat/sktm" class="nav-link">
-            <i class="nav-icon fas fa-donate"></i>
-            <p>
-              SKTM
-            </p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="/surat/domisili" class="nav-link">
-            <i class="nav-icon fas fa-map-marked-alt"></i>
-            <p>
-              Domisili
-            </p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="/surat/pengantar/kia" class="nav-link">
-            <i class="nav-icon fas fa-id-card-alt"></i>
-            <p>
-              Pengantar KIA
-            </p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="/surat/pengantar/skck" class="nav-link">
-            <i class="nav-icon fas fa-fingerprint"></i>
-            <p>
-              Pengantar SKCK
-            </p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="/surat/kelahiran" class="nav-link">
-            <i class="nav-icon fas fa-baby"></i>
-            <p>
-              Keterangan Lahir
-            </p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="/surat/kematian" class="nav-link">
-            <i class="nav-icon fas fa-heart-broken"></i>
-            <p>
-              Keterangan Meninggal
-            </p>
-          </a>
-        </li>
+        <?php if (in_groups(['warga', 'operator_desa'])) : ?>
+          <li class="nav-header">Permintaan Surat</li>
+          <li class="nav-item">
+            <a href="/surat/sktm" class="nav-link">
+              <i class="nav-icon fas fa-donate"></i>
+              <p>
+                SKTM
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/surat/domisili" class="nav-link">
+              <i class="nav-icon fas fa-map-marked-alt"></i>
+              <p>
+                Domisili
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/surat/pengantar/kia" class="nav-link">
+              <i class="nav-icon fas fa-id-card-alt"></i>
+              <p>
+                Pengantar KIA
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/surat/pengantar/skck" class="nav-link">
+              <i class="nav-icon fas fa-fingerprint"></i>
+              <p>
+                Pengantar SKCK
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/surat/kelahiran" class="nav-link">
+              <i class="nav-icon fas fa-baby"></i>
+              <p>
+                Keterangan Lahir
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/surat/kematian" class="nav-link">
+              <i class="nav-icon fas fa-heart-broken"></i>
+              <p>
+                Keterangan Meninggal
+              </p>
+            </a>
+          </li>
+        <?php endif ?>
 
         <li class="nav-header">Data</li>
         <?php if (in_groups(['warga', 'operator_desa', 'admin'])) : ?>
