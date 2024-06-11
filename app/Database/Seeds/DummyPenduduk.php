@@ -126,7 +126,7 @@ class DummyPenduduk extends Seeder
             $data_user = [
                 'id_penduduk' => $penduduk->getInsertID(),
                 'username' => $nik,
-                'email' => '-',
+                'email' => $faker->email,
                 'password' => 12345,
                 'active' => 1,
             ];
