@@ -12,8 +12,8 @@
 
 <body>
     <div class="h-screen w-screen bg-blue-100">
-        <div class="flex flex-col lg:flex-row h-full w-full">
-            <div class="w-full lg:w-1/2 h-[50%] lg:h-full bg-blue-500">
+        <div class="flex flex-col h-full w-full">
+            <div class="w-full h-full bg-blue-500">
                 <div class="flex flex-col gap-2 justify-center items-center h-full relative">
                     <h1 class="text-5xl lg:text-7xl text-white font-bold">SIPAKDES</h1>
                     <p class="text-sm lg:text-base text-white bg-blue-700 p-1 px-2 font-semibold rounded-lg">Sistem Informasi Pelayanan Administrasi Desa</p>
@@ -23,7 +23,7 @@
                     </div>
                 </div>
             </div>
-            <div class="w-full lg:w-1/2 h-full bg-white">
+            <div class="w-full h-full bg-white">
                 <div class="flex flex-col gap-3 justify-center items-center h-full">
                     <?php if (logged_in()) : ?>
                         <div class="flex flex-col gap-2 justify-center items-center mb-10">
