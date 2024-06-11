@@ -1,12 +1,23 @@
 {
-  "version": "1.0.6",
+  "version": "1.0.7",
   
   "name": "SIPAKDES",
   "description": "Sistem Informasi Pemerintahan Desa",
   
-  "updated_at": "05-06-2024 19:58",
+  "updated_at": "11-06-2024 22:07",
   
   "changeLog": [
+    {
+      "version": "1.0.7",
+      "date": "11-06-2024 22:07",
+      "changes": [
+        "[+] update : layout pada landing page / beranda",
+        "[+] update : informasi lupa password",
+        "[+] update : konsidi kolom pada table data pengajuan surat user warga",
+        "[+] refactor : perubahan menu pada user admin",
+        "[+] fix : bug saat update data pengguna"
+      ]
+    },
     {
       "version": "1.0.6",
       "date": "05-06-2024 19:58",
