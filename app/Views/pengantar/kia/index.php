@@ -33,12 +33,12 @@
                   <!-- <td></td> -->
                   <td>
                     <p class="p-0 m-0"><?= $kia->nama ?></p>
-                    <div class="badge bdage-secondary"><?= $kia->nik ?></dc>
+                    <div class="badge bg-secondary"><?= $kia->nik ?></dc>
                   </td>
                   <td>
                     <div class="text-muted">
-                      <?= $kia->keperluan ?>
-                      <small><?= $kia->keterangan ?></small>
+                      <?= $kia->keperluan ?> <br>
+                      <small class="text-warning"><?= $kia->keterangan ?></small>
                     </div>
                   </td>
                   <td><?= \Carbon\Carbon::parse($kia->created_at)->isoFormat('D MMMM Y'); ?></td>

@@ -37,8 +37,8 @@
                   </td>
                   <td>
                     <div class="text-muted">
-                      <?= $skck->keperluan ?>
-                      <small><?= $skck->keterangan ?></small>
+                      <?= $skck->keperluan ?> <br>
+                      <small class="text-warning"><?= $skck->keterangan ?></small>
                     </div>
                   </td>
                   <td><?= \Carbon\Carbon::parse($skck->created_at)->isoFormat('D MMMM Y'); ?></td>

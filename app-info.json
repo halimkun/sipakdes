@@ -1,12 +1,19 @@
 {
-  "version": "1.0.7",
+  "version": "1.0.8",
   
   "name": "SIPAKDES",
   "description": "Sistem Informasi Pemerintahan Desa",
   
-  "updated_at": "11-06-2024 22:07",
+  "updated_at": "12-06-2024 09:00",
   
   "changeLog": [
+    {
+      "version": "1.0.8",
+      "date": "12-06-2024 09:00",
+      "changes": [
+        "[+] update : database queries and views for additional 'keterangan' field"
+      ]
+    },
     {
       "version": "1.0.7",
       "date": "11-06-2024 22:07",

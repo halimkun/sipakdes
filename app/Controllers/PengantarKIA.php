@@ -31,7 +31,7 @@ class PengantarKIA extends BaseController
 
     public function index()
     {
-        $data_pengajuan = $this->pengantarModel->select('pengantar.id as pengantar_id, pengantar.id_penduduk, pengantar.status, pengantar.tipe, pengantar.keperluan, pengantar.created_at, penduduk.*')
+        $data_pengajuan = $this->pengantarModel->select('pengantar.id as pengantar_id, pengantar.id_penduduk, pengantar.keterangan, pengantar.status, pengantar.tipe, pengantar.keperluan, pengantar.created_at, penduduk.*')
             ->join('penduduk', 'penduduk.id = pengantar.id_penduduk')
             ->where('pengantar.tipe', 'kia')
             ->findAll();

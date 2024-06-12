@@ -43,12 +43,11 @@
                 <td><?= $d->tempat; ?></td>
                 <td>
                   <div class="text-muted">
-                    <small><?= $d->keterangan ?></small>
+                    <?= $d->sebab ?>
                   </div>
                 </td>
                 <td>
                   <div class="text-muted">
-                    <?= $d->sebab ?>
                     <small><?= $d->keterangan ?></small>
                   </div>
                 </td>

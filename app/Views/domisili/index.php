@@ -40,7 +40,7 @@
                 </td>
                 <td>
                   <div class="text-muted">
-                    <small><?= $d->keterangan ?></small>
+                    <?= $d->keterangan ?>
                   </div>
                 </td>
                 <td>

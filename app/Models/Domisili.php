@@ -13,7 +13,7 @@ class Domisili extends Model
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
-        'id_penduduk', 'status'
+        'id_penduduk', 'status', 'keterangan'
     ];
 
     protected bool $allowEmptyInserts = false;
