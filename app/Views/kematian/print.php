@@ -41,11 +41,11 @@
     </tr>
     <tr>
       <td>Tanggal</td>
-      <td>: <?= \Carbon\Carbon::parse($kematian->tanggal_kematian)->isoFormat('D MMMM Y'); ?></td>
+      <td>: <?= \Carbon\Carbon::parse($kematian->tanggal)->isoFormat('D MMMM Y'); ?></td>
     </tr>
     <tr>
       <td>Pukul</td>
-      <td>: <?= \Carbon\Carbon::parse($kematian->tanggal_kematian)->isoFormat('HH:mm'); ?> WIB</td>
+      <td>: <?= \Carbon\Carbon::parse($kematian->tanggal)->isoFormat('HH:mm'); ?> WIB</td>
     </tr>
     <tr>
       <td>Yang menerangkan</td>
