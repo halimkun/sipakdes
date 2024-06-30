@@ -14,6 +14,7 @@
     </div>
   </div>
   <div class="card-body table-responsive">
+    <!-- TODO : Tambahkan acation buat user untuk penduduk yang belum memiliki user dan usia > 5 Tahub -->
     <table class="table table-hover table-striped" id="table-penduduk">
       <thead>
         <tr>
