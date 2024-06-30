@@ -35,7 +35,7 @@ class Domisili extends BaseController
         $dk   = $this->domisiliModel->select('domisili.*, penduduk.*, domisili.id as id_domisili')
             ->join('penduduk', 'penduduk.id = domisili.id_penduduk', 'left');
 
-        if (user()->role == 'warga') {
+        if (array_search('warga', user()->getRoles())) {
             $dk->where('penduduk.kk', $user->pendudukData()->kk);
         }
 

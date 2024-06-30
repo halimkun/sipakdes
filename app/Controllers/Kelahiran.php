@@ -39,7 +39,7 @@ class Kelahiran extends BaseController
         $dk = $this->kelahiranModel->select('kelahiran.*, penduduk.*, kelahiran.id as id_kelahiran')
             ->join('penduduk', 'penduduk.id = kelahiran.id_penduduk', 'left');
 
-        if (user()->role == 'warga') {
+        if (array_search('warga', user()->getRoles())) {
             $dk->where('penduduk.kk', $user->pendudukData()->kk);
         }
 
