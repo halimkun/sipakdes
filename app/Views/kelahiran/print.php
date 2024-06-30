@@ -7,7 +7,8 @@
     <p class="mb-0 pb-0 text-center">Nomor: <?= $noSurat; ?></p>
   </div>
 
-  <p class="mb-2 pb-2">Yang bertanda tangan dibawah ini kepala desa <?= strtolower(service('settings')->get('App.desa')) ?> kecamatan <?= strtolower(service('settings')->get('App.kecamatan')) ?> kabupaten <?= strtolower(service('settings')->get('App.kabupaten')) ?> menerangkan dengan sesungguhnya bahwa pada hari <?= \Carbon\Carbon::parse($kelahiran->tanggal)->isoFormat('dddd'); ?> tanggal <?= \Carbon\Carbon::parse($kelahiran->tanggal)->isoFormat('D MMMM Y'); ?> telah lahir seorang bayi :
+  <!-- <p class="mb-2 pb-2">Yang bertanda tangan dibawah ini kepala desa <?= strtolower(service('settings')->get('App.desa')) ?> kecamatan <?= strtolower(service('settings')->get('App.kecamatan')) ?> kabupaten <?= strtolower(service('settings')->get('App.kabupaten')) ?> menerangkan dengan sesungguhnya bahwa pada hari <?= \Carbon\Carbon::parse($kelahiran->tanggal)->isoFormat('dddd'); ?> tanggal <?= \Carbon\Carbon::parse($kelahiran->tanggal)->isoFormat('D MMMM Y'); ?> telah lahir seorang bayi :</p> -->
+  <p class="mb-2 pb-2">Yang bertanda tangan dibawah ini kepala desa <?= strtolower(service('settings')->get('App.desa')) ?> kecamatan <?= strtolower(service('settings')->get('App.kecamatan')) ?> kabupaten <?= strtolower(service('settings')->get('App.kabupaten')) ?> menerangkan dengan bahwa telah lahir seorang bayi :</p>
 
   <table class="table table-sm table-compact table-borderless ml-3">
     <tr>
@@ -32,7 +33,7 @@
     </tr>
   </table>
 
-  <p class="mb-1 pb-1">Dari seorang ibu :
+  <p class="mb-1 pb-1">Dari seorang ibu :</p>
 
   <table class="table table-sm table-compact table-borderless ml-3">
     <tr>
