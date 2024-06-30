@@ -14,9 +14,10 @@
             <tr>
               <th>No</th>
               <th>Nama</th>
-              <th>Tanggal</th>
-              <th>Tempat</th>
+              <th>Tanggal Kematian</th>
+              <th>Pemakaman</th>
               <th>Sebab</th>
+              <th>Pelapor</th>
               <th>Keterangan</th>
               <th>Status</th>
               <th>
@@ -44,6 +45,11 @@
                 <td>
                   <div class="text-muted">
                     <?= $d->sebab ?>
+                  </div>
+                </td>
+                <td>
+                  <div class="text-muted">
+                    <?= $d->getPelapor() ?>
                   </div>
                 </td>
                 <td>
