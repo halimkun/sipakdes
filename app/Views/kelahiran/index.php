@@ -15,9 +15,8 @@
                             <tr>
                                 <th>No</th>
                                 <th>Nama</th>
-                                <th>Tempat Lahir</th>
+                                <th>Nama Ibu</th>
                                 <th>Tanggal Lahir</th>
-                                <th>Usia</th>
                                 <th>Keterangan</th>
                                 <th>Status</th>
                                 <th class="text-right">
@@ -33,14 +32,15 @@
                                     <td colspan="6" class="text-center">Tidak ada data</td>
                                 </tr>
                             <?php else : ?>
-                                <?php $no = 1;
-                                foreach ($data as $d) : ?>
+                                <?php $no = 1; foreach ($data as $d) : ?>
                                     <tr>
                                         <td><?= $no++; ?></td>
                                         <td><?= $d->nama; ?></td>
-                                        <td><?= $d->tempat_lahir; ?></td>
-                                        <td><?= $d->tanggal_lahir; ?></td>
-                                        <td><?= \Carbon\Carbon::parse($d->tanggal_lahir)->diff(\Carbon\Carbon::now())->format('%y tahun %m bulan %d hari'); ?></td>
+                                        <td><?= $d->getIbu() ?></td>
+                                        <td>
+                                            <?= $d->tempat_lahir . ", " . \Carbon\Carbon::parse($d->tanggal_lahir)->isoFormat('D MMMM Y'); ?> <br>
+                                            <small class="text-muted"><?= \Carbon\Carbon::parse($d->tanggal_lahir)->diff(\Carbon\Carbon::now())->format('%y tahun %m bulan %d hari'); ?></small>
+                                        </td>
                                         <td class="text-muted">
                                             <small><?= $d->keterangan ?></small>
                                         </td>
