@@ -64,7 +64,7 @@
     </table>
   </div>
 
-  <p class="mb-2 pb-2">Orang tersebut diatas adalah benar penduduk Desa <?= service('settings')->get('App.desa'); ?> Kecamatan <?= service('settings')->get('App.kecamatan'); ?> Kabupaten <?= service('settings')->get('App.kabupaten'); ?> yang bertempat tinggal di <?= $domisili->pendudukData()->fullAddress() ?> dan benar-benar tinggal di alamat tersebut.</p>
+  <p class="mb-2 pb-2">Orang tersebut diatas berdomisili di Desa <?= service('settings')->get('App.desa'); ?> Kecamatan <?= service('settings')->get('App.kecamatan'); ?> Kabupaten <?= service('settings')->get('App.kabupaten'); ?> yang bertempat tinggal di <?= $domisili->pendudukData()->fullAddress() ?> dan benar-benar tinggal di alamat tersebut.</p>
 
   <p class="mb-2 pb-2">Demikian surat keterangan ini dibuat dengan sebenarnya untuk dipergunakan sebagaimana mestinya.</p>
 </div>
