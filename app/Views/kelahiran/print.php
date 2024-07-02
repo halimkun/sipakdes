@@ -27,9 +27,13 @@
       <td style="width:30%;">Tanggal Lahir</td>
       <td>: <?= \Carbon\Carbon::parse($kelahiran->tanggal_lahir)->isoFormat('D MMMM Y'); ?></td>
     </tr>
-    <tr>
+    <!-- <tr>
       <td style="width:30%;">Usia</td>
-      <td>: <?= \Carbon\Carbon::parse($kelahiran->tanggal_lahir)->diff(\Carbon\Carbon::now())->format('%y Tahun %m Bulan %d Hari'); ?></td>
+      <td>: <?= '' // \Carbon\Carbon::parse($kelahiran->tanggal_lahir)->diff(\Carbon\Carbon::now())->format('%y Tahun %m Bulan %d Hari'); ?></td>
+    </tr> -->
+    <tr>
+      <td style="width:30%;">Anak Ke</td>
+      <td>: <?= $kelahiran->anakke ?></td>
     </tr>
   </table>
 
@@ -40,14 +44,14 @@
       <td style="width:30%;">Nama</td>
       <td>: <?= $ibu ? $ibu->nama : "-"; ?></td>
     </tr>
-    <tr>
+    <!-- <tr>
       <td style="width:30%;">Tanggal Lahir</td>
-      <td>: <?= $ibu ? \Carbon\Carbon::parse($ibu->tanggal_lahir)->isoFormat('D MMMM Y') : '-' ?></td>
-    </tr>
-    <tr>
+      <td>: <?= '' //$ibu ? \Carbon\Carbon::parse($ibu->tanggal_lahir)->isoFormat('D MMMM Y') : '-' ?></td>
+    </tr> -->
+    <!-- <tr>
       <td style="width:30%;">Usia</td>
-      <td>: <?= $ibu ? \Carbon\Carbon::parse($ibu->tanggal_lahir)->diff(\Carbon\Carbon::now())->format('%y Tahun %m Bulan %d Hari') : '-' ?></td>
-    </tr>
+      <td>: <?= '' //$ibu ? \Carbon\Carbon::parse($ibu->tanggal_lahir)->diff(\Carbon\Carbon::now())->format('%y Tahun %m Bulan %d Hari') : '-' ?></td>
+    </tr> -->
     <tr>
       <td style="width:30%;">Istri dari</td>
       <td>: <?= $ayah->nama; ?></td>

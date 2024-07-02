@@ -16,11 +16,11 @@
             <div class="row">
               <div class="col-md-6">
                 <?= getFields([
-                  'type' => 'text',
-                  'name' => 'kk',
-                  'label' => 'Nomor KK',
+                  'type'     => 'number',
+                  'name'     => 'kk',
+                  'label'    => 'Nomor KK',
                   'required' => true,
-                  'readonly' => true,
+                  'readonly' => !in_groups('operator_desa')
                 ], $value); ?>
               </div>
               <?php foreach ($fields as $key => $field) : ?>

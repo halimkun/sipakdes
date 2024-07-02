@@ -13,7 +13,7 @@ class Kelahiran extends BaseController
     protected $dompdf;
 
     protected $pendudukController;
-
+    
     public function __construct()
     {
         $this->kelahiranModel = new \App\Models\Kelahiran();
@@ -91,9 +91,9 @@ class Kelahiran extends BaseController
             'tempat_lahir'      => 'required|min_length[3]',
             'tanggal_lahir'     => 'required|valid_date',
             'jenis_kelamin'     => 'required|in_list[Laki-laki,Perempuan]',
-            'hubungan'          => 'required|in_list[Anak]',
-            'kewarganegaraan'   => 'required|in_list[WNI]',
-            'status_perkawinan' => 'required|in_list[Belum Kawin]',
+            // 'hubungan'          => 'required|in_list[Anak]',
+            // 'kewarganegaraan'   => 'required|in_list[WNI]',
+            // 'status_perkawinan' => 'required|in_list[Belum Kawin]',
         ];
 
         if (!$this->validate($rules)) {
@@ -225,13 +225,15 @@ class Kelahiran extends BaseController
     protected function kelahiranFields()
     {
         return [
-            ['name' => 'nama', 'label' => 'Nama', 'type' => 'text', 'required' => true],
+            ['name' => 'nama', 'label' => 'Nama Anak', 'type' => 'text', 'required' => true],
             ['name' => 'tempat_lahir', 'label' => 'Tempat Lahir', 'type' => 'text', 'required' => true],
             ['name' => 'tanggal_lahir', 'label' => 'Tanggal Lahir', 'type' => 'date', 'required' => true],
             ['name' => 'jenis_kelamin', 'label' => 'Jenis Kelamin', 'type' => 'select', 'options' => $this->pendudukController->optionJenisKelamin, 'required' => true],
-            ['name' => 'hubungan', 'label' => 'Hubungan', 'type' => 'text', 'required' => true, 'readonly' => true],
-            ['name' => 'kewarganegaraan', 'label' => 'Kebangsaan', 'type' => 'text', 'required' => true, 'readonly' => true],
-            ['name' => 'status_perkawinan', 'label' => 'Stts Perkawinan', 'type' => 'text', 'required' => true, 'readonly' => true],
+            ['name' => 'anakke', 'label' => 'Anak Ke', 'type' => 'number', 'min' => 0, 'required' => true],
+
+            // ['name' => 'hubungan', 'label' => 'Hubungan', 'type' => 'text', 'required' => true, 'readonly' => true],
+            // ['name' => 'kewarganegaraan', 'label' => 'Kebangsaan', 'type' => 'text', 'required' => true, 'readonly' => true],
+            // ['name' => 'status_perkawinan', 'label' => 'Stts Perkawinan', 'type' => 'text', 'required' => true, 'readonly' => true],
         ];
     }
 }
