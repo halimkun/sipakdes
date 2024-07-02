@@ -20,7 +20,7 @@
             <div class="form-group row mt-4">
               <div class="col-sm-10 offset-sm-2">
                 <button type="submit" class="btn btn-success">Simpan</button>
-                <a href="/pengguna" class="btn btn-light">Batal</a>
+                <a href="/penduduk" class="btn btn-light">Batal</a>
               </div>
             </div>
           </form>
