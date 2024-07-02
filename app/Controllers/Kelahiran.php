@@ -107,6 +107,10 @@ class Kelahiran extends BaseController
             return redirect()->back()->withInput()->with('errors', ['Data keluar tidak ditemukan']);
         }
 
+        $penduduk->hubungan          = 'Anak';
+        $penduduk->kewarganegaraan   = 'WNI';
+        $penduduk->status_perkawinan = 'Belum Kawin';
+
         if ($this->pendudukModel->save($penduduk)) {
             $kelahiran = new \App\Entities\Kelahiran();
             $kelahiran->id_penduduk = $this->pendudukModel->insertID();
