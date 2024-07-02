@@ -107,9 +107,9 @@ class Kematian extends BaseController
         }
 
         // check if nik_pelapor have same kk with id_penduduk
-        if (!in_groups('admin') && !$this->checkNikPelapor($this->request->getPost('id_penduduk'), $this->request->getPost('nik_pelapor'))) {
-            return redirect()->back()->withInput()->with('errors', ['nik_pelapor' => 'NIK pelapor tidak terdaftar dalam KK yang sama'])->withInput();
-        }
+        // if (!in_groups('admin') && !$this->checkNikPelapor($this->request->getPost('id_penduduk'), $this->request->getPost('nik_pelapor'))) {
+        //     return redirect()->back()->withInput()->with('errors', ['nik_pelapor' => 'NIK pelapor tidak terdaftar dalam KK yang sama'])->withInput();
+        // }
 
         if (request()->getPost('id_penduduk') == user()->id_penduduk) {
             return redirect()->back()->withInput()->with('errors', ['id_penduduk' => 'Tidak boleh memilih diri sendiri'])->withInput();
