@@ -69,9 +69,9 @@ class Kematian extends BaseController
             ->join('berkas_kk', 'berkas_kk.kk = penduduk.kk', 'left')
             ->join('kematian', 'kematian.id_penduduk = penduduk.id', 'left');
 
-        if (in_groups('warga')) {
-            $keluarga = $keluarga->where('penduduk.kk', $user->pendudukData()->kk);
-        }
+        // if (in_groups('warga')) {
+        //     $keluarga = $keluarga->where('penduduk.kk', $user->pendudukData()->kk);
+        // }
 
         $keluarga = $keluarga->where('kematian.id', null)
             ->orderBy('penduduk.nama', 'ASC')
@@ -281,7 +281,7 @@ class Kematian extends BaseController
         return [
             ['name' => 'id_penduduk', 'label' => 'Penduduk', 'type' => 'hidden'],
             ['name' => 'tempat', 'label' => 'Tempat', 'type' => 'text', 'placeholder' => 'tempat pemakaman'],
-            ['name' => 'tanggal', 'label' => 'Tanggal', 'type' => 'text', 'placeholder' => 'tanggal kematian'],
+            ['name' => 'tanggal', 'label' => 'Tanggal Meninggal', 'type' => 'text', 'placeholder' => 'tanggal kematian'],
             ['name' => 'sebab', 'label' => 'Sebab', 'type' => 'text', 'placeholder' => 'sakit, kecelakaan, dll'],
             ['name' => 'nik_pelapor', 'label' => 'NIK Pelapor', 'type' => 'text', 'placeholder' => 'NIK pelapor'],
         ];

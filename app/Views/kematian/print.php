@@ -11,52 +11,56 @@
 
   <table class="table table-sm table-compact table-borderless ml-3">
     <tr>
-      <td>Nama</td>
+      <td style="width: 200px;">Nama</td>
       <td>: <?= $kematian->nama; ?></td>
     </tr>
     <tr>
-      <td>Jenis Kelamin</td>
+      <td style="width: 200px;">Jenis Kelamin</td>
       <td>: <?= $kematian->jenis_kelamin; ?></td>
     </tr>
     <tr>
-      <td>Tempat, Tanggal Lahir</td>
+      <td style="width: 200px;">Usia</td>
+      <td>: <?= \Carbon\Carbon::parse($kematian->tanggal_lahir)->diff(\Carbon\Carbon::now())->format('%y Tahun %m Bulan %d Hari'); ?></td>
+    </tr>
+    <tr>
+      <td style="width: 200px;">Tempat, Tanggal Lahir</td>
       <td>: <?= $kematian->tempat_lahir . ', ' . \Carbon\Carbon::parse($kematian->tanggal_lahir)->isoFormat('D MMMM Y'); ?></td>
     </tr>
-    <tr>
-      <td>Agama</td>
-      <td>: <?= $kematian->agama; ?></td>
-    </tr>
-    <tr>
-      <td>Pekerjaan</td>
-      <td>: <?= $kematian->jenis_pekerjaan; ?></td>
-    </tr>
+    <!-- <tr>
+      <td style="width: 200px;">Agama</td>
+      <td>: <?= '' // $kematian->agama; ?></td>
+    </tr> -->
+    <!-- <tr>
+      <td style="width: 200px;">Pekerjaan</td>
+      <td>: <?= '' // $kematian->jenis_pekerjaan; ?></td>
+    </tr> -->
   </table>
 
   <p class="mb-1 pb-1">Bahwa yang bersangkutan telah meninggal dunia pada :</p>
 
   <table class="table table-sm table-compact table-borderless ml-3">
     <tr>
-      <td>Hari</td>
+      <td style="width: 200px;">Hari</td>
       <td>: <?= \Carbon\Carbon::parse($kematian->tanggal)->isoFormat('dddd'); ?></td>
     </tr>
     <tr>
-      <td>Tanggal</td>
+      <td style="width: 200px;">Tanggal</td>
       <td>: <?= \Carbon\Carbon::parse($kematian->tanggal)->isoFormat('D MMMM Y'); ?></td>
     </tr>
     <tr>
-      <td>Pukul</td>
+      <td style="width: 200px;">Pukul</td>
       <td>: <?= \Carbon\Carbon::parse($kematian->tanggal)->isoFormat('HH:mm'); ?> WIB</td>
     </tr>
     <tr>
-      <td>Yang menerangkan</td>
+      <td style="width: 200px;">Yang menerangkan</td>
       <td>: <?= $pelapor ? $pelapor->nama : '-'; ?></td>
     </tr>
     <tr>
-      <td>Sebab Kematian</td>
+      <td style="width: 200px;">Sebab Kematian</td>
       <td>: <?= $kematian->sebab; ?></td>
     </tr>
     <tr>
-      <td>Tempat Pemakaman</td>
+      <td style="width: 200px;">Tempat Pemakaman</td>
       <td>: <?= $kematian->tempat; ?></td>
     </tr>
   </table>
