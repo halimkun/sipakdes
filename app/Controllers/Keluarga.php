@@ -55,7 +55,7 @@ class Keluarga extends BaseController
     {
         $user = new \App\Entities\User(user()->toArray());
         $fields = [
-            ['name' => 'kk', 'label' => 'KK', 'type' => 'number', 'min' => 0, 'maxlength' => 16, 'required' => true, 'readonly' => true], // hidden field 'kk
+            ['name' => 'kk', 'label' => 'Nomor KK', 'type' => 'number', 'min' => 0, 'maxlength' => 16, 'required' => true, 'readonly' => true], // hidden field 'kk
             ['name' => 'nik', 'label' => 'NIK', 'type' => 'number', 'min' => 0, 'maxlength' => 16, 'required' => true],
             ['name' => 'nama', 'label' => 'Nama', 'type' => 'text', 'required' => true],
             ['name' => 'tempat_lahir', 'label' => 'Tempat Lahir', 'type' => 'text', 'required' => true],
@@ -101,7 +101,7 @@ class Keluarga extends BaseController
         if (!$keluarga) return redirect()->to('/keluarga')->with('error', 'Data keluarga tidak ditemukan.');
 
         $fields = [
-            ['name' => 'kk', 'label' => 'KK', 'type' => 'number', 'min' => 0, 'maxlength' => 16, 'required' => true, 'readonly' => isMarkFilled($keluarga->kk), 'disabled' => isMarkFilled($keluarga->kk)],  // hidden field 'kk'
+            ['name' => 'kk', 'label' => 'Nomor KK', 'type' => 'number', 'min' => 0, 'maxlength' => 16, 'required' => true, 'readonly' => isMarkFilled($keluarga->kk), 'disabled' => isMarkFilled($keluarga->kk)],  // hidden field 'kk'
             ['name' => 'nik', 'label' => 'NIK', 'type' => 'number', 'min' => 0, 'maxlength' => 16, 'required' => true, 'readonly' => isMarkFilled($keluarga->nik), 'disabled' => isMarkFilled($keluarga->nik)],
             ['name' => 'nama', 'label' => 'Nama', 'type' => 'text', 'required' => true],
             ['name' => 'tempat_lahir', 'label' => 'Tempat Lahir', 'type' => 'text', 'required' => true],

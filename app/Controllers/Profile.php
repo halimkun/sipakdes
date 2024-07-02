@@ -92,7 +92,7 @@ class Profile extends BaseController
     protected function pendudukFields()
     {
         return [
-            ['name' => 'kk', 'label' => 'KK', 'type' => 'number', 'min' => 0, 'maxlength' => 16, 'disabled' => true, 'readonly' => true],
+            ['name' => 'kk', 'label' => 'Nomor KK', 'type' => 'number', 'min' => 0, 'maxlength' => 16, 'disabled' => true, 'readonly' => true],
             ['name' => 'nik', 'label' => 'NIK', 'type' => 'number', 'min' => 0, 'maxlength' => 16, 'disabled' => true, 'readonly' => true],
             ['name' => 'nama', 'label' => 'Nama', 'type' => 'text', 'disabled' => true, 'readonly' => true],
             ['name' => 'tempat_lahir', 'label' => 'Tempat Lahir', 'type' => 'text', 'disabled' => true, 'readonly' => true],

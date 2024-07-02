@@ -49,7 +49,7 @@ class Penduduk extends BaseController
     public function new()
     {
         $fields = [
-            ['name' => 'kk', 'label' => 'KK', 'type' => 'number', 'min' => 0, 'maxlength' => 16, 'required' => true],
+            ['name' => 'kk', 'label' => 'Nomor KK', 'type' => 'number', 'min' => 0, 'maxlength' => 16, 'required' => true],
             ['name' => 'nik', 'label' => 'NIK', 'type' => 'number', 'min' => 0, 'maxlength' => 16, 'required' => true],
             ['name' => 'nama', 'label' => 'Nama', 'type' => 'text', 'required' => true],
             ['name' => 'tempat_lahir', 'label' => 'Tempat Lahir', 'type' => 'text', 'required' => true],
@@ -146,7 +146,7 @@ class Penduduk extends BaseController
 
         $fields = [
             ['name' => 'id', 'label' => 'ID', 'type' => 'hidden', 'required' => true], // hidden field 'id
-            ['name' => 'kk', 'label' => 'KK', 'type' => 'number', 'min' => 0, 'maxlength' => 16, 'required' => true, 'readonly' => $penduduk->kk, 'disabled' => $penduduk->kk],
+            ['name' => 'kk', 'label' => 'Nomor KK', 'type' => 'number', 'min' => 0, 'maxlength' => 16, 'required' => true, 'readonly' => $penduduk->kk, 'disabled' => $penduduk->kk],
             ['name' => 'nik', 'label' => 'NIK', 'type' => 'number', 'min' => 0, 'maxlength' => 16, 'required' => true, 'readonly' => $penduduk->nik, 'disabled' => $penduduk->nik],
             ['name' => 'nama', 'label' => 'Nama', 'type' => 'text', 'required' => true],
             ['name' => 'tempat_lahir', 'label' => 'Tempat Lahir', 'type' => 'text', 'required' => true],
