@@ -1,12 +1,24 @@
 {
-  "version": "1.0.9",
+  "version": "1.0.10",
   
   "name": "SIPAKDES",
   "description": "Sistem Informasi Pemerintahan Desa",
   
-  "updated_at": "16-06-2024 18:50",
+  "updated_at": "02-06-2024 23:50",
   
   "changeLog": [
+    {
+      "version": "1.0.10",
+      "date": "02-06-2024 23:50",
+      "changes": [
+        "[+] update : penyesuaian data, form, dan output untuk surat kelahiran.",
+        "[+] update : penyesuaian data, form, dan output surat kematian.",
+        "[+] update : field labels for KK in Keluarga, Penduduk, and Profile controllers.",
+        "[+] update : print.php to improve clarity and readability of the birth certificate.",
+        "[+] update : links in penduduk/edit.php and penduduk/new.php to use /penduduk instead of /pengguna.",
+        "[+] feat : Kelahiran controller to set default values for new penduduk"
+      ]
+    },
     {
       "version": "1.0.9",
       "date": "16-06-2024 18:50",
