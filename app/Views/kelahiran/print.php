@@ -54,7 +54,7 @@
     </tr> -->
     <tr>
       <td style="width:30%;">Istri dari</td>
-      <td>: <?= $ayah->nama; ?></td>
+      <td>: <?= $ayah ? $ayah->nama : "-"; ?></td>
     </tr>
   </table>
 
