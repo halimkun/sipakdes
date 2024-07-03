@@ -28,7 +28,7 @@
                       <th>Nama</th>
                       <th>Tgl Lahir</th>
                       <th>JK</th>
-                      <th>Hubungan</th>
+                      <!-- <th>Hubungan</th> -->
                     </tr>
                   </thead>
                   <tbody>
@@ -37,7 +37,8 @@
                         <td>
                           <div class="custom-control custom-radio">
                             <input class="custom-control-input" type="radio" id="<?= $kel->id ?>" name="id_penduduk" value="<?= $kel->id ?>" <?= old('id_penduduk') == $kel->id ? 'checked' : '' ?>>
-                            <label for="<?= $kel->id ?>" class="custom-control-label"><?= $kel->nama ?></label>
+                            <label for="<?= $kel->id ?>" class="custom-control-label"><?= $kel->nama ?></label><br>
+                            <!-- <div class="badge badge-secondary"><?= '' // $kel->nik ?></div> -->
                           </div>
                         </td>
                         <td>
@@ -47,9 +48,9 @@
                           </small>
                         </td>
                         <td><?= $kel->jenis_kelamin ?></td>
-                        <td>
-                          <div class="badge <?= 'badge-' . getColorHubungan($kel->hubungan) ?>"><?= $kel->hubungan; ?></div>
-                        </td>
+                        <!-- <td>
+                          <div class="badge <?= '' //'badge-' . getColorHubungan($kel->hubungan) ?>"><?= ''// $kel->hubungan; ?></div>
+                        </td> -->
                       <?php endforeach ?>
                   </tbody>
                 </table>
