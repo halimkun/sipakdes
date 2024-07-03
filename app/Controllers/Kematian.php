@@ -111,6 +111,12 @@ class Kematian extends BaseController
         //     return redirect()->back()->withInput()->with('errors', ['nik_pelapor' => 'NIK pelapor tidak terdaftar dalam KK yang sama'])->withInput();
         // }
 
+        // check nik_pelapor is exist in penduduk
+        $pelapor = $this->pendudukModel->where('nik', $this->request->getPost('nik_pelapor'))->first();
+        if (!$pelapor) {
+            return redirect()->back()->withInput()->with('errors', ['nik_pelapor' => 'NIK pelapor tidak ditemukan'])->withInput();
+        }
+
         if (request()->getPost('id_penduduk') == user()->id_penduduk) {
             return redirect()->back()->withInput()->with('errors', ['id_penduduk' => 'Tidak boleh memilih diri sendiri'])->withInput();
         }
