@@ -8,14 +8,25 @@ use CodeIgniter\HTTP\ResponseInterface;
 class Dashboard extends BaseController
 {
     protected $pendudukModel;
-    protected $kematianModel;
+
     protected $metrics;
+    protected $metricsSurat;
+
     protected $bgColors = ['bg-primary', 'bg-secondary', 'bg-success', 'bg-danger', 'bg-warning', 'bg-info'];
+
+    protected $kematian;
+    protected $domisili;
+    protected $kelahiran;
+    protected $pengantar;
 
     public function __construct()
     {
         $this->pendudukModel = new \App\Models\PendudukModel();
-        $this->kematianModel = new \App\Models\KematianModel();
+
+        $this->kematian  = new \App\Models\KematianModel();
+        $this->domisili  = new \App\Models\Domisili();
+        $this->kelahiran = new \App\Models\Kelahiran();
+        $this->pengantar = new \App\Models\Pengantar();
     }
 
     public function toIndex()
@@ -25,30 +36,57 @@ class Dashboard extends BaseController
 
     public function index()
     {
+        // get all request
+        $monthYear = $this->request->getGet('monthYear') ?? date('Y-m');
+        $this->getSuratMetrics($monthYear);
+
         return view('dashboard', [
-            'title' => 'Dashboard',
-            'breadcrumbs' => [
+            'title'         => 'Dashboard',
+            'breadcrumbs'   => [
                 ['title' => ucfirst(user()->username), 'url' => '/'],
                 ['title' => 'Dashboard', 'url' => '/dashboard', 'active' => true],
             ],
 
-            'metrics' => $this->getPendudukMetrics()
+            'metrics'       => $this->getPendudukMetrics(),
+            'metricsSurat'  => $this->metricsSurat,
+            'monthYear'     => $monthYear,
         ]);
     }
 
-    protected function getSuratMetrics()
+    protected function getSuratMetrics($monthYear = null)
     {
-        // ... query to get the metrics
+        $carbon = \Carbon\Carbon::parse($monthYear ?? date('Y-m'));
+        
+        $year   = $carbon->year;
+        $month  = $carbon->month;
+
+        $domisili  = $this->mapSuratMetrics(array_column($this->domisili->select('status, COUNT(status) as total')->where('YEAR(created_at)', $year)->where('MONTH(created_at)', $month)->groupBy('status')->get()->getResultArray(), 'total', 'status'));
+        $kematian  = $this->mapSuratMetrics(array_column($this->kematian->select('status, COUNT(status) as total')->where('YEAR(created_at)', $year)->where('MONTH(created_at)', $month)->groupBy('status')->get()->getResultArray(), 'total', 'status'));
+        $kelahiran = $this->mapSuratMetrics(array_column($this->kelahiran->select('status, COUNT(status) as total')->where('YEAR(created_at)', $year)->where('MONTH(created_at)', $month)->groupBy('status')->get()->getResultArray(), 'total', 'status'));
+        $kia       = $this->mapSuratMetrics(array_column($this->pengantar->select('status, COUNT(status) as total')->where('YEAR(created_at)', $year)->where('MONTH(created_at)', $month)->where('tipe', 'kia')->groupBy('status')->get()->getResultArray(), 'total', 'status'));
+        $sktm      = $this->mapSuratMetrics(array_column($this->pengantar->select('status, COUNT(status) as total')->where('YEAR(created_at)', $year)->where('MONTH(created_at)', $month)->where('tipe', 'sktm')->groupBy('status')->get()->getResultArray(), 'total', 'status'));
+        $skck      = $this->mapSuratMetrics(array_column($this->pengantar->select('status, COUNT(status) as total')->where('YEAR(created_at)', $year)->where('MONTH(created_at)', $month)->where('tipe', 'skck')->groupBy('status')->get()->getResultArray(), 'total', 'status'));
+
+        $this->metricsSurat = [
+            'domisili'  => $domisili,
+            'kematian'  => $kematian,
+            'kelahiran' => $kelahiran,
+            'kia'       => $kia,
+            'sktm'      => $sktm,
+            'skck'      => $skck,
+        ];
+
+        return $this->metricsSurat;
     }
 
     protected function getPendudukMetrics()
     {
-        $countPenduduk = $this->pendudukModel->countAll();
-        $countPendudukAnak = $this->pendudukModel->where('TIMESTAMPDIFF(YEAR, penduduk.tanggal_lahir, CURDATE()) <=', 17)->countAllResults();
-        $countPendudukDewasa = $this->pendudukModel->where('TIMESTAMPDIFF(YEAR, penduduk.tanggal_lahir, CURDATE()) >', 17)->countAllResults();
-        $countPendudukMeninggal = $this->kematianModel->countAll();
+        $countPenduduk          = $this->pendudukModel->countAll();
+        $countPendudukAnak      = $this->pendudukModel->where('TIMESTAMPDIFF(YEAR, penduduk.tanggal_lahir, CURDATE()) <=', 17)->countAllResults();
+        $countPendudukDewasa    = $this->pendudukModel->where('TIMESTAMPDIFF(YEAR, penduduk.tanggal_lahir, CURDATE()) >', 17)->countAllResults();
+        $countPendudukMeninggal = $this->kematian->countAll();
         $countPendudukPerempuan = $this->pendudukModel->where('jenis_kelamin', 'Perempuan')->countAllResults();
-        $countPendudukLakiLaki = $this->pendudukModel->where('jenis_kelamin', 'Laki-laki')->countAllResults();
+        $countPendudukLakiLaki  = $this->pendudukModel->where('jenis_kelamin', 'Laki-laki')->countAllResults();
 
         // random bg color
         $this->metricsBuilder('penduduk', 'Jumlah Penduduk', $countPenduduk, ['icon' => 'fa fa-users', 'color' => 'bg-success']);
@@ -57,7 +95,7 @@ class Dashboard extends BaseController
         $this->metricsBuilder('penduduk', 'Penduduk Meninggal', $countPendudukMeninggal, ['icon' => 'fa fa-user-times', 'color' => 'bg-danger']);
         $this->metricsBuilder('penduduk', 'Penduduk Perempuan', $countPendudukPerempuan, ['icon' => 'fa fa-venus', 'color' => 'bg-secondary']);
         $this->metricsBuilder('penduduk', 'Penduduk Laki-laki', $countPendudukLakiLaki, ['icon' => 'fa fa-mars', 'color' => 'bg-secondary']);
-        
+
         return $this->metrics;
     }
 
@@ -68,6 +106,33 @@ class Dashboard extends BaseController
             'count'   => $jumlah,
             'options' => $options,
         ];
+    }
+
+    protected function mapSuratMetrics($data)
+    {
+        if (empty($data)) {
+            return [
+                'selesai' => 0,
+                'pending' => 0,
+                'ditolak' => 0,
+                'total'   => 0,
+            ];
+        }
+        
+        $temp = [];
+        foreach ($data as $key => $value) {
+            $temp['selesai'] = isset($data['selesai']) ? $value : (isset($data['approved']) ? $value : 0);
+            $temp['pending'] = isset($data['pending']) ? $value : 0;
+            $temp['ditolak'] = isset($data['ditolak']) ? $value : (isset($data['rejected']) ? $value : (isset($data['batal']) ? $value : 0));
+        }
+
+        // total
+        $temp['total'] = 0;
+        foreach ($temp as $key => $value) {
+            $temp['total'] += $value;
+        }
+
+        return $temp;
     }
 
     // funtion to get random bg color
