@@ -203,6 +203,11 @@ $routes->group('/penduduk', ['namespace' => 'App\Controllers', 'filter' => ['pen
     $routes->post('upload-kk', "Penduduk::uploadKk");
     $routes->post('(:num)/update', "Penduduk::update/$1");
     $routes->post('(:num)/delete', "Penduduk::delete/$1");
+
+    // excel
+    $routes->post('import', "ExcelController::import");
+    $routes->get('export', "ExcelController::export");
+    $routes->get('template', "ExcelController::template");
 });
 
 // Keluarga

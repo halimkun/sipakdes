@@ -90,6 +90,20 @@
     </div>
   </div>
   <div class="col-12 col-md-3">
+    <div class="card card-warning">
+      <div class="card-header border-0">
+        <h3 class="card-title">
+          <i class="fas fa-info-circle mr-1"></i> Informasi Persyaratan
+        </h3>
+      </div>
+      <div class="card-body">
+        <ol>
+          <li>Fotocopy KK & KTP</li>
+          <li>Akta Kelahiran</li>
+        </ol>
+      </div>
+    </div>
+
     <div class="card card-outline card-info">
       <div class="card-header border-0">
         <h4 class="card-title">

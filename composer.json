@@ -17,7 +17,8 @@
         "fakerphp/faker": "^1.23",
         "gitonomy/gitlib": "^1.4",
         "myth/auth": "^1.2",
-        "nesbot/carbon": "^2.72"
+        "nesbot/carbon": "^2.72",
+        "phpoffice/phpspreadsheet": "^2.1"
     },
     "require-dev": {
         "mikey179/vfsstream": "^1.6",
