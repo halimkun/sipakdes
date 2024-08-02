@@ -12,8 +12,8 @@
 
 <body>
     <div class="h-screen w-screen bg-blue-100">
-        <div class="flex flex-col h-full w-full">
-            <div class="w-full h-full bg-blue-500">
+        <div class="flex flex-col lg:flex-row h-full w-full">
+            <div class="w-[40%] h-full bg-blue-500">
                 <div class="flex flex-col gap-2 justify-center items-center h-full relative">
                     <h1 class="text-5xl lg:text-7xl text-white font-bold">SIPAKDES</h1>
                     <p class="text-sm lg:text-base text-white bg-blue-700 p-1 px-2 font-semibold rounded-lg">Sistem Informasi Pelayanan Administrasi Desa</p>
@@ -25,6 +25,21 @@
             </div>
             <div class="w-full h-full bg-white">
                 <div class="flex flex-col gap-3 justify-center items-center h-full">
+                    <div class="flex flex-col gap-2 justify-center items-center mb-10">
+                        <h1 class="text-xl font-bold">Sebelum Melanjutkan</h1>
+                        <p class="text-sm lg:text-lg text-center">Silahkan login atau register terlebih dahulu</p>
+                    </div>
+
+                    <div class="flex gap-2 justify-center items-center w-[50%]">
+                        <div class="bg-sky-200 text-sky-700 p-2 rounded-lg text-center text-sm font-semibold">
+                            Surat yang bisa dibuat melalui aplikasi ini antara lain: <b>⦿ Surat Domisili, ⦿ Keterangan Tidak Mampu (SKTM), ⦿ Pengantar SKCK, ⦿ Pengantar KIA, ⦿ Keterangan Lahir, ⦿ Keterangan Kematian</b>
+                        </div>
+
+                        <div class="bg-yellow-200 text-yellow-700 p-2 rounded-lg text-center text-sm font-semibold">
+                            Akun penduduk dengan status <b>meninggal</b> tidak akan dapat digunakan untuk mengakses layanan pada aplikasi ini. Untuk mengubah status akun penduduk, silahkan hubungi pihak desa.
+                        </div>
+                    </div>
+
                     <?php if (logged_in()) : ?>
                         <div class="flex flex-col gap-2 justify-center items-center mb-10">
                             <h1 class="text-xl font-bold">Anda sudah login</h1>
@@ -39,11 +54,6 @@
                             Logout
                         </a>
                     <?php else : ?>
-                        <div class="flex flex-col gap-2 justify-center items-center mb-10">
-                            <h1 class="text-xl font-bold">Sebelum Melanjutkan</h1>
-                            <p class="text-sm lg:text-lg text-center">Silahkan login atau register terlebih dahulu</p>
-                        </div>
-
                         <a href="/login" class="w-[50%] bg-blue-500 text-white p-2 rounded-lg text-center text-xl font-semibold uppercase hover:bg-blue-700 transition-all duration-300">
                             Login
                         </a>

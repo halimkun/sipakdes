@@ -6,11 +6,30 @@
       <h3 class="card-title">
         <i class="fas fa-users mr-1"></i> Data Penduduk
       </h3>
-      <a href="/penduduk/new">
-        <button class="btn btn-primary btn-xs">
-          <i class="fas fa-plus mr-1"></i> Tambah Penduduk
-        </button>
-      </a>
+      <div class="d-flex" style="gap: 10px">
+        <a href="#importModal" data-toggle="modal" data-backdrop="static">
+          <button class="btn btn-warning btn-xs">
+            <i class="fas fa-file-import mr-1"></i> Import
+          </button>
+        </a>
+        <a href="/penduduk/template">
+          <button class="btn btn-info btn-xs">
+            <i class="fas fa-download mr-1"></i> Template
+          </button>
+        </a>
+        <a href="/penduduk/export">
+          <button class="btn btn-success btn-xs">
+            <i class="fas fa-file-excel mr-1"></i> Export
+          </button>
+        </a>
+      </div>
+      <div class="d-flex" style="gap: 10px">
+        <a href="/penduduk/new">
+          <button class="btn btn-primary btn-xs">
+            <i class="fas fa-plus mr-1"></i> Tambah Penduduk
+          </button>
+        </a>
+      </div>
     </div>
   </div>
   <div class="card-body table-responsive">
@@ -193,6 +212,36 @@
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary">Upload</button>
           </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="importModal" tabindex="-1" role="dialog" data-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Import Data Penduduk</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Anda dapat mengimport data penduduk dengan mengupload file excel yang berisi data penduduk. Silahkan download template excel <a href="/penduduk/template">disini</a>.
+        <form action="/penduduk/import" method="post" enctype="multipart/form-data">
+          <div class="form-group mb-3">
+            <label for="berkas-kk">Berkas Excel</label>
+            <div class="custom-file">
+              <input type="file" class="custom-file-input" id="berkas" name="berkas" aria-describedby="berkas excel" accept=".xls,.xlsx">
+              <label class="custom-file-label" for="berkas">Choose file</label>
+            </div>
+          </div>
+          <div class="d-flex justify-content-end" style="gap: 0.5rem;">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Upload</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
@@ -210,10 +259,14 @@
 <script src="<?= base_url('assets/plugins/datatables/jquery.dataTables.min.js') ?>"></script>
 <script src="<?= base_url('assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') ?>"></script>
 
-<!-- <script src="<?= '' //base_url('assets/plugins/datatables-buttons/js/dataTables.buttons.min.js')  ?>"></script> -->
-<!-- <script src="<?= '' //base_url('/assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js')  ?>"></script> -->
-<!-- <script src="<?= '' //base_url('/assets/plugins/jszip/jszip.min.js')  ?>"></script> -->
-<!-- <script src="<?= '' //base_url('/assets/plugins/datatables-buttons/js/buttons.html5.min.js')  ?>"></script> -->
+<!-- <script src="<?= '' //base_url('assets/plugins/datatables-buttons/js/dataTables.buttons.min.js')  
+                  ?>"></script> -->
+<!-- <script src="<?= '' //base_url('/assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js')  
+                  ?>"></script> -->
+<!-- <script src="<?= '' //base_url('/assets/plugins/jszip/jszip.min.js')  
+                  ?>"></script> -->
+<!-- <script src="<?= '' //base_url('/assets/plugins/datatables-buttons/js/buttons.html5.min.js')  
+                  ?>"></script> -->
 
 <script>
   $(document).ready(function() {
