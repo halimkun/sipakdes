@@ -88,13 +88,22 @@ class Dashboard extends BaseController
         $countPendudukPerempuan = $this->pendudukModel->where('jenis_kelamin', 'Perempuan')->countAllResults();
         $countPendudukLakiLaki  = $this->pendudukModel->where('jenis_kelamin', 'Laki-laki')->countAllResults();
 
+        $countPenduduklansia = $this->pendudukModel->where('TIMESTAMPDIFF(YEAR, penduduk.tanggal_lahir, CURDATE()) >=', 60)->countAllResults();
+
         // random bg color
         $this->metricsBuilder('penduduk', 'Jumlah Penduduk', $countPenduduk, ['icon' => 'fa fa-users', 'color' => 'bg-success']);
         $this->metricsBuilder('penduduk', 'Penduduk Anak', $countPendudukAnak, ['icon' => 'fa fa-child', 'color' => 'bg-primary']);
         $this->metricsBuilder('penduduk', 'Penduduk Dewasa', $countPendudukDewasa, ['icon' => 'fa fa-user', 'color' => 'bg-warning']);
+        $this->metricsBuilder('penduduk', 'Penduduk Lansia', $countPenduduklansia, ['icon' => 'fa fa-wheelchair', 'color' => 'bg-info']);
         $this->metricsBuilder('penduduk', 'Penduduk Meninggal', $countPendudukMeninggal, ['icon' => 'fa fa-user-times', 'color' => 'bg-danger']);
         $this->metricsBuilder('penduduk', 'Penduduk Perempuan', $countPendudukPerempuan, ['icon' => 'fa fa-venus', 'color' => 'bg-secondary']);
         $this->metricsBuilder('penduduk', 'Penduduk Laki-laki', $countPendudukLakiLaki, ['icon' => 'fa fa-mars', 'color' => 'bg-secondary']);
+
+        // ========== pekerjaan
+        $pekerjaan = $this->pendudukModel->select('jenis_pekerjaan, COUNT(jenis_pekerjaan) as total')->groupBy('jenis_pekerjaan')->get()->getResultArray();
+        foreach ($pekerjaan as $key => $value) {
+            $this->metricsBuilder('pekerjaan', $value['jenis_pekerjaan'] == "-" ? "Lainnya" : $value['jenis_pekerjaan'], $value['total'], ['icon' => 'fa fa-briefcase', 'color' => 'bg-light']);
+        }
 
         return $this->metrics;
     }

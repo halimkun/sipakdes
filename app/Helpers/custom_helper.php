@@ -35,8 +35,8 @@
           'kematian'  => 'Keterangan Kematian',
           'kelahiran' => 'Keterangan Lahiran',
           'kia'       => 'Kartu Identitas Anak',
-          'sktm'      => 'Surat Keterangan Tidak Mampu',
-          'skck'      => 'Surat Keterangan Catatan Kepolisian'
+          'sktm'      => 'Keterangan Tidak Mampu',
+          'skck'      => 'Keterangan Catatan Kepolisian'
         ];
 
         return $colors[$color];
