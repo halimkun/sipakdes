@@ -260,12 +260,15 @@ class Kematian extends BaseController
 
     protected function genNomorSurat($created_at)
     {
-        // count all kematian on this year where < = created_at
-        $count = $this->kematianModel->where('YEAR(created_at)', date('Y'))->where('created_at <=', $created_at)->countAllResults();
-        $count = str_pad($count, 3, '0', STR_PAD_LEFT);
+        $carbon = \Carbon\Carbon::parse($created_at);
+        $count = $this->kematianModel
+            ->where('YEAR(created_at)', $carbon->format('Y'))
+            ->where('created_at <=', $created_at)
+            ->countAllResults();
 
-        // count / SKK / 2 digit day / 2 diigit month / year
-        $nmr = $count . '/' . 'SKK' . '/' . date('d') . '/' . date('m') . '/' . date('Y');
+        $count = str_pad($count == 0 ? $count + 1 : $count, 3, '0', STR_PAD_LEFT);  // Pastikan count berjumlah 3 digit
+        $nmr = $count . '/' . 'SKK' . '/' . $carbon->format('d') . '/' . $carbon->format('m') . '/' . $carbon->format('Y');
+        
         return $nmr;
     }
 

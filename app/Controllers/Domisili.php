@@ -188,15 +188,14 @@ class Domisili extends BaseController
 
     protected function genNomorSurat($created_at)
     {
-        // Hitung semua surat KIA pada tahun ini yang dibuat sebelum atau pada tanggal $created_at
+        $carbon = \Carbon\Carbon::parse($created_at);
         $count = $this->domisiliModel
-            ->where('YEAR(created_at)', date('Y'))
+            ->where('YEAR(created_at)', $carbon->format('Y'))
             ->where('created_at <=', $created_at)
             ->countAllResults();
 
-        // Format nomor surat: count / SKK / 2 digit hari / 2 digit bulan / tahun
-        $count = str_pad($count, 3, '0', STR_PAD_LEFT);  // Pastikan count berjumlah 3 digit
-        $nmr = $count . '/' . 'SKDOM' . '/' . date('d') . '/' . date('m') . '/' . date('Y');
+        $count = str_pad($count == 0 ? $count + 1 : $count, 3, '0', STR_PAD_LEFT);  // Pastikan count berjumlah 3 digit
+        $nmr = $count . "/" . "SKDOM" . "/" . $carbon->format("d") . "/" . $carbon->format("m") . "/" . $carbon->format("Y");
 
         return $nmr;
     }
